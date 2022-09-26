@@ -9,7 +9,7 @@ import * as Highcharts from 'highcharts';
 export class AppComponent {
   title = 'DaVis_Electricity_Production_Germany';
 
-  highcharts = Highcharts;
+  highcharts: typeof Highcharts = Highcharts;
   chartOptions: any = {
     chart: {
       type: "spline"
