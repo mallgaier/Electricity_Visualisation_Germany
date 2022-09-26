@@ -12,35 +12,57 @@ export class AppComponent {
   highcharts: typeof Highcharts = Highcharts;
   chartOptions: any = {
     chart: {
-      type: "spline"
+      type: 'area'
     },
     title: {
-      text: "Monthly Average Temperature"
+      text: 'Greenhouse gases from Norwegian economic activity'
     },
     subtitle: {
-      text: "Source: WorldClimate.com"
-    },
-    xAxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+      text: 'Source: ' +
+        '<a href="https://www.ssb.no/en/statbank/table/09288/"' +
+        'target="_blank">SSB</a>'
     },
     yAxis: {
       title: {
-        text: "Temperature °C"
+        useHTML: true,
+        text: 'Million tonnes CO<sub>2</sub>-equivalents'
       }
     },
     tooltip: {
-      valueSuffix: " °C"
+      shared: true,
+      headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>'
     },
-    series: [
-      {
-        name: 'Tokyo',
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+    plotOptions: {
+      series: {
+        pointStart: 2012
       },
-      {
-        name: 'New York',
-        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+      area: {
+        stacking: 'normal',
+        lineColor: '#666666',
+        lineWidth: 1,
+        marker: {
+          lineWidth: 1,
+          lineColor: '#666666'
+        }
       }
-    ]
+    },
+    series: [{
+      name: 'Ocean transport',
+      data: [13234, 12729, 11533, 17798, 10398, 12811, 15483, 16196, 16214]
+    }, {
+      name: 'Households',
+      data: [6685, 6535, 6389, 6384, 6251, 5725, 5631, 5047, 5039]
+
+    }, {
+      name: 'Agriculture and hunting',
+      data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
+    }, {
+      name: 'Air transport',
+      data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
+
+    }, {
+      name: 'Construction',
+      data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
+    }]
   };
 }
