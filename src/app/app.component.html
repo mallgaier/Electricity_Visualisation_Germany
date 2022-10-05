@@ -28,11 +28,17 @@
 
 <div class="content" role="main">
 
-  <highcharts-chart
-    [Highcharts] = "highcharts"
+  <highcharts-chart id="bigChartContainer"
+    [Highcharts] = "highchartBig"
     [options] = "chartOptions"
+                    [callbackFunction]="chartCallback"
+                    [(update)]="updateFlagBig"
+                    [oneToOne]="true"
     style = "width: 100%; height: 400px; display: block;">
   </highcharts-chart>
+
+  <button (click)="updateGraph()" >Update Update</button>
+
 
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">

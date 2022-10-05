@@ -1,8 +1,8 @@
-import {Time} from "highcharts";
+import productionJson from './productionData.json';
 
 class Production {
 
-  public datetime: Time;
+  public datetime: Date;
   public biomass: number;
   public hydropower: number;
   public windOffshore: number;
@@ -19,8 +19,10 @@ class Production {
   public residualLoad: number;
   public reverseHydroPumpedStorage: number;
 
+  public productionData = productionJson;
 
-  constructor(datetime: Time, biomass: number, hydropower: number, windOffshore: number, windOnshore: number, photovoltaics: number, otherRenewable: number, nuclear: number, brownCcoal: number, hardCoal: number, fossilGas: number, hydroPumpedStorage: number, otherConventional: number, totalGridLoad: number, residualLoad: number, reverseHydroPumpedStorage: number) {
+
+  constructor(datetime: Date, biomass: number, hydropower: number, windOffshore: number, windOnshore: number, photovoltaics: number, otherRenewable: number, nuclear: number, brownCcoal: number, hardCoal: number, fossilGas: number, hydroPumpedStorage: number, otherConventional: number, totalGridLoad: number, residualLoad: number, reverseHydroPumpedStorage: number) {
     this.datetime = datetime;
     this.biomass = biomass;
     this.hydropower = hydropower;

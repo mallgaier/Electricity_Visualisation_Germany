@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Highcharts from 'highcharts';
+import {AppService} from "./app.service";
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'DaVis_Electricity_Production_Germany';
+  public updateFlagBig = false;
+  public chartRef!: Highcharts.Chart;
 
-  highcharts: typeof Highcharts = Highcharts;
+  highchartBig: typeof Highcharts = Highcharts;
   chartOptions: any = {
     chart: {
-      type: 'area'
+      type: 'area',
+      zoomType: 'x',
     },
     title: {
       text: 'Greenhouse gases from Norwegian economic activity'
@@ -22,10 +27,15 @@ export class AppComponent {
         '<a href="https://www.ssb.no/en/statbank/table/09288/"' +
         'target="_blank">SSB</a>'
     },
+    xAxis: {
+      title: {
+        text: 'Date'
+      },
+      type: 'datetime'
+    },
     yAxis: {
       title: {
-        useHTML: true,
-        text: 'Million tonnes CO<sub>2</sub>-equivalents'
+        text: 'MWh'
       }
     },
     tooltip: {
@@ -34,7 +44,8 @@ export class AppComponent {
     },
     plotOptions: {
       series: {
-        pointStart: 2012
+        pointStart: 2015
+        //pointInterval: 3600 * 100
       },
       area: {
         stacking: 'normal',
@@ -46,23 +57,73 @@ export class AppComponent {
         }
       }
     },
-    series: [{
-      name: 'Ocean transport',
-      data: [13234, 12729, 11533, 17798, 10398, 12811, 15483, 16196, 16214]
-    }, {
-      name: 'Households',
-      data: [6685, 6535, 6389, 6384, 6251, 5725, 5631, 5047, 5039]
+    series: []
+    /* , {
+       name: 'Agriculture and hunting',
+       data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
+     }, {
+       name: 'Air transport',
+       data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
 
-    }, {
-      name: 'Agriculture and hunting',
-      data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
-    }, {
-      name: 'Air transport',
-      data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
-
-    }, {
-      name: 'Construction',
-      data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
-    }]
+     }, {
+       name: 'Construction',
+       data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
+     }]*/
   };
+
+  constructor(private appService: AppService) {
+  }
+
+  ngOnInit(): void {
+    this.appService.initCSV('assets/testData.csv');
+  }
+
+  chartCallback: Highcharts.ChartCallbackFunction = chart => {
+    this.chartRef = chart;
+  };
+
+  updateGraph(): void {
+    this.chartOptions.series = [{
+      name: 'Biomass',
+      data: this.appService.biomass
+    }, {
+      name: 'Nuclear',
+      data: this.appService.hydropower
+    }, {
+      name: 'Wind Offshore',
+      data: this.appService.windOffshore
+    }, {
+      name: 'Wind Onshore',
+      data: this.appService.windOnshore
+    }, {
+      name: 'Photovoltaics',
+      data: this.appService.photovoltaics
+    }, {
+      name: 'other Renewables',
+      data: this.appService.otherRenewable
+    }, {
+      name: 'Nuclear',
+      data: this.appService.nuclear
+    }, {
+      name: 'Brown Coal',
+      data: this.appService.brownCcoal
+    }, {
+      name: 'Hard Coal',
+      data: this.appService.hardCoal
+    }, {
+      name: 'Fossil Gas',
+      data: this.appService.fossilGas
+    }, {
+      name: 'Hydro Pumped Storage',
+      data: this.appService.hydroPumpedStorage
+    }, {
+      name: 'other Coventional',
+      data: this.appService.otherConventional
+    }, {
+      name: 'total Grid load',
+      type: 'line',
+      data: this.appService.totalGridLoad
+    }]
+    this.updateFlagBig = true;
+  }
 }
