@@ -2,7 +2,6 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {AppService} from "./app.service";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,6 +27,9 @@ export class AppComponent implements OnInit {
         'target="_blank">SSB</a>'
     },
     xAxis: {
+      dateTimeLabelFormats: {
+        day: '%e %b %y',
+      },
       title: {
         text: 'Date'
       },
@@ -37,15 +39,17 @@ export class AppComponent implements OnInit {
       title: {
         text: 'MWh'
       }
-    },
+    }
+    ,
     tooltip: {
       shared: true,
       headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>'
-    },
+    }
+    ,
     plotOptions: {
       series: {
-        pointStart: 2015
-        //pointInterval: 3600 * 100
+        pointStart: 2021,
+        pointInterval: 3600 * 100
       },
       area: {
         stacking: 'normal',
@@ -56,25 +60,18 @@ export class AppComponent implements OnInit {
           lineColor: '#666666'
         }
       }
-    },
+    }
+    ,
     series: []
-    /* , {
-       name: 'Agriculture and hunting',
-       data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
-     }, {
-       name: 'Air transport',
-       data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
-
-     }, {
-       name: 'Construction',
-       data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
-     }]*/
   };
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService
+  ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit()
+    :
+    void {
     this.appService.initCSV('assets/testData.csv');
   }
 
@@ -83,12 +80,17 @@ export class AppComponent implements OnInit {
   };
 
   updateGraph(): void {
+    this.chartOptions.xAxis = [{
+      categories: this.appService.datetime.map(date => {
+        return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
+      })
+    }]
     this.chartOptions.series = [{
-      name: 'Biomass',
-      data: this.appService.biomass
+      name: 'Hydro Pumped Storage',
+      data: this.appService.hydroPumpedStorage
     }, {
-      name: 'Nuclear',
-      data: this.appService.hydropower
+      name: 'Photovoltaics',
+      data: this.appService.photovoltaics
     }, {
       name: 'Wind Offshore',
       data: this.appService.windOffshore
@@ -96,11 +98,17 @@ export class AppComponent implements OnInit {
       name: 'Wind Onshore',
       data: this.appService.windOnshore
     }, {
-      name: 'Photovoltaics',
-      data: this.appService.photovoltaics
+      name: 'Biomass',
+      data: this.appService.biomass
+    }, {
+      name: 'Hydro Power',
+      data: this.appService.hydropower
     }, {
       name: 'other Renewables',
       data: this.appService.otherRenewable
+    }, {
+      name: 'Fossil Gas',
+      data: this.appService.fossilGas
     }, {
       name: 'Nuclear',
       data: this.appService.nuclear
@@ -110,12 +118,6 @@ export class AppComponent implements OnInit {
     }, {
       name: 'Hard Coal',
       data: this.appService.hardCoal
-    }, {
-      name: 'Fossil Gas',
-      data: this.appService.fossilGas
-    }, {
-      name: 'Hydro Pumped Storage',
-      data: this.appService.hydroPumpedStorage
     }, {
       name: 'other Coventional',
       data: this.appService.otherConventional
