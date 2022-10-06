@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   public displayMonth = Month.Year;
   public displayYear = Year.y2022;
   public displayDetail = true;
+  public ;
 
   // Displayed values
   public percentageConventional = 0;
