@@ -1,14 +1,13 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppService {
+export class CsvService {
 
   public datetime: Date[] = [];
-  public biomass: number[] = [2,3];
+  public biomass: number[] = [];
   public hydropower: number[] = [];
   public windOffshore: number[] = [];
   public windOnshore: number[] = [];
@@ -27,14 +26,16 @@ export class AppService {
   public sumRenewable: number[] = [];
 
 
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   initCSV(url: string): boolean {
+    this.initArrays();
     this.http.get(url, {responseType: 'text'})
       .subscribe(
         data => {
           let csvToRowArray = data.split("\n");
+          // Index 1 due to header
           for (let index = 1; index < csvToRowArray.length - 1; index++) {
             let row = csvToRowArray[index].split(";");
             // 1995-12-17T03:24:00
@@ -58,11 +59,31 @@ export class AppService {
             this.sumRenewable.push(Number(row[17]));
           }
         },
-       error => {
+        error => {
           console.log('Hello World' + error);
         }
       );
     return true;
   }
 
+  private initArrays() {
+    this.datetime = [];
+    this.biomass = [];
+    this.hydropower = [];
+    this.windOffshore = [];
+    this.windOnshore = [];
+    this.photovoltaics = [];
+    this.otherRenewable = [];
+    this.nuclear = [1];
+    this.brownCcoal = [];
+    this.hardCoal = [];
+    this.fossilGas = [];
+    this.hydroPumpedStorage = [];
+    this.otherConventional = [];
+    this.totalGridLoad = [];
+    this.residualLoad = [];
+    this.reverseHydroPumpedStorage = [];
+    this.sumConventional = [];
+    this.sumRenewable = [];
+  }
 }

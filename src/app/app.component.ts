@@ -1,7 +1,8 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {AppService} from "./app.service";
-import {Month, Year} from './enum.service';
+import {CsvService} from "./service/csv.service";
+import {EnumService, Month, Year} from './service/enum.service';
+import {faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -10,18 +11,28 @@ import {Month, Year} from './enum.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'DaVis_Electricity_Production_Germany';
-  public updateFlagBig = false;
-  public chartRef!: Highcharts.Chart;
+
+  // Select Options
   public Month = Month;
   public Year = Year;
   public displayMonth = Month.Year;
   public displayYear = Year.y2022;
   public displayDetail = true;
+
+  // Displayed values
   public percentageConventional = 0;
   public percentageRenewable = 0;
+  public nextMonth: string | undefined;
+  public previousMonth: string | undefined;
 
+  // Icons
+  public faArrowRight = faArrowRight;
+  public faArrowLeft = faArrowLeft;
+
+  // Chart
   highchartBig: typeof Highcharts = Highcharts;
+  public updateFlagBig = false;
+  public chartRef!: Highcharts.Chart;
   chartOptions: any = {
     chart: {
       type: 'area',
@@ -74,11 +85,11 @@ export class AppComponent implements OnInit {
     series: []
   };
 
-  constructor(private appService: AppService) {
+  constructor(private csvService: CsvService, public enumService: EnumService) {
   }
 
   ngOnInit(): void {
-    this.appService.initCSV('assets/testData.csv');
+    this.csvService.initCSV('assets/testData.csv');
   }
 
   setDisplayMonth(value: Month) {
@@ -94,82 +105,92 @@ export class AppComponent implements OnInit {
   }
 
   calculatePercentageConventionalRenewable() {
-    const sumConventional = this.appService.sumConventional.reduce((partialSum, a) => partialSum + a, 0);
-    const sumRenewable = this.appService.sumRenewable.reduce((partialSum, a) => partialSum + a, 0);
+    const sumConventional = this.csvService.sumConventional.reduce((partialSum, a) => partialSum + a, 0);
+    const sumRenewable = this.csvService.sumRenewable.reduce((partialSum, a) => partialSum + a, 0);
     this.percentageConventional = Math.round(sumConventional / (sumRenewable + sumConventional) * 100);
     this.percentageRenewable = Math.round(sumRenewable / (sumRenewable + sumConventional) * 100);
+  }
+
+  calculateNextPreviousMonth() {
+    this.previousMonth = this.enumService.getPreviousMonth(this.displayMonth, this.displayYear);
+    this.nextMonth = this.enumService.getNextMonth(this.displayMonth, this.displayYear);
   }
 
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef = chart;
   };
 
+  updateData(): void {
+    this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+  }
+
   updateGraph(): void {
     this.calculatePercentageConventionalRenewable();
+    this.calculateNextPreviousMonth();
 
     if (this.displayDetail) {
       this.chartOptions.xAxis = [{
-        categories: this.appService.datetime.map(date => {
+        categories: this.csvService.datetime.map(date => {
           return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
         })
       }]
       this.chartOptions.series = [{
         name: 'Hydro Pumped Storage',
-        data: this.appService.hydroPumpedStorage
+        data: this.csvService.hydroPumpedStorage
       }, {
         name: 'Photovoltaics',
-        data: this.appService.photovoltaics
+        data: this.csvService.photovoltaics
       }, {
         name: 'Wind Offshore',
-        data: this.appService.windOffshore
+        data: this.csvService.windOffshore
       }, {
         name: 'Wind Onshore',
-        data: this.appService.windOnshore
+        data: this.csvService.windOnshore
       }, {
         name: 'Biomass',
-        data: this.appService.biomass
+        data: this.csvService.biomass
       }, {
         name: 'Hydro Power',
-        data: this.appService.hydropower
+        data: this.csvService.hydropower
       }, {
         name: 'other Renewables',
-        data: this.appService.otherRenewable
+        data: this.csvService.otherRenewable
       }, {
         name: 'Fossil Gas',
-        data: this.appService.fossilGas
+        data: this.csvService.fossilGas
       }, {
         name: 'Nuclear',
-        data: this.appService.nuclear
+        data: this.csvService.nuclear
       }, {
         name: 'Brown Coal',
-        data: this.appService.brownCcoal
+        data: this.csvService.brownCcoal
       }, {
         name: 'Hard Coal',
-        data: this.appService.hardCoal
+        data: this.csvService.hardCoal
       }, {
         name: 'other Coventional',
-        data: this.appService.otherConventional
+        data: this.csvService.otherConventional
       }, {
         name: 'total Grid load',
         type: 'line',
-        data: this.appService.totalGridLoad
+        data: this.csvService.totalGridLoad
       }]
     } else {
       this.chartOptions.xAxis = [{
-        categories: this.appService.datetime.map(date => {
+        categories: this.csvService.datetime.map(date => {
           return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
         })
       }]
     this.chartOptions.series = [{
       name: 'Sum Renewables',
-      data: this.appService.sumRenewable
+      data: this.csvService.sumRenewable
     }, {
       name: 'Sum Conventional',
-      data: this.appService.sumConventional
+      data: this.csvService.sumConventional
     }, {
       name: 'total Grid load',
       type: 'line',
-      data: this.appService.totalGridLoad
+      data: this.csvService.totalGridLoad
     }]
   }
     this.updateFlagBig = true;

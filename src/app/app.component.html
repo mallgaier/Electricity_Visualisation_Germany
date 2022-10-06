@@ -1,5 +1,5 @@
 <div class="toolbar" role="banner">
-  <h3>Data Visualization of the Electricity Production in Germany</h3>
+  <h4>Data Visualization of the Electricity Production in Germany</h4>
   <div class="spacer"></div>
   <a aria-label="Project on GitHub" target="_blank" rel="noopener"
      href="https://github.com/mallgaier/Data_Visualization_Electricity_Production_Germany" title="Project on GitHub">
@@ -66,34 +66,49 @@
                 <option [value]="Month.Jul">{{Month.Jul}}</option>
                 <option [value]="Month.Aug">{{Month.Aug}}</option>
                 <option [value]="Month.Sep">{{Month.Sep}}</option>
-                <option [value]="Month.Oct">{{Month.Oct}}</option>
-                <option [value]="Month.Nov">{{Month.Nov}}</option>
-                <option [value]="Month.Dec">{{Month.Dec}}</option>
+                <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
+                <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
+                <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
               </select>
             </li>
             <li class="list-group-item">
+              <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button>
               <button type="button" class="btn btn-primary" (click)="updateGraph()">Update Visualization</button>
             </li>
           </ul>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row mt-3">
-      <div class="col-lg-10">
-      </div>
-      <div class="col-lg-1">
-        <div class="card text-center">
-          <h6 class="card-header bg-secondary text-white">Conventional</h6>
-          <h1 class="card-body"> {{percentageConventional}}%</h1>
+        <div class="row mt-4">
+          <div class="col">
+            <div class="card clickable text-center" *ngIf="previousMonth">
+              <fa-icon class="card-body fa-2x" [icon]="faArrowLeft"></fa-icon>
+              <span> {{ previousMonth }} </span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card clickable text-center" *ngIf="nextMonth">
+              <fa-icon class="card-body fa-2x" [icon]="faArrowRight"></fa-icon>
+              <span> {{ nextMonth }} </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-1">
-        <div class="card text-center">
-          <h6 class="card-header bg-success text-white">Renewable</h6>
-          <h1 class="card-body "> {{percentageRenewable}}%</h1>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row mt-3">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-1">
+          <div class="card text-center">
+            <h6 class="card-header bg-secondary text-white">Conventional</h6>
+            <h1 class="card-body"> {{percentageConventional}}%</h1>
+          </div>
+        </div>
+        <div class="col-lg-1">
+          <div class="card text-center">
+            <h6 class="card-header bg-success text-white">Renewable</h6>
+            <h1 class="card-body "> {{percentageRenewable}}%</h1>
+          </div>
         </div>
       </div>
     </div>
