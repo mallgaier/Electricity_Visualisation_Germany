@@ -15,7 +15,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     HighchartsChartModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

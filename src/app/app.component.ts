@@ -3,6 +3,7 @@ import * as Highcharts from 'highcharts';
 import {AppService} from "./app.service";
 import {Month, Year} from './enum.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
