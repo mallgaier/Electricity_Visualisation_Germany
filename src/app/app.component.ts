@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {AppService} from "./app.service";
+import {Month, Year} from './enum.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,13 @@ export class AppComponent implements OnInit {
   title = 'DaVis_Electricity_Production_Germany';
   public updateFlagBig = false;
   public chartRef!: Highcharts.Chart;
+  public Month = Month;
+  public Year = Year;
+  public displayMonth = Month.Year;
+  public displayYear = Year.y2022;
+  public displayDetail = true;
+  public percentageConventional = 0;
+  public percentageRenewable = 0;
 
   highchartBig: typeof Highcharts = Highcharts;
   chartOptions: any = {
@@ -65,14 +73,30 @@ export class AppComponent implements OnInit {
     series: []
   };
 
-  constructor(private appService: AppService
-  ) {
+  constructor(private appService: AppService) {
   }
 
-  ngOnInit()
-    :
-    void {
+  ngOnInit(): void {
     this.appService.initCSV('assets/testData.csv');
+  }
+
+  setDisplayMonth(value: Month) {
+    return this.displayMonth = value;
+  }
+
+  setDisplayYear(value: Year) {
+    return this.displayYear = value;
+  }
+
+  setDisplayDetail(detail: boolean) {
+    this.displayDetail = detail;
+  }
+
+  calculatePercentageConventionalRenewable() {
+    const sumConventional = this.appService.sumConventional.reduce((partialSum, a) => partialSum + a, 0);
+    const sumRenewable = this.appService.sumRenewable.reduce((partialSum, a) => partialSum + a, 0);
+    this.percentageConventional = Math.round(sumConventional / (sumRenewable + sumConventional) * 100);
+    this.percentageRenewable = Math.round(sumRenewable / (sumRenewable + sumConventional) * 100);
   }
 
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
@@ -80,52 +104,73 @@ export class AppComponent implements OnInit {
   };
 
   updateGraph(): void {
-    this.chartOptions.xAxis = [{
-      categories: this.appService.datetime.map(date => {
-        return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
-      })
-    }]
+    this.calculatePercentageConventionalRenewable();
+
+    if (this.displayDetail) {
+      this.chartOptions.xAxis = [{
+        categories: this.appService.datetime.map(date => {
+          return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
+        })
+      }]
+      this.chartOptions.series = [{
+        name: 'Hydro Pumped Storage',
+        data: this.appService.hydroPumpedStorage
+      }, {
+        name: 'Photovoltaics',
+        data: this.appService.photovoltaics
+      }, {
+        name: 'Wind Offshore',
+        data: this.appService.windOffshore
+      }, {
+        name: 'Wind Onshore',
+        data: this.appService.windOnshore
+      }, {
+        name: 'Biomass',
+        data: this.appService.biomass
+      }, {
+        name: 'Hydro Power',
+        data: this.appService.hydropower
+      }, {
+        name: 'other Renewables',
+        data: this.appService.otherRenewable
+      }, {
+        name: 'Fossil Gas',
+        data: this.appService.fossilGas
+      }, {
+        name: 'Nuclear',
+        data: this.appService.nuclear
+      }, {
+        name: 'Brown Coal',
+        data: this.appService.brownCcoal
+      }, {
+        name: 'Hard Coal',
+        data: this.appService.hardCoal
+      }, {
+        name: 'other Coventional',
+        data: this.appService.otherConventional
+      }, {
+        name: 'total Grid load',
+        type: 'line',
+        data: this.appService.totalGridLoad
+      }]
+    } else {
+      this.chartOptions.xAxis = [{
+        categories: this.appService.datetime.map(date => {
+          return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
+        })
+      }]
     this.chartOptions.series = [{
-      name: 'Hydro Pumped Storage',
-      data: this.appService.hydroPumpedStorage
+      name: 'Sum Renewables',
+      data: this.appService.sumRenewable
     }, {
-      name: 'Photovoltaics',
-      data: this.appService.photovoltaics
-    }, {
-      name: 'Wind Offshore',
-      data: this.appService.windOffshore
-    }, {
-      name: 'Wind Onshore',
-      data: this.appService.windOnshore
-    }, {
-      name: 'Biomass',
-      data: this.appService.biomass
-    }, {
-      name: 'Hydro Power',
-      data: this.appService.hydropower
-    }, {
-      name: 'other Renewables',
-      data: this.appService.otherRenewable
-    }, {
-      name: 'Fossil Gas',
-      data: this.appService.fossilGas
-    }, {
-      name: 'Nuclear',
-      data: this.appService.nuclear
-    }, {
-      name: 'Brown Coal',
-      data: this.appService.brownCcoal
-    }, {
-      name: 'Hard Coal',
-      data: this.appService.hardCoal
-    }, {
-      name: 'other Coventional',
-      data: this.appService.otherConventional
+      name: 'Sum Conventional',
+      data: this.appService.sumConventional
     }, {
       name: 'total Grid load',
       type: 'line',
       data: this.appService.totalGridLoad
     }]
+  }
     this.updateFlagBig = true;
   }
 }

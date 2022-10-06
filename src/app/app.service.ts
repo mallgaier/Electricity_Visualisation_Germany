@@ -23,6 +23,10 @@ export class AppService {
   public totalGridLoad: number[] = [];
   public residualLoad: number[] = [];
   public reverseHydroPumpedStorage: number[] = [];
+  public sumConventional: number[] = [];
+  public sumRenewable: number[] = [];
+
+
 
   constructor(private http: HttpClient) {}
 
@@ -50,6 +54,8 @@ export class AppService {
             this.totalGridLoad.push(Number(row[13]));
             this.residualLoad.push(Number(row[14]));
             this.reverseHydroPumpedStorage.push(Number(row[15]));
+            this.sumConventional.push(Number(row[16]));
+            this.sumRenewable.push(Number(row[17]));
           }
         },
        error => {
