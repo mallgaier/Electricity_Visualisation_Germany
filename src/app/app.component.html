@@ -15,7 +15,7 @@
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-10">
+      <div class="col-lg-10">
         <highcharts-chart id="bigChartContainer"
                           style="width: 100%; height: 600px; display: inline-flex;"
                           [Highcharts]="highchartBig"
@@ -25,7 +25,7 @@
                           [oneToOne]="true">
         </highcharts-chart>
       </div>
-      <div class="col-2">
+      <div class="col-lg-2">
         <div class="card">
           <h5 class="card-header">Visualization Options:</h5>
           <ul class="list-group list-group-flush">
@@ -83,16 +83,16 @@
   </div>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-10">
+    <div class="row mt-3">
+      <div class="col-lg-10">
       </div>
-      <div class="col-1">
+      <div class="col-lg-1">
         <div class="card">
           <h6 class="card-header bg-secondary text-white">Conventional</h6>
           <h1 class="card-body text-center"> {{percentageConventional}}%</h1>
         </div>
       </div>
-      <div class="col-1">
+      <div class="col-lg-1">
         <div class="card">
           <h6 class="card-header bg-success text-white">Renewable</h6>
           <h1 class="card-body text-center"> {{percentageRenewable}}%</h1>
