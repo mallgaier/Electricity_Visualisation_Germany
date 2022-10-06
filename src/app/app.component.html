@@ -33,17 +33,16 @@
               <div>Level of Detail</div>
               <div class="btn-group">
                 <div class="btn" [class.btn-secondary]="!displayDetail" [class.btn-outline-secondary]="displayDetail"
-                     (click)="setDisplayDetail(false)"> Summarized
-                </div>
+                     (click)="setDisplayDetail(false)">Summary</div>
                 <div class="btn btn-default" [class.btn-secondary]="displayDetail"
                      [class.btn-outline-secondary]="!displayDetail"
-                     (click)="setDisplayDetail(true)"> Individual
-                </div>
+                     (click)="setDisplayDetail(true)">Individual</div>
               </div>
             </li>
             <li class="list-group-item">
               <label for="select_year">Year</label>
-              <select #selectYear class="form-select" aria-label="Default select example" [ngModel]="displayYear"
+              <select #selectYear class="form-select text-center" aria-label="Default select example"
+                      [ngModel]="displayYear"
                       (ngModelChange)="selectYear.value = setDisplayYear($event)"
                       name="selectYear"
                       id="select_year">
@@ -53,7 +52,7 @@
             </li>
             <li class="list-group-item">
               <label for="select_month">Month</label>
-              <select #selectMonth class="form-select" aria-label="Default select example" [ngModel]="displayMonth"
+              <select #selectMonth class="form-select text-center" aria-label="Default select example" [ngModel]="displayMonth"
                       (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
                       name="selectMonth"
                       id="select_month">
