@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {CsvService} from "./service/csv.service";
 import {EnumService, Month, Year} from './service/enum.service';

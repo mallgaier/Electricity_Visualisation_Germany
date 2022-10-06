@@ -35,7 +35,7 @@ export class EnumService {
             output = 'December 2021';
             break;
           case Year.y2021:
-            return output;
+            return undefined;
         }
         break;
       case Month.Feb:
@@ -126,8 +126,9 @@ export class EnumService {
   }
 
   enumToFileName(month: Month, year: Year): string {
-    if (month === Month.Year)
+    if (month === Month.Year) {
       return 'assets/testData.csv';
+    }
     return 'assets/' + month.substring(0, 3).toLowerCase() + year + '.csv';
   }
 }
