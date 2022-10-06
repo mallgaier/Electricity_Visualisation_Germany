@@ -26,25 +26,23 @@
         </highcharts-chart>
       </div>
       <div class="col-lg-2">
-        <div class="card">
-          <h5 class="card-header">Visualization Options:</h5>
+        <div class="card justify-content-center text-center d-flex">
+          <h5 class="card-header">Visualization Options</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <label>Select Detail:</label>
-              <div class="d-flex align-items-start">
-                <div class="btn-group">
-                  <div class="btn" [class.btn-secondary]="!displayDetail" [class.btn-outline-secondary]="displayDetail"
-                       (click)="setDisplayDetail(false)"> Overview
-                  </div>
-                  <div class="btn btn-default" [class.btn-secondary]="displayDetail"
-                       [class.btn-outline-secondary]="!displayDetail"
-                       (click)="setDisplayDetail(true)"> Detail
-                  </div>
+              <div>Level of Detail</div>
+              <div class="btn-group">
+                <div class="btn" [class.btn-secondary]="!displayDetail" [class.btn-outline-secondary]="displayDetail"
+                     (click)="setDisplayDetail(false)"> Summarized
+                </div>
+                <div class="btn btn-default" [class.btn-secondary]="displayDetail"
+                     [class.btn-outline-secondary]="!displayDetail"
+                     (click)="setDisplayDetail(true)"> Individual
                 </div>
               </div>
             </li>
             <li class="list-group-item">
-              <label for="select_year">Select Year:</label>
+              <label for="select_year">Year</label>
               <select #selectYear class="form-select" aria-label="Default select example" [ngModel]="displayYear"
                       (ngModelChange)="selectYear.value = setDisplayYear($event)"
                       name="selectYear"
@@ -54,7 +52,7 @@
               </select>
             </li>
             <li class="list-group-item">
-              <label for="select_month">Select Month:</label>
+              <label for="select_month">Month</label>
               <select #selectMonth class="form-select" aria-label="Default select example" [ngModel]="displayMonth"
                       (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
                       name="selectMonth"
@@ -87,15 +85,15 @@
       <div class="col-lg-10">
       </div>
       <div class="col-lg-1">
-        <div class="card">
+        <div class="card text-center">
           <h6 class="card-header bg-secondary text-white">Conventional</h6>
-          <h1 class="card-body text-center"> {{percentageConventional}}%</h1>
+          <h1 class="card-body"> {{percentageConventional}}%</h1>
         </div>
       </div>
       <div class="col-lg-1">
-        <div class="card">
+        <div class="card text-center">
           <h6 class="card-header bg-success text-white">Renewable</h6>
-          <h1 class="card-body text-center"> {{percentageRenewable}}%</h1>
+          <h1 class="card-body "> {{percentageRenewable}}%</h1>
         </div>
       </div>
     </div>

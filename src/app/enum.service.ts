@@ -1,5 +1,5 @@
 export enum Month {
-  Year = 'Year',
+  Year = 'All months',
   Jan = 'January',
   Feb = 'February',
   Mar = 'March',
