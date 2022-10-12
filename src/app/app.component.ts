@@ -80,9 +80,9 @@ export class AppComponent implements OnInit {
     this.calculateNextPreviousMonth();
 
     if (this.displayDetail) {
-      this.chartService.updateChartDetailed();
+      this.chartService.updateChartDetailed(this.displayYear, this.displayMonth);
     } else {
-      this.chartService.updateChartNondetailed();
+      this.chartService.updateChartNondetailed(this.displayYear, this.displayMonth);
   }
     this.updateFlagBig = true;
   }
