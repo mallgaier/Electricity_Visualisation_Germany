@@ -16,14 +16,21 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-10">
-        <highcharts-chart id="bigChartContainer"
-                          style="width: 100%; height: 600px; display: inline-flex;"
-                          [Highcharts]="highchartBig"
-                          [options]="chartService.chartOptions"
-                          [callbackFunction]="chartCallback"
-                          [(update)]="updateFlagBig"
-                          [oneToOne]="true">
-        </highcharts-chart>
+        <div class="card">
+          <h5 class="card-header">
+            {{ titleBig }}
+          </h5>
+          <div class="card-body">
+            <highcharts-chart id="bigChartContainer"
+                              style="width: 100%; height: 500px; display: inline-flex;"
+                              [Highcharts]="highchartBig"
+                              [options]="chartService.chartOptions"
+                              [callbackFunction]="chartCallback"
+                              [(update)]="updateFlagBig"
+                              [oneToOne]="true">
+            </highcharts-chart>
+          </div>
+        </div>
       </div>
       <div class="col-lg-2">
         <div class="card justify-content-center text-center d-flex">
@@ -33,10 +40,12 @@
               <div>Level of Detail</div>
               <div class="btn-group">
                 <div class="btn" [class.btn-secondary]="!displayDetail" [class.btn-outline-secondary]="displayDetail"
-                     (click)="setDisplayDetail(false)">Summary</div>
+                     (click)="setDisplayDetail(false)">Summary
+                </div>
                 <div class="btn btn-default" [class.btn-secondary]="displayDetail"
                      [class.btn-outline-secondary]="!displayDetail"
-                     (click)="setDisplayDetail(true)">Individual</div>
+                     (click)="setDisplayDetail(true)">Individual
+                </div>
               </div>
             </li>
             <li class="list-group-item">
@@ -52,7 +61,8 @@
             </li>
             <li class="list-group-item">
               <label for="select_month">Month</label>
-              <select #selectMonth class="form-select text-center" aria-label="Default select example" [ngModel]="displayMonth"
+              <select #selectMonth class="form-select text-center" aria-label="Default select example"
+                      [ngModel]="displayMonth"
                       (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
                       name="selectMonth"
                       id="select_month">
@@ -92,21 +102,27 @@
         </div>
       </div>
     </div>
-
-    <div class="container-fluid">
-      <div class="row mt-3">
-        <div class="col-lg-10">
+    <div class="row mt-3">
+      <div class="col-lg-9">
+        <div class="card">
+          <h5 class="card-header">Summarized Production per Source</h5>
+          <div class="card-body"> In development</div>
         </div>
-        <div class="col-lg-1">
-          <div class="card text-center">
-            <h6 class="card-header bg-secondary text-white">Conventional</h6>
-            <h1 class="card-body"> {{percentageConventional}}%</h1>
-          </div>
-        </div>
-        <div class="col-lg-1">
-          <div class="card text-center">
-            <h6 class="card-header bg-success text-white">Renewable</h6>
-            <h1 class="card-body "> {{percentageRenewable}}%</h1>
+      </div>
+      <div class="col-lg-3">
+        <div class="card">
+          <h5 class="card-header">Percentage share</h5>
+          <div class="card-body">
+            <div class="card-deck">
+              <div class="card text-center">
+                <h6 class="card-header bg-secondary text-white">Conventional</h6>
+                <h1 class="card-body"> {{percentageConventional}}%</h1>
+              </div>
+              <div class="card text-center">
+                <h6 class="card-header bg-success text-white">Renewable</h6>
+                <h1 class="card-body "> {{percentageRenewable}}%</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>

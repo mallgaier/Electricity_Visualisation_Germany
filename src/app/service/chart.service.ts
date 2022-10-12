@@ -33,7 +33,7 @@ export class ChartService {
       }
     },
     title: {
-      text: 'Click \"Update Visualization\" to load the visualization',
+      text: '',
     },
     tooltip: {
       shared: true,
@@ -59,8 +59,7 @@ export class ChartService {
     series: []
   };
 
-  updateChartDetailed(year: Year, month: Month) {
-    this.updateTitle(year, month, false);
+  updateDetailedChart() {
     this.chartOptions.xAxis = [{
       categories: this.csvService.datetime.map(date => {
         return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
@@ -136,8 +135,7 @@ export class ChartService {
     }]
   }
 
-  updateChartNondetailed(year: Year, month: Month) {
-    this.updateTitle(year, month, true);
+  updateSummarizedChart() {
     this.chartOptions.xAxis = [{
       categories: this.csvService.datetime.map(date => {
         return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
@@ -162,32 +160,6 @@ export class ChartService {
       type: 'line',
       data: this.csvService.totalGridLoad
     }]
-  }
-
-  updateTitle(year: Year, month: Month, summarized: boolean) {
-    if (summarized) {
-      this.chartOptions.title = [{
-        text: 'Summarized Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year,
-      }]
-    } else {
-      this.chartOptions.title = [{
-        text: 'Electricity Production per Source in ' + (month === Month.Year ? '' : month) + year,
-      }]
-    }
-
-    if (month === Month.Year) {
-      this.chartOptions.subtitle = [{
-        subtitle: {
-          text: 'The data shown was averaged over a 6-hour period'
-        },
-      }]
-    } else {
-      this.chartOptions.subtitle = [{
-        subtitle: {
-          text: 'The data shown was recorded at 15min intervals.'
-        },
-      }]
-    }
   }
 
 }

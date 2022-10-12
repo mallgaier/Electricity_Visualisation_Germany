@@ -47,3 +47,37 @@
   padding-left: 8px;
   padding-right: 8px;
 }
+
+.card-deck {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.card-deck .card {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 0%;
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.card-deck .card:not(:first-child) {
+  margin-left: 5px;
+}
+
+.card-deck .card:not(:last-child) {
+  margin-right: 5px;
+}

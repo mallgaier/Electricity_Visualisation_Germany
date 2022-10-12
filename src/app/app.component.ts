@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
   public percentageRenewable = 0;
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
+  public titleBig: string | undefined;
+  public subtitleBig: string | undefined;
 
   // Icons
   public faArrowRight = faArrowRight;
@@ -41,18 +43,24 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.csvService.initCSV('assets/testData.csv');
+    this.titleBig = 'Electricity Production per Source';
   }
 
-  setDisplayMonth(value: Month) {
-    return this.displayMonth = value;
+  updateData(): void {
+    this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
   }
 
-  setDisplayYear(value: Year) {
-    return this.displayYear = value;
-  }
+  updateGraph(): void {
+    this.calculatePercentageConventionalRenewable();
+    this.calculateNextPreviousMonth();
+    this.updateTitles(this.displayYear, this.displayMonth);
 
-  setDisplayDetail(detail: boolean) {
-    this.displayDetail = detail;
+    if (this.displayDetail) {
+      this.chartService.updateDetailedChart();
+    } else {
+      this.chartService.updateSummarizedChart();
+    }
+    this.updateFlagBig = true;
   }
 
   calculatePercentageConventionalRenewable() {
@@ -67,23 +75,32 @@ export class AppComponent implements OnInit {
     this.nextMonth = this.enumService.getNextMonth(this.displayMonth, this.displayYear);
   }
 
+  updateTitles(year: Year, month: Month) {
+    if (this.displayDetail) {
+      this.titleBig = 'Electricity Production per Source in ' + (month === Month.Year ? '' : month + ' ') + year;
+    } else {
+      this.titleBig = 'Summarized Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
+    }
+    if (month === Month.Year) {
+      this.subtitleBig = 'The data shown was averaged over a 6-hour period'
+    } else {
+      this.subtitleBig = 'The data shown was recorded at 15min intervals';
+    }
+  }
+
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef = chart;
   };
 
-  updateData(): void {
-    this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+  setDisplayMonth(value: Month) {
+    return this.displayMonth = value;
   }
 
-  updateGraph(): void {
-    this.calculatePercentageConventionalRenewable();
-    this.calculateNextPreviousMonth();
-
-    if (this.displayDetail) {
-      this.chartService.updateChartDetailed(this.displayYear, this.displayMonth);
-    } else {
-      this.chartService.updateChartNondetailed(this.displayYear, this.displayMonth);
+  setDisplayYear(value: Year) {
+    return this.displayYear = value;
   }
-    this.updateFlagBig = true;
+
+  setDisplayDetail(detail: boolean) {
+    this.displayDetail = detail;
   }
 }
