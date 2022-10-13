@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {CsvService} from "./service/csv.service";
 import {EnumService, Month, Year} from './service/enum.service';
-import {faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {ChartService} from "./service/chart.service";
 
 
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   public displayMonth = Month.Year;
   public displayYear = Year.y2022;
   public displayDetail = true;
+  public collapseSecondRow = false;
 
   // Displayed values
   public percentageConventional = 0;
@@ -31,6 +32,8 @@ export class AppComponent implements OnInit {
   // Icons
   public faArrowRight = faArrowRight;
   public faArrowLeft = faArrowLeft;
+  public faArrowDown = faArrowDown;
+  public faArrowUp = faArrowUp;
 
   // Chart
   highchartBig: typeof Highcharts = Highcharts;
@@ -71,8 +74,13 @@ export class AppComponent implements OnInit {
   }
 
   calculateNextPreviousMonth() {
-    this.previousMonth = this.enumService.getPreviousMonth(this.displayMonth, this.displayYear);
-    this.nextMonth = this.enumService.getNextMonth(this.displayMonth, this.displayYear);
+    if (this.displayMonth === Month.Year) {
+      this.previousMonth = this.enumService.getPreviousYear(this.displayYear);
+      this.nextMonth = this.enumService.getNextYear(this.displayYear);
+    } else {
+      this.previousMonth = this.enumService.getPreviousMonth(this.displayMonth, this.displayYear);
+      this.nextMonth = this.enumService.getNextMonth(this.displayMonth, this.displayYear);
+    }
   }
 
   updateTitles(year: Year, month: Month) {
@@ -102,5 +110,10 @@ export class AppComponent implements OnInit {
 
   setDisplayDetail(detail: boolean) {
     this.displayDetail = detail;
+  }
+
+  changeCollapseSecondRow() {
+    this.collapseSecondRow = !this.collapseSecondRow;
+    this.updateFlagBig = true;
   }
 }

@@ -25,6 +25,14 @@
   padding-right: 8px;
 }
 
+.heightBigChartSmall {
+  height: 500px;
+}
+
+.heightBigChartBig {
+  height: 650px;
+}
+
 .toolbar img {
   margin: 0 16px;
 }

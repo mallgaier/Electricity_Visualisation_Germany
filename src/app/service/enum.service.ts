@@ -7,7 +7,7 @@ export enum Month {
   Mar = 'March',
   Apr = 'April',
   May = 'May',
-  Jun = 'Jun',
+  Jun = 'June',
   Jul = 'July',
   Aug = 'August',
   Sep = 'September',
@@ -18,7 +18,13 @@ export enum Month {
 
 export enum Year {
   y2022 = '2022',
-  y2021 = '2021'
+  y2021 = '2021',
+  y2020 = '2020',
+  y2019 = '2019',
+  y2018 = '2018',
+  y2017 = '2017',
+  y2016 = '2016',
+  y2015 = '2015'
 }
 
 @Injectable({
@@ -27,102 +33,88 @@ export enum Year {
 export class EnumService {
 
   getPreviousMonth(month: Month, year: Year): string | undefined {
-    let output: string | undefined;
     switch (month) {
       case Month.Jan:
-        switch (year) {
-          case Year.y2022:
-            output = 'December 2021';
-            break;
-          case Year.y2021:
-            return undefined;
+        if (year === Year.y2015) {
+          return undefined;
         }
-        break;
+        return Month.Dec + ' ' + (Number.parseInt(year.toString()) - 1);
       case Month.Feb:
-        output = 'January '+ year;
-        break;
+        return Month.Jan + ' ' + year;
       case Month.Mar:
-        output = 'February '+ year;
-        break;
+        return Month.Feb + ' ' + year;
       case Month.Apr:
-        output = 'March '+ year;
-        break;
+        return Month.Mar + ' ' + year;
       case Month.May:
-        output = 'April '+ year;
-        break;
+        return Month.Apr + ' ' + year;
       case Month.Jun:
-        output = 'May '+ year;
-        break;
+        return Month.May + ' ' + year;
       case Month.Jul:
-        output = 'Jun '+ year;
-        break;
+        return Month.Jun + ' ' + year;
       case Month.Aug:
-        output = 'July '+ year;
-        break;
+        return Month.Jul + ' ' + year;
       case Month.Sep:
-        output = 'August '+ year;
-        break;
+        return Month.Aug + ' ' + year;
       case Month.Oct:
-        output = 'September '+ year;
-        break;
+        return Month.Sep + ' ' + year;
       case Month.Nov:
-        output = 'October '+ year;
-        break;
+        return Month.Oct + ' ' + year;
       case Month.Dec:
-        output = 'November '+ year;
-        break;
+        return Month.Nov + ' ' + year;
+      default:
+        return undefined;
     }
-    return output;
   }
 
   getNextMonth(month: Month, year: Year): string | undefined {
-    let output: string | undefined;
     switch (month) {
       case Month.Jan:
-        output = 'February '+ year;
-        break;
+        return Month.Feb + ' ' + year;
       case Month.Feb:
-        output = 'March '+ year;
-        break;
+        return Month.Mar + ' ' + year;
       case Month.Mar:
-        output = 'April '+ year;
-        break;
+        return Month.Apr + ' ' + year;
       case Month.Apr:
-        output = 'May '+ year;
-        break;
+        return Month.May + ' ' + year;
       case Month.May:
-        output = 'Jun '+ year;
-        break;
+        return Month.Jun + ' ' + year;
       case Month.Jun:
-        output = 'July '+ year;
-        break;
+        return Month.Jul + ' ' + year;
       case Month.Jul:
-        output = 'August '+ year;
-        break;
+        return Month.Aug + ' ' + year;
       case Month.Aug:
-        output = 'September '+ year;
-        break;
+        return Month.Sep + ' ' + year;
       case Month.Sep:
-        if (year === Year.y2022)
+        if (year === Year.y2022) {
           return undefined;
-        output = 'October '+ year;
-        break;
-      case Month.Oct:
-        output = 'November '+ year;
-        break;
-      case Month.Nov:
-        output = 'December '+ year;
-        break;
-      case Month.Dec:
-        switch (year) {
-          case Year.y2022:
-            return undefined;
-          case Year.y2021:
-            output = 'January 2022'
         }
-        break;
+        return Month.Oct + ' ' + year;
+      case Month.Oct:
+        return Month.Nov + ' ' + year;
+      case Month.Nov:
+        return Month.Dec + ' ' + year;
+      case Month.Dec:
+        if (year === Year.y2022) {
+          return undefined;
+        }
+        return Month.Jan + ' ' + (Number.parseInt(year.toString()) + 1);
+      default:
+        return undefined;
     }
-    return output;
+  }
+
+  getPreviousYear(year: Year): string | undefined {
+    if (year === Year.y2015) {
+      return undefined;
+    }
+    return 'Year ' +(Number.parseInt(year.toString()) - 1);
+  }
+
+  getNextYear(year: Year): string | undefined {
+    if (year === Year.y2022) {
+      return undefined;
+    }
+    return 'Year ' +(Number.parseInt(year.toString()) + 1);
   }
 
   enumToFileName(month: Month, year: Year): string {
