@@ -22,14 +22,15 @@
           </h5>
           <div class="card-body">
             <highcharts-chart id="bigChartContainer"
-                              [ngClass]="{'d-inline-flex w-100' : true, 'heightBigChartSmall' : !collapseSecondRow,
-                              'heightBigChartBig': collapseSecondRow}"
+                              style="width: 100%; height: 500px; display: inline-flex"
                               [Highcharts]="highchartBig"
                               [options]="chartService.chartOptions"
                               [callbackFunction]="chartCallback"
                               [(update)]="updateFlagBig"
                               [oneToOne]="true">
             </highcharts-chart>
+            <!-- , 'heightBigChartSmall' : !collapseSecondRow,
+                             'heightBigChartBig': collapseSecondRow}" -->
           </div>
         </div>
       </div>
