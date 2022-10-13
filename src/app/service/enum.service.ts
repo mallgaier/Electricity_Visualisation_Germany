@@ -107,19 +107,19 @@ export class EnumService {
     if (year === Year.y2015) {
       return undefined;
     }
-    return 'Year ' +(Number.parseInt(year.toString()) - 1);
+    return 'Year ' + (Number.parseInt(year.toString()) - 1);
   }
 
   getNextYear(year: Year): string | undefined {
     if (year === Year.y2022) {
       return undefined;
     }
-    return 'Year ' +(Number.parseInt(year.toString()) + 1);
+    return 'Year ' + (Number.parseInt(year.toString()) + 1);
   }
 
   enumToFileName(month: Month, year: Year): string {
     if (month === Month.Year) {
-      return 'assets/testData.csv';
+      return 'assets/year' + year + '.csv';
     }
     return 'assets/' + month.substring(0, 3).toLowerCase() + year + '.csv';
   }

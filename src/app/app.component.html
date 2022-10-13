@@ -73,7 +73,7 @@
                       (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
                       name="selectMonth"
                       id="select_month">
-                <option selected [value]="Month.Year">{{Month.Year}}</option>
+                <option [value]="Month.Year">{{Month.Year}}</option>
                 <option [value]="Month.Jan">{{Month.Jan}}</option>
                 <option [value]="Month.Feb">{{Month.Feb}}</option>
                 <option [value]="Month.Mar">{{Month.Mar}}</option>
@@ -81,7 +81,7 @@
                 <option [value]="Month.May">{{Month.May}}</option>
                 <option [value]="Month.Jun">{{Month.Jun}}</option>
                 <option [value]="Month.Jul">{{Month.Jul}}</option>
-                <option [value]="Month.Aug">{{Month.Aug}}</option>
+                <option selected [value]="Month.Aug">{{Month.Aug}}</option>
                 <option [value]="Month.Sep">{{Month.Sep}}</option>
                 <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
                 <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
