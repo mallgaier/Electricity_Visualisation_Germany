@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   // Select Options
   public Month = Month;
   public Year = Year;
-  public displayMonth = Month.Year;
+  public displayMonth = Month.Aug;
   public displayYear = Year.y2022;
   public displayDetail = true;
   public collapseSecondRow = false;
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   public previousMonth: string | undefined;
   public titleBig: string | undefined;
   public subtitleBig: string | undefined;
+  public isUpdating = false;
 
   // Icons
   public faArrowRight = faArrowRight;
@@ -45,12 +46,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.csvService.initCSV('assets/testData.csv');
+    this.updateVisualization();
     this.titleBig = 'Electricity Production per Source';
   }
 
-  updateData(): void {
-    this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+  async updateVisualization(): Promise<void> {
+    this.isUpdating = true;
+    const update = await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+    setTimeout(() => {
+      this.updateGraph();
+      this.isUpdating = false;
+    }, 1000);
   }
 
   updateGraph(): void {
@@ -78,8 +84,8 @@ export class AppComponent implements OnInit {
       this.previousMonth = this.enumService.getPreviousYear(this.displayYear);
       this.nextMonth = this.enumService.getNextYear(this.displayYear);
     } else {
-      this.previousMonth = this.enumService.getPreviousMonth(this.displayMonth, this.displayYear);
-      this.nextMonth = this.enumService.getNextMonth(this.displayMonth, this.displayYear);
+      this.previousMonth = this.enumService.getPreviousMonthAsString(this.displayMonth, this.displayYear);
+      this.nextMonth = this.enumService.getNextMonthAsString(this.displayMonth, this.displayYear);
     }
   }
 
@@ -95,6 +101,21 @@ export class AppComponent implements OnInit {
       this.subtitleBig = 'The data shown was recorded at 15min intervals';
     }
   }
+
+  tilePreviousMonth() {
+    let previous = this.enumService.getPreviousMonthAsEnum(this.displayMonth, this.displayYear);
+    this.displayMonth = previous[0];
+    this.displayYear = previous[1];
+    this.updateVisualization();
+  }
+
+  tileNextMonth() {
+    let next = this.enumService.getNextMonthAsEnum(this.displayMonth, this.displayYear);
+    this.displayMonth = next[0];
+    this.displayYear = next[1];
+    this.updateVisualization();
+  }
+
 
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef = chart;

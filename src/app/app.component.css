@@ -89,3 +89,7 @@
 .card-deck .card:not(:last-child) {
   margin-right: 5px;
 }
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #9E9E9E;
+}

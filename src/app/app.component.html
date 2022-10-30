@@ -90,20 +90,26 @@
               </select>
             </li>
             <li class="list-group-item">
-              <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button>
-              <button type="button" class="btn btn-primary" (click)="updateGraph()">Update Visualization</button>
+              <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
+              <button type="button" class="btn btn-primary" *ngIf="!isUpdating" (click)="updateVisualization()">Update
+                Visualization
+              </button>
+              <button *ngIf="isUpdating" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Updating ...
+              </button>
             </li>
           </ul>
         </div>
         <div class="row mt-4">
           <div class="col">
-            <div class="card clickable text-center" *ngIf="previousMonth">
+            <div class="card clickable text-center" *ngIf="previousMonth" (click)="tilePreviousMonth()">
               <fa-icon class="card-body fa-2x" [icon]="faArrowLeft"></fa-icon>
               <span> {{ previousMonth }} </span>
             </div>
           </div>
           <div class="col">
-            <div class="card clickable text-center" *ngIf="nextMonth">
+            <div class="card clickable text-center" *ngIf="nextMonth" (click)="tileNextMonth()">
               <fa-icon class="card-body fa-2x" [icon]="faArrowRight"></fa-icon>
               <span> {{ nextMonth }} </span>
             </div>

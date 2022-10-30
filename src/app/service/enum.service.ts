@@ -32,7 +32,7 @@ export enum Year {
 })
 export class EnumService {
 
-  getPreviousMonth(month: Month, year: Year): string | undefined {
+  getPreviousMonthAsString(month: Month, year: Year): string | undefined {
     switch (month) {
       case Month.Jan:
         if (year === Year.y2015) {
@@ -66,7 +66,41 @@ export class EnumService {
     }
   }
 
-  getNextMonth(month: Month, year: Year): string | undefined {
+  getPreviousMonthAsEnum(month: Month, year: Year): [Month, Year] {
+    if (month === Month.Year) {
+      return [ Month.Year, ((Number.parseInt(year.toString()) - 1).toString()) as Year];
+    }
+    switch (month) {
+      case Month.Jan:
+        return [Month.Dec, ((Number.parseInt(year.toString()) - 1).toString()) as Year];
+      case Month.Feb:
+        return [Month.Jan, year];
+      case Month.Mar:
+        return [Month.Feb, year];
+      case Month.Apr:
+        return [Month.Mar, year];
+      case Month.May:
+        return [Month.Apr, year];
+      case Month.Jun:
+        return [Month.May, year];
+      case Month.Jul:
+        return [Month.Jun, year];
+      case Month.Aug:
+        return [Month.Jul, year];
+      case Month.Sep:
+        return [Month.Aug, year];
+      case Month.Oct:
+        return [Month.Sep, year];
+      case Month.Nov:
+        return [Month.Oct, year];
+      case Month.Dec:
+        return [Month.Nov, year];
+      default:
+        return [month, year];
+    }
+  }
+
+  getNextMonthAsString(month: Month, year: Year): string | undefined {
     switch (month) {
       case Month.Jan:
         return Month.Feb + ' ' + year;
@@ -103,6 +137,41 @@ export class EnumService {
     }
   }
 
+  getNextMonthAsEnum(month: Month, year: Year): [Month, Year] {
+    if (month === Month.Year) {
+      return [ Month.Year, ((Number.parseInt(year.toString()) + 1).toString()) as Year];
+    }
+    switch (month) {
+      case Month.Jan:
+        return [Month.Feb, year];
+      case Month.Feb:
+        return [Month.Mar, year];
+      case Month.Mar:
+        return [Month.Apr, year];
+      case Month.Apr:
+        return [Month.May, year];
+      case Month.May:
+        return [Month.Jun, year];
+      case Month.Jun:
+        return [Month.Jul, year];
+      case Month.Jul:
+        return [Month.Aug, year];
+      case Month.Aug:
+        return [Month.Sep, year];
+      case Month.Sep:
+        return [Month.Oct, year];
+      case Month.Oct:
+        return [Month.Nov, year];
+      case Month.Nov:
+        return [Month.Dec, year];
+      case Month.Dec:
+        return [Month.Jan, ((Number.parseInt(year.toString()) + 1).toString()) as Year];
+      default:
+        return [month, year];
+    }
+  }
+
+
   getPreviousYear(year: Year): string | undefined {
     if (year === Year.y2015) {
       return undefined;
@@ -116,6 +185,7 @@ export class EnumService {
     }
     return 'Year ' + (Number.parseInt(year.toString()) + 1);
   }
+
 
   enumToFileName(month: Month, year: Year): string {
     if (month === Month.Year) {

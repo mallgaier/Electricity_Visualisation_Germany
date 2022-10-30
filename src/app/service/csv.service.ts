@@ -29,7 +29,7 @@ export class CsvService {
   constructor(private http: HttpClient) {
   }
 
-  initCSV(url: string): boolean {
+  async initCSV(url: string): Promise<boolean> {
     this.initArrays();
     this.http.get(url, {responseType: 'text'})
       .subscribe(
@@ -38,6 +38,12 @@ export class CsvService {
           // Index 1 due to header
           for (let index = 1; index < csvToRowArray.length - 1; index++) {
             let row = csvToRowArray[index].split(";");
+
+            // If the row is shorter than the length of a date -> aboard parsing
+            if (row.length < 17) {
+              break;
+            }
+
             // 1995-12-17T03:24:00
             this.datetime.push(new Date(row[0]));
             this.biomass.push(Number(row[1]));
@@ -60,7 +66,8 @@ export class CsvService {
           }
         },
         error => {
-          console.log('Hello World' + error);
+          console.log(error);
+          return false;
         }
       );
     return true;

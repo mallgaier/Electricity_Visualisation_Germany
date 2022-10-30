@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import * as Highcharts from "highcharts";
 import {CsvService} from "./csv.service";
 import {Month, Year} from "./enum.service";
+import {ColourService} from "./colour.service";
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import {Month, Year} from "./enum.service";
 export class ChartService {
 
 
-  constructor(private csvService: CsvService) {
+  constructor(private csvService: CsvService, private colourService: ColourService) {
   }
 
   // Global Chart Settings
@@ -66,32 +67,22 @@ export class ChartService {
       })
     }]
     this.chartOptions.colors = [
-      // 'Hydro Pumped Storage'
-      '#058DC7',
-      // Photovoltaics
-      '#50B432',
-      //Wind Offshore
-      '#ED561B',
-      // Wind Onshore
-      '#DDDF00',
-      // Biomass
-      '#24CBE5',
-      // Hydro Power
-      '#64E572',
-      // other Renewables
-      '#FF9655',
-      // Fossil Gas
-      '#FFF263',
-      // Nuclear
-      '#6AF9C4',
-      // Brown Coal
-      '#058DC7',
-      // Hard Coal
-      '#50B432',
-      // Other conventional
-      '#ED561B',
-      // Total Demand (line)
-      '#DDDF00']
+      this.colourService.hydroPumpedStorage,
+      this.colourService.hydroPumpedStorage,
+      this.colourService.photovoltaics,
+      this.colourService.windOffshore,
+      this.colourService.windOnshore,
+      this.colourService.biomass,
+      this.colourService.hydroPower,
+      this.colourService.otherRenewables,
+      this.colourService.fossilGas,
+      this.colourService.nuclear,
+      this.colourService.brownCoal,
+      this.colourService.hardCoal,
+      this.colourService.otherConventional,
+      this.colourService.totalDemand
+      ]
+
     this.chartOptions.series = [{
       name: 'Hydro Pumped Storage',
       data: this.csvService.hydroPumpedStorage
@@ -142,12 +133,9 @@ export class ChartService {
       })
     }]
     this.chartOptions.colors = [
-      // Sum Renewables
-      '#0cde22',
-      // Sum Conventional
-      '#752e03',
-      // Total Demand (line)
-      '#DDDF00'
+      this.colourService.sumRenewables,
+      this.colourService.sumConventional,
+      this.colourService.totalDemand
     ]
     this.chartOptions.series = [{
       name: 'Sum Renewables',
