@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateVisualization();
-    this.titleBig = 'Electricity Production per Source';
   }
 
   async updateVisualization(): Promise<void> {

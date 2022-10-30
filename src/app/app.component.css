@@ -27,10 +27,14 @@
 
 .heightBigChartSmall {
   height: 500px;
+  width: 100%;
+  display: inline-flex;
 }
 
 .heightBigChartBig {
   height: 650px;
+  width: 100%;
+  display: inline-flex;
 }
 
 .toolbar img {
