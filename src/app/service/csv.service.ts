@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CsvService {
 
-  public datetime: Date[] = [];
+  public datetime: string[] = [];
   public biomass: number[] = [];
   public hydropower: number[] = [];
   public windOffshore: number[] = [];
@@ -45,7 +45,7 @@ export class CsvService {
             }
 
             // 1995-12-17T03:24:00
-            this.datetime.push(new Date(row[0]));
+            this.datetime.push(row[0]);
             this.biomass.push(Number(row[1]));
             this.hydropower.push(Number(row[2]));
             this.windOffshore.push(Number(row[3]));

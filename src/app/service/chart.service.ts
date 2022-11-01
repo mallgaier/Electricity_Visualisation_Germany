@@ -1,7 +1,5 @@
 import {Injectable} from "@angular/core";
-import * as Highcharts from "highcharts";
 import {CsvService} from "./csv.service";
-import {Month, Year} from "./enum.service";
 import {ColourService} from "./colour.service";
 
 @Injectable({
@@ -20,52 +18,60 @@ export class ChartService {
       zoomType: 'x',
     },
     xAxis: {
-      dateTimeLabelFormats: {
-        day: '%e %b %y',
-      },
       title: {
         text: 'Date'
       },
-      type: 'datetime'
+      type: 'datetime',
+      // timezone: 'Europe/Berlin',
+      // dateTimeLabelFormats: '%A %d.%m.%Y %k:%M',
     },
     yAxis: {
       title: {
         text: 'MWh'
-      }
+      },
     },
     title: {
       text: '',
     },
     tooltip: {
       shared: true,
-      headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>'
-    }
-    ,
+      headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>',
+      xDateFormat: '%A %d.%m.%Y %k:%M'
+    },
     plotOptions: {
       series: {
-        pointStart: 2021,
-        pointInterval: 3600 * 100
+        //2017-04-01T01:15:00
+        // pointStart: Date.UTC(2000, 1,1),
+        // Number(this.csvService.datetime[0].substring(5, 7)) - 1, 1), //Date.UTC(2022, 7, 1),
+        // Date(this.csvService.datetime[0]),//Date.UTC(2010, 1, 9),
+        // pointInterval: 15 * 60 * 1000,
       },
       area: {
         stacking: 'normal',
         lineColor: '#666666',
         lineWidth: 1,
+
         marker: {
           lineWidth: 1,
           lineColor: '#666666'
         }
       }
-    }
-    ,
+    },
     series: []
   };
 
-  updateDetailedChart() {
-    this.chartOptions.xAxis = [{
-      categories: this.csvService.datetime.map(date => {
-        return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
-      })
-    }]
+  updateDetailedChart(monthNumeric: number, yearNumeric: number) {
+    /* this.chartOptions.xAxis = [{
+      type: 'datetime',
+       // tickInterval: 96, //96 672
+    /!* timezone: 'Europe/Berlin',
+      pointStart: Highcharts.dateFormat('%A %d.%m.%Y %k:%M',this.csvService.datetime[100]),
+      pointInterval: 24 * 365, *!/
+     categories: this.csvService.datetime.map(date => {
+         return Highcharts.dateFormat('%A', date + 7200000); //;%A %d.%m.%Y %k:%M
+       })
+     }]*/
+
     this.chartOptions.colors = [
       this.colourService.hydroPumpedStorage,
       this.colourService.hydroPumpedStorage,
@@ -81,8 +87,7 @@ export class ChartService {
       this.colourService.hardCoal,
       this.colourService.otherConventional,
       this.colourService.totalDemand
-      ]
-
+    ]
     this.chartOptions.series = [{
       name: 'Hydro Pumped Storage',
       data: this.csvService.hydroPumpedStorage
@@ -117,21 +122,29 @@ export class ChartService {
       name: 'Hard Coal',
       data: this.csvService.hardCoal
     }, {
-      name: 'other Coventional',
+      name: 'other Conventional',
       data: this.csvService.otherConventional
     }, {
       name: 'total Grid load',
       type: 'line',
       data: this.csvService.totalGridLoad
     }]
+
+    if (monthNumeric === 0) {
+      this.chartOptions.plotOptions.series.pointStart = Date.UTC(yearNumeric, 0, 1)
+      this.chartOptions.plotOptions.series.pointInterval = 6 * 60 * 60 * 1000
+    } else {
+      this.chartOptions.plotOptions.series.pointStart = Date.UTC(yearNumeric, monthNumeric - 1, 1)
+      this.chartOptions.plotOptions.series.pointInterval = 15 * 60 * 1000
+    }
   }
 
   updateSummarizedChart() {
-    this.chartOptions.xAxis = [{
-      categories: this.csvService.datetime.map(date => {
-        return Highcharts.dateFormat('%Y-%m-%d', new Date(date).getTime());
-      })
-    }]
+    /* this.chartOptions.xAxis = [{
+       categories: this.csvService.datetime.map(date => {
+         return Highcharts.dateFormat('%A %d.%m.%Y %k:%M', new Date(date).getTime());
+       })
+     }]*/
     this.chartOptions.colors = [
       this.colourService.sumRenewables,
       this.colourService.sumConventional,

@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     this.updateTitles(this.displayYear, this.displayMonth);
 
     if (this.displayDetail) {
-      this.chartService.updateDetailedChart();
+      this.chartService.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
     } else {
       this.chartService.updateSummarizedChart();
     }

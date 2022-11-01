@@ -68,7 +68,7 @@ export class EnumService {
 
   getPreviousMonthAsEnum(month: Month, year: Year): [Month, Year] {
     if (month === Month.Year) {
-      return [ Month.Year, ((Number.parseInt(year.toString()) - 1).toString()) as Year];
+      return [Month.Year, ((Number.parseInt(year.toString()) - 1).toString()) as Year];
     }
     switch (month) {
       case Month.Jan:
@@ -139,7 +139,7 @@ export class EnumService {
 
   getNextMonthAsEnum(month: Month, year: Year): [Month, Year] {
     if (month === Month.Year) {
-      return [ Month.Year, ((Number.parseInt(year.toString()) + 1).toString()) as Year];
+      return [Month.Year, ((Number.parseInt(year.toString()) + 1).toString()) as Year];
     }
     switch (month) {
       case Month.Jan:
@@ -192,6 +192,37 @@ export class EnumService {
       return 'assets/year' + year + '.csv';
     }
     return 'assets/' + month.substring(0, 3).toLowerCase() + year + '.csv';
+  }
+
+  toNumericMonth(month: Month): number {
+    switch (month) {
+      case Month.Jan:
+        return 1;
+      case Month.Feb:
+        return 2;
+      case Month.Mar:
+        return 3;
+      case Month.Apr:
+        return 4;
+      case Month.May:
+        return 5;
+      case Month.Jun:
+        return 6;
+      case Month.Jul:
+        return 7;
+      case Month.Aug:
+        return 8;
+      case Month.Sep:
+        return 9;
+      case Month.Oct:
+        return 10;
+      case Month.Nov:
+        return 11;
+      case Month.Dec:
+        return 12;
+      default:
+        return 0;
+    }
   }
 }
 
