@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
   async updateVisualization(): Promise<void> {
     this.isUpdating = true;
-    const update = await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+    await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
       this.updateGraph();
       this.isUpdating = false;
