@@ -1,0 +1,113 @@
+import {Component, Input, OnInit} from "@angular/core";
+import * as Highcharts from 'highcharts';
+import {EnumService, Month, Year, Detail} from '../service/enum.service';
+import {ChartService} from "../service/chart.service";
+import {CsvService} from "../service/csv.service";
+import {ColourService} from "../service/colour.service";
+
+@Component({
+  selector: 'chart-small',
+  templateUrl: './chartSmall.component.html',
+})
+export class ChartSmallComponent {
+
+  // Chart
+  highchartSmall: typeof Highcharts = Highcharts;
+  @Input() public updateFlagSmall = false;
+  public chartRef!: Highcharts.Chart;
+  @Input() public displayMonth = Month as any;
+  @Input() public displayYear = Year as any;
+
+  constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
+  }
+
+  updateChartSmall(): void {
+    this.updateChart();
+    this.updateFlagSmall = true;
+  }
+
+  chartOptionsSmall: any = {
+    chart: {
+      type: 'column',
+    },
+    xAxis: {
+      categories: ['Hydro Pumped Storage', 'Photovoltaics', 'Wind Offshore', 'Wind Onshore', 'Biomass', 'Hydro Power', 'other Renewables', 'Fossil Gas', 'Nuclear', 'Brown Coal', 'Hard Coal', 'other Conventional',]
+
+    },
+    yAxis: {
+      title: {
+        text: 'MWh'
+      },
+    },
+    title: {
+      text: '',
+    },
+    legend: {enabled: false},
+    plotOptions: {
+      series: {
+        dataSorting: {
+          enabled: true
+        },
+        dataLabels: {
+          enabled: true,
+          /*formatter: function() {
+            return this.y + '%';
+          }*/
+        }
+      }
+    },
+    series: {},
+  };
+
+  updateChart() {
+    this.chartOptionsSmall.series.data = [{
+      name: 'Hydro Pumped Storage',
+      color: this.colourService.hydroPumpedStorage,
+      y: this.csvService.hydroPumpedStorage.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Photovoltaics',
+      color: this.colourService.photovoltaics,
+      y: this.csvService.photovoltaics.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Wind Offshore',
+      color: this.colourService.windOffshore,
+      y: this.csvService.windOffshore.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Wind Onshore',
+      color: this.colourService.windOnshore,
+      y: this.csvService.windOnshore.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Biomass',
+      color: this.colourService.biomass,
+      y: this.csvService.biomass.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Hydro Power',
+      color: this.colourService.hydroPower,
+      y: this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'other Renewables',
+      color: this.colourService.otherConventional,
+      y: this.csvService.otherRenewable.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Fossil Gas',
+      color: this.colourService.fossilGas,
+      y: this.csvService.fossilGas.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Nuclear',
+      color: this.colourService.nuclear,
+      y: this.csvService.nuclear.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Brown Coal',
+      color: this.colourService.brownCoal,
+      y: this.csvService.brownCcoal.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'Hard Coal',
+      color: this.colourService.hardCoal,
+      y: this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
+    }, {
+      name: 'other Conventional',
+      color: this.colourService.otherConventional,
+      y: this.csvService.otherConventional.reduce((sum, current) => sum + current, 0)
+    }]
+  }
+}

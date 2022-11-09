@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {CsvService} from "./service/csv.service";
-import {EnumService, Month, Year} from './service/enum.service';
+import {EnumService, Month, Year, Detail} from './service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {ChartService} from "./service/chart.service";
+import {ChartSmallComponent} from "./component/chartSmall.component";
 
 
 @Component({
@@ -16,9 +17,10 @@ export class AppComponent implements OnInit {
   // Select Options
   public Month = Month;
   public Year = Year;
+  public Detail = Detail;
   public displayMonth = Month.Aug;
   public displayYear = Year.y2022;
-  public displayDetail = true;
+  public displayDetail = Detail.detailed;
   public collapseSecondRow = false;
 
   // Displayed values
@@ -41,12 +43,14 @@ export class AppComponent implements OnInit {
   public updateFlagBig = false;
   public chartRef!: Highcharts.Chart;
 
+  @ViewChild(ChartSmallComponent) chartSmall!: ChartSmallComponent;
+
 
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService) {
   }
 
   ngOnInit(): void {
-    this.updateVisualization();
+    // this.updateVisualization();
   }
 
   async updateVisualization(): Promise<void> {
@@ -54,6 +58,7 @@ export class AppComponent implements OnInit {
     await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
       this.updateGraph();
+      this.chartSmall.updateChartSmall();
       this.isUpdating = false;
     }, 1000);
   }
@@ -63,10 +68,13 @@ export class AppComponent implements OnInit {
     this.calculateNextPreviousMonth();
     this.updateTitles(this.displayYear, this.displayMonth);
 
-    if (this.displayDetail) {
-      this.chartService.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
-    } else {
-      this.chartService.updateSummarizedChart();
+    switch (this.displayDetail) {
+      case Detail.detailed: this.chartService.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      break;
+      case Detail.grouped: this.chartService.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      break;
+      case Detail.summarized: this.chartService.updateSummarizedChart();
+      break;
     }
     this.updateFlagBig = true;
   }
@@ -89,11 +97,7 @@ export class AppComponent implements OnInit {
   }
 
   updateTitles(year: Year, month: Month) {
-    if (this.displayDetail) {
-      this.titleBig = 'Electricity Production per Source in ' + (month === Month.Year ? '' : month + ' ') + year;
-    } else {
-      this.titleBig = 'Summarized Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
-    }
+    this.titleBig = this.displayDetail.toString() + ' Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
     if (month === Month.Year) {
       this.subtitleBig = 'The data shown was averaged over a 6-hour period'
     } else {
@@ -128,8 +132,8 @@ export class AppComponent implements OnInit {
     return this.displayYear = value;
   }
 
-  setDisplayDetail(detail: boolean) {
-    this.displayDetail = detail;
+  setDisplayDetail(value: Detail) {
+    return this.displayDetail = value;
   }
 
   changeCollapseSecondRow() {

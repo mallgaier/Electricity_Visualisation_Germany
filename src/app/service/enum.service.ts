@@ -27,6 +27,12 @@ export enum Year {
   y2015 = '2015'
 }
 
+export enum Detail {
+  detailed = "Detailed",
+  grouped = "Grouped",
+  summarized = "Summarized"
+}
+
 @Injectable({
   providedIn: 'root',
 })
