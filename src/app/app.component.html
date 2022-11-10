@@ -36,13 +36,15 @@
               </li>
             </ul>
           </h6>
-          <div class="card-body">
+          <div class="card-body" style="height: 500px">
             <chart-big-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
                                 [displayYear]="displayYear"></chart-big-detailed>
             <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
                                [displayYear]="displayYear"></chart-big-grouped>
             <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
                                   [displayYear]="displayYear"></chart-big-summarized>
+            <h4 *ngIf="displayDetailBig === Detail.loading"
+                class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
           </div>
         </div>
       </div>
@@ -143,7 +145,7 @@
               <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
             </span>-->
           </h6>
-          <div *ngIf="!collapseSecondRow" class="card-body">
+          <div *ngIf="!collapseSecondRow" class="card-body" style="height: 200px">
             <chart-small-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
                                 [displayYear]="displayYear"></chart-small-detailed>
        <!--     <chart-small-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"

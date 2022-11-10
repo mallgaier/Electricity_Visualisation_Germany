@@ -23,7 +23,6 @@ export class ChartBigGroupedComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
-    this.updateFlagBigGrouped = true;
   }
 
   chartOptionsBigGrouped: any = {
@@ -36,8 +35,6 @@ export class ChartBigGroupedComponent implements OnInit {
         text: 'Date'
       },
       type: 'datetime',
-      // timezone: 'Europe/Berlin',
-      // dateTimeLabelFormats: '%A %d.%m.%Y %k:%M',
     },
     yAxis: {
       title: {
@@ -54,11 +51,6 @@ export class ChartBigGroupedComponent implements OnInit {
     },
     plotOptions: {
       series: {
-        //2017-04-01T01:15:00
-        // pointStart: Date.UTC(2000, 1,1),
-        // Number(this.csvService.datetime[0].substring(5, 7)) - 1, 1), //Date.UTC(2022, 7, 1),
-        // Date(this.csvService.datetime[0]),//Date.UTC(2010, 1, 9),
-        // pointInterval: 15 * 60 * 1000,
       },
       area: {
         stacking: 'normal',
@@ -71,20 +63,10 @@ export class ChartBigGroupedComponent implements OnInit {
         }
       }
     },
-    series: []
+    series: [{}]
   };
 
   updateGroupedChart(monthNumeric: number, yearNumeric: number) {
-    /* this.chartOptions.xAxis = [{
-      type: 'datetime',
-       // tickInterval: 96, //96 672
-    /!* timezone: 'Europe/Berlin',
-      pointStart: Highcharts.dateFormat('%A %d.%m.%Y %k:%M',this.csvService.datetime[100]),
-      pointInterval: 24 * 365, *!/
-     categories: this.csvService.datetime.map(date => {
-         return Highcharts.dateFormat('%A', date + 7200000); //;%A %d.%m.%Y %k:%M
-       })
-     }]*/
     if (monthNumeric === 0) {
       this.chartOptionsBigGrouped.plotOptions.series.pointStart = Date.UTC(yearNumeric, 0, 1)
       this.chartOptionsBigGrouped.plotOptions.series.pointInterval = 6 * 60 * 60 * 1000

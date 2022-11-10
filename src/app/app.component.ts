@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {CsvService} from "./service/csv.service";
-import {EnumService, Month, Year, Detail} from './service/enum.service';
+import {Detail, EnumService, Month, Year} from './service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {ChartService} from "./service/chart.service";
 import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.component";
@@ -69,6 +69,11 @@ export class AppComponent implements OnInit {
       this.updateGraph();
       this.isUpdating = false;
     }, 1000);
+    const displayBig = this.displayDetailBig;
+    this.displayDetailBig = Detail.loading;
+    setTimeout(() => {
+      this.displayDetailBig = displayBig;
+    }, 100);
   }
 
   updateGraph(): void {

@@ -30,7 +30,8 @@ export enum Year {
 export enum Detail {
   detailed = "Detailed",
   grouped = "Grouped",
-  summarized = "Summarized"
+  summarized = "Summarized",
+  loading = "Loading"
 }
 
 @Injectable({

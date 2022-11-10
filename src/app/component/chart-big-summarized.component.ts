@@ -23,7 +23,6 @@ export class ChartBigSummarizedComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),2022);
-    this.updateFlagBigSummarized = true;
   }
 
   chartOptionsBigSummarized: any = {
@@ -103,14 +102,6 @@ export class ChartBigSummarizedComponent implements OnInit {
     }
 
     this.updateFlagBigSummarized = true;
-
-  /*  if (monthNumeric === 0) {
-      this.chartOptionsBig.plotOptions.series.pointStart = Date.UTC(yearNumeric, 0, 1)
-      this.chartOptionsBig.plotOptions.series.pointInterval = 6 * 60 * 60 * 1000
-    } else {
-      this.chartOptionsBig.plotOptions.series.pointStart = Date.UTC(yearNumeric, monthNumeric - 1, 1)
-      this.chartOptionsBig.plotOptions.series.pointInterval = 15 * 60 * 1000
-    }*/
   }
 
 }
