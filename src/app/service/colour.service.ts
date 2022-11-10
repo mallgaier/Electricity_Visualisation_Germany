@@ -19,10 +19,10 @@ export class ColourService {
   public brownCoal =  '#058DC7';
   public hardCoal =  '#50B432';
   public otherConventional =  '#ED561B';
-  public totalDemand =  '#DDDF00'
 
   // Used for the summarization chart
-  public sumRenewables =  '#0cde22';
-  public sumConventional =  '#752e03';
+  public sumRenewables =  '#66c2a5';
+  public sumConventional =  '#8da0cb';
+    public totalDemand =  '#fc8d62'
 
 }
