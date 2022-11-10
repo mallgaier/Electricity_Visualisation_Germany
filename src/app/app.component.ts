@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
   public Detail = Detail;
   public displayMonth = Month.Aug;
   public displayYear = Year.y2022;
-  public displayDetail = Detail.detailed;
+  public displayDetailBig = Detail.detailed;
+  public displayDetailSmall = Detail.detailed;
   public collapseSecondRow = false;
 
   // Displayed values
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
   public titleBig: string | undefined;
+  public titleSmall: string | undefined;
   public subtitleBig: string | undefined;
   public isUpdating = false;
 
@@ -74,7 +76,7 @@ export class AppComponent implements OnInit {
     this.calculateNextPreviousMonth();
     this.updateTitles(this.displayYear, this.displayMonth);
 
-    switch (this.displayDetail) {
+    switch (this.displayDetailBig) {
       case Detail.detailed: this.chartBigDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       break;
       case Detail.grouped: this.chartBigGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
@@ -103,7 +105,8 @@ export class AppComponent implements OnInit {
   }
 
   updateTitles(year: Year, month: Month) {
-    this.titleBig = this.displayDetail.toString() + ' Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
+    this.titleBig = ' Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
+    this.titleSmall = ' Aggregated Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
     if (month === Month.Year) {
       this.subtitleBig = 'The data shown was averaged over a 6-hour period'
     } else {
@@ -139,11 +142,19 @@ export class AppComponent implements OnInit {
   }
 
   setDisplayDetail(value: Detail) {
-    return this.displayDetail = value;
+    return this.displayDetailBig = value;
   }
 
   changeCollapseSecondRow() {
     this.collapseSecondRow = !this.collapseSecondRow;
     this.updateFlagBig = true;
+  }
+
+  changeBigDetail(detail: Detail) {
+    this.displayDetailBig = detail;
+  }
+
+  changeSmallDetail(detail: Detail) {
+    this.displayDetailSmall = detail;
   }
 }

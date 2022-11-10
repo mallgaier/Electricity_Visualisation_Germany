@@ -17,35 +17,39 @@
     <div class="row">
       <div class="col-lg-10">
         <div class="card">
-          <h5 class="card-header">
-            {{ titleBig }}
-          </h5>
+          <h6 class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.detailed}"
+                     (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}{{displayDetailBig ===
+                Detail.detailed ? titleBig : ''}}</div>
+              </li>
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.grouped}"
+                     (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}{{displayDetailBig ===
+                Detail.grouped ? titleBig : ''}}</div>
+              </li>
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.summarized}"
+                     (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}{{displayDetailBig ===
+                Detail.summarized ? titleBig : ''}}</div>
+              </li>
+            </ul>
+          </h6>
           <div class="card-body">
-            <chart-big-detailed *ngIf="displayDetail === Detail.detailed" [displayMonth]="displayMonth"
-                                  [displayYear]="displayYear"></chart-big-detailed>
-            <chart-big-grouped *ngIf="displayDetail === Detail.grouped" [displayMonth]="displayMonth"
-                                  [displayYear]="displayYear"></chart-big-grouped>
-            <chart-big-summarized *ngIf="displayDetail === Detail.summarized" [displayMonth]="displayMonth"
-                       [displayYear]="displayYear"></chart-big-summarized>
+            <chart-big-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-big-detailed>
+            <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+                               [displayYear]="displayYear"></chart-big-grouped>
+            <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-big-summarized>
           </div>
         </div>
       </div>
       <div class="col-lg-2">
         <div class="card justify-content-center text-center d-flex">
-          <h5 class="card-header">Visualization Options</h5>
+          <h6 class="card-header">Visualization Options</h6>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <label for="select_detail">Level of Detail</label>
-              <select #selectDetail class="form-select text-center" aria-label="Default select example"
-                      [ngModel]="displayDetail"
-                      (ngModelChange)="selectDetail.value = setDisplayDetail($event)"
-                      name="selectDetail"
-                      id="select_detail">
-                <option selected [value]="Detail.detailed">{{Detail.detailed}}</option>
-                <option [value]="Detail.grouped">{{Detail.grouped}}</option>
-                <option [value]="Detail.summarized">{{Detail.summarized}}</option>
-              </select>
-            </li>
             <li class="list-group-item">
               <label for="select_year">Year</label>
               <select #selectYear class="form-select text-center" aria-label="Default select example"
@@ -116,22 +120,43 @@
     <div class="row mt-3">
       <div class="col-lg-10">
         <div class="card">
-          <div class="card-header">
-            <span class="h5">Summarized Production per Source</span>
-            <span class="float-end" (click)="changeCollapseSecondRow()">
+          <h6 class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.detailed}"
+                     (click)="changeSmallDetail(Detail.detailed)">{{ Detail.detailed }}{{displayDetailSmall ===
+                Detail.detailed ? titleSmall : ''}}</div>
+              </li>
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.grouped}"
+                     (click)="changeSmallDetail(Detail.grouped)">{{ Detail.grouped }}{{displayDetailSmall ===
+                Detail.grouped ? titleSmall : ''}}</div>
+              </li>
+              <li class="nav-item">
+                <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.summarized}"
+                     (click)="changeSmallDetail(Detail.summarized)">{{ Detail.summarized }}{{displayDetailSmall ===
+                Detail.summarized ? titleSmall : ''}}</div>
+              </li>
+            </ul>
+         <!--   <span class="float-end" (click)="changeCollapseSecondRow()">
               <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
               <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
-            </span>
-          </div>
+            </span>-->
+          </h6>
           <div *ngIf="!collapseSecondRow" class="card-body">
-            <chart-small-detailed [displayMonth]="displayMonth" [displayYear]="displayYear"></chart-small-detailed>
+            <chart-small-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-small-detailed>
+       <!--     <chart-small-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+                               [displayYear]="displayYear"></chart-small-grouped>
+            <chart-small-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-small-summarized>-->
           </div>
         </div>
       </div>
       <div class="col-lg-2">
         <div class="card">
           <div class="card-header">
-            <span class="h5">Percentage share</span>
+            <span class="h6">Percentage share</span>
             <span class="float-end" (click)="changeCollapseSecondRow()">
               <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
               <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
@@ -158,6 +183,6 @@
     </div>
   </div>
 </div>
-<footer class="footer bg-secondary text-white">
+<!--<footer class="footer bg-secondary text-white">
   <div>Data provided by the Federal Network Agency ("Bundesnetzagentur") Germany under the CC BY 4.0 licence</div>
-</footer>
+</footer>-->
