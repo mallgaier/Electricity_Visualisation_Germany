@@ -4,7 +4,10 @@ import {CsvService} from "./service/csv.service";
 import {EnumService, Month, Year, Detail} from './service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {ChartService} from "./service/chart.service";
-import {ChartSmallComponent} from "./component/chartSmall.component";
+import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.component";
+import {ChartBigDetailedComponent} from "./component/chart-big-detailed.component";
+import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
+import {ChartBigSummarizedComponent} from "./component/chart-big-summarized.component";
 
 
 @Component({
@@ -43,14 +46,18 @@ export class AppComponent implements OnInit {
   public updateFlagBig = false;
   public chartRef!: Highcharts.Chart;
 
-  @ViewChild(ChartSmallComponent) chartSmall!: ChartSmallComponent;
+  @ViewChild(ChartBigDetailedComponent) chartBigDetailedComponent!: ChartBigDetailedComponent;
+  @ViewChild(ChartBigGroupedComponent) chartBigGroupedComponent!: ChartBigGroupedComponent;
+  @ViewChild(ChartBigSummarizedComponent) chartBigSummarizedComponent!: ChartBigSummarizedComponent;
+
+  @ViewChild(ChartSmallDetailedComponent) chartSmallDetailedComponent!: ChartSmallDetailedComponent;
 
 
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService) {
   }
 
   ngOnInit(): void {
-    // this.updateVisualization();
+    this.updateVisualization();
   }
 
   async updateVisualization(): Promise<void> {
@@ -58,7 +65,6 @@ export class AppComponent implements OnInit {
     await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
       this.updateGraph();
-      this.chartSmall.updateChartSmall();
       this.isUpdating = false;
     }, 1000);
   }
@@ -69,14 +75,14 @@ export class AppComponent implements OnInit {
     this.updateTitles(this.displayYear, this.displayMonth);
 
     switch (this.displayDetail) {
-      case Detail.detailed: this.chartService.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      case Detail.detailed: this.chartBigDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       break;
-      case Detail.grouped: this.chartService.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      case Detail.grouped: this.chartBigGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       break;
-      case Detail.summarized: this.chartService.updateSummarizedChart();
+      case Detail.summarized: this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       break;
     }
-    this.updateFlagBig = true;
+    this.chartSmallDetailedComponent.updateSmallDetailedChart();
   }
 
   calculatePercentageConventionalRenewable() {

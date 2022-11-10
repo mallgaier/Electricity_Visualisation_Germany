@@ -6,14 +6,14 @@ import {CsvService} from "../service/csv.service";
 import {ColourService} from "../service/colour.service";
 
 @Component({
-  selector: 'chart-big',
-  templateUrl: './chartBig.component.html',
+  selector: 'chart-big-summarized',
+  templateUrl: './chart-big-summarized.component.html',
 })
-export class ChartBigComponent implements OnInit {
+export class ChartBigSummarizedComponent implements OnInit {
 
   // Chart
-  highchartBig: typeof Highcharts = Highcharts;
-  public updateFlagBig = false;
+  highchartBigSummarized: typeof Highcharts = Highcharts;
+  public updateFlagBigSummarized = false;
   public chartRef!: Highcharts.Chart;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
@@ -23,10 +23,10 @@ export class ChartBigComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),2022);
-    this.updateFlagBig = true;
+    this.updateFlagBigSummarized = true;
   }
 
-  chartOptionsBig: any = {
+  chartOptionsBigSummarized: any = {
     chart: {
       type: 'area',
       zoomType: 'x',
@@ -79,28 +79,30 @@ export class ChartBigComponent implements OnInit {
   };
 
   updateSummarizedChart(monthNumeric: number, yearNumeric: number) {
-    this.chartOptionsBig.colors = [
+    this.chartOptionsBigSummarized.colors = [
       this.colourService.sumRenewables,
       this.colourService.sumConventional,
       this.colourService.totalDemand
     ]
-    this.chartOptionsBig.plotOptions.series = {
+    this.chartOptionsBigSummarized.plotOptions.series = {
       pointStart: Date.UTC(yearNumeric, monthNumeric - 1, 1),
       pointInterval: 15 * 60 * 1000,
     }
-    this.chartOptionsBig.series[0] = {
+    this.chartOptionsBigSummarized.series[0] = {
       name: 'Sum Renewables',
       data: this.csvService.sumRenewable
     }
-    this.chartOptionsBig.series[1] = {
+    this.chartOptionsBigSummarized.series[1] = {
       name: 'Sum Conventional',
       data: this.csvService.sumConventional
     }
-    this.chartOptionsBig.series[2] = {
+    this.chartOptionsBigSummarized.series[2] = {
       name: 'total Grid load',
       type: 'line',
       data: this.csvService.totalGridLoad
     }
+
+    this.updateFlagBigSummarized = true;
 
   /*  if (monthNumeric === 0) {
       this.chartOptionsBig.plotOptions.series.pointStart = Date.UTC(yearNumeric, 0, 1)

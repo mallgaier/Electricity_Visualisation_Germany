@@ -51,13 +51,13 @@ export class CsvService {
             this.windOffshore.push(Number(row[3]));
             this.windOnshore.push(Number(row[4]));
             this.photovoltaics.push(Number(row[5]));
-            this.otherRenewable.push(Number(row[6]));
+            //this.otherRenewable.push(Number(row[6]));
             this.nuclear.push(Number(row[7]));
             this.brownCcoal.push(Number(row[8]));
             this.hardCoal.push(Number(row[9]));
             this.fossilGas.push(Number(row[10]));
             this.hydroPumpedStorage.push(Number(row[11]));
-            this.otherConventional.push(Number(row[12]));
+            this.otherConventional.push(Number(row[6]) + Number(row[12]));
             this.totalGridLoad.push(Number(row[13]));
             this.residualLoad.push(Number(row[14]));
             this.reverseHydroPumpedStorage.push(Number(row[15]));

@@ -6,14 +6,18 @@ import {HighchartsChartModule} from 'highcharts-angular';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {ChartBigComponent} from "./component/chartBig.component";
-import {ChartSmallComponent} from "./component/chartSmall.component";
+import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.component";
+import { ChartBigDetailedComponent } from './component/chart-big-detailed.component';
+import {ChartBigSummarizedComponent} from "./component/chart-big-summarized.component";
+import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartBigComponent,
-    ChartSmallComponent
+    ChartBigDetailedComponent,
+    ChartBigSummarizedComponent,
+    ChartSmallDetailedComponent,
+    ChartBigGroupedComponent
   ],
   imports: [
     BrowserModule,

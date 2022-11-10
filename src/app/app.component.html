@@ -21,18 +21,12 @@
             {{ titleBig }}
           </h5>
           <div class="card-body">
-            <highcharts-chart *ngIf="displayDetail === Detail.detailed" id="bigChartContainer"
-                              style="width: 100%; height: 500px; display: inline-flex"
-                              [Highcharts]="highchartBig"
-                              [options]="chartService.chartOptions"
-                              [callbackFunction]="chartCallback"
-                              [(update)]="updateFlagBig"
-                              [oneToOne]="true">
-            </highcharts-chart>
-            <chart-big *ngIf="displayDetail === Detail.summarized" [displayMonth]="displayMonth"
-                       [displayYear]="displayYear"></chart-big>
-            <!-- , 'heightBigChartSmall' : !collapseSecondRow,
-                             'heightBigChartBig': collapseSecondRow}" -->
+            <chart-big-detailed *ngIf="displayDetail === Detail.detailed" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-big-detailed>
+            <chart-big-grouped *ngIf="displayDetail === Detail.grouped" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-big-grouped>
+            <chart-big-summarized *ngIf="displayDetail === Detail.summarized" [displayMonth]="displayMonth"
+                       [displayYear]="displayYear"></chart-big-summarized>
           </div>
         </div>
       </div>
@@ -130,7 +124,7 @@
             </span>
           </div>
           <div *ngIf="!collapseSecondRow" class="card-body">
-            <chart-small [displayMonth]="displayMonth" [displayYear]="displayYear"></chart-small>
+            <chart-small-detailed [displayMonth]="displayMonth" [displayYear]="displayYear"></chart-small-detailed>
           </div>
         </div>
       </div>
@@ -146,13 +140,13 @@
           <div *ngIf="!collapseSecondRow" class="card-body">
             <div class="card-group">
               <div class="card text-center">
-                <h6 class="card-header bg-secondary text-white">Conventional</h6>
+                <h6 class="card-header bg bg-conventional text-white">Conventional</h6>
                 <h1 class="card-body" *ngIf="!isUpdating"> {{percentageConventional}}%</h1>
                 <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
                       aria-hidden="true"></span>
               </div>
               <div class="card text-center">
-                <h6 class="card-header bg-success text-white">Renewable</h6>
+                <h6 class="card-header bg bg-renewable text-white">Renewable</h6>
                 <h1 class="card-body" *ngIf="!isUpdating"> {{percentageRenewable}}%</h1>
                 <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
                       aria-hidden="true"></span>

@@ -86,7 +86,6 @@ export class ChartService {
       this.colourService.windOnshore,
       this.colourService.biomass,
       this.colourService.hydroPower,
-      this.colourService.otherRenewables,
       this.colourService.fossilGas,
       this.colourService.nuclear,
       this.colourService.brownCoal,
@@ -126,36 +125,31 @@ export class ChartService {
       data: this.csvService.hydropower
     }
     this.chartOptions.series[6] = {
-      name: 'other Renewables',
-      type: 'area',
-      data: this.csvService.otherRenewable
-    }
-    this.chartOptions.series[7] = {
       name: 'Fossil Gas',
       type: 'area',
       data: this.csvService.fossilGas
     }
-    this.chartOptions.series[8] = {
+    this.chartOptions.series[7] = {
       name: 'Nuclear',
       type: 'area',
       data: this.csvService.nuclear
     }
-    this.chartOptions.series[9] = {
+    this.chartOptions.series[8] = {
       name: 'Brown Coal',
       type: 'area',
       data: this.csvService.brownCcoal
     }
-    this.chartOptions.series[10] = {
+    this.chartOptions.series[9] = {
       name: 'Hard Coal',
       type: 'area',
       data: this.csvService.hardCoal
     }
-    this.chartOptions.series[11] = {
-      name: 'other Conventional',
+    this.chartOptions.series[10] = {
+      name: 'Other',
       type: 'area',
       data: this.csvService.otherConventional
     }
-    this.chartOptions.series[12] = {
+    this.chartOptions.series[11] = {
       name: 'total Grid load',
       type: 'line',
       data: this.csvService.totalGridLoad

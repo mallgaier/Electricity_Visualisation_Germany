@@ -6,14 +6,14 @@ import {CsvService} from "../service/csv.service";
 import {ColourService} from "../service/colour.service";
 
 @Component({
-  selector: 'chart-small',
-  templateUrl: './chartSmall.component.html',
+  selector: 'chart-small-detailed',
+  templateUrl: './chart-small-detailed.component.html',
 })
-export class ChartSmallComponent {
+export class ChartSmallDetailedComponent {
 
   // Chart
-  highchartSmall: typeof Highcharts = Highcharts;
-  @Input() public updateFlagSmall = false;
+  highchartSmallDetailed: typeof Highcharts = Highcharts;
+  @Input() public updateFlagSmallDetailed = false;
   public chartRef!: Highcharts.Chart;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
@@ -21,12 +21,7 @@ export class ChartSmallComponent {
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
   }
 
-  updateChartSmall(): void {
-    this.updateChart();
-    this.updateFlagSmall = true;
-  }
-
-  chartOptionsSmall: any = {
+  chartOptionsSmallDetailed: any = {
     chart: {
       type: 'column',
     },
@@ -66,8 +61,8 @@ export class ChartSmallComponent {
     series: {},
   };
 
-  updateChart() {
-    this.chartOptionsSmall.series = [{
+  updateSmallDetailedChart() {
+    this.chartOptionsSmallDetailed.series = [{
       name: 'Sum: ',
       data: [{
         name: 'Hydro Pumped Storage',
@@ -93,11 +88,13 @@ export class ChartSmallComponent {
         name: 'Hydro Power',
         color: this.colourService.hydroPower,
         y: this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
-      }, {
+      },
+      /*  {
         name: 'other Renewables',
         color: this.colourService.otherConventional,
         y: this.csvService.otherRenewable.reduce((sum, current) => sum + current, 0)
-      }, {
+      },*/
+        {
         name: 'Fossil Gas',
         color: this.colourService.fossilGas,
         y: this.csvService.fossilGas.reduce((sum, current) => sum + current, 0)
@@ -114,10 +111,12 @@ export class ChartSmallComponent {
         color: this.colourService.hardCoal,
         y: this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
       }, {
-        name: 'other Conventional',
+        name: 'Other',
         color: this.colourService.otherConventional,
         y: this.csvService.otherConventional.reduce((sum, current) => sum + current, 0)
       }]
     }]
+
+    this.updateFlagSmallDetailed = true;
   }
 }
