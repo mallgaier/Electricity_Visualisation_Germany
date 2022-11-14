@@ -146,12 +146,12 @@
             </span>-->
           </h6>
           <div *ngIf="!collapseSecondRow" class="card-body" style="height: 200px">
-            <chart-small-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
+            <chart-small-detailed *ngIf="displayDetailSmall === Detail.detailed" [displayMonth]="displayMonth"
                                 [displayYear]="displayYear"></chart-small-detailed>
-       <!--     <chart-small-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+           <chart-small-grouped *ngIf="displayDetailSmall === Detail.grouped" [displayMonth]="displayMonth"
                                [displayYear]="displayYear"></chart-small-grouped>
-            <chart-small-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
-                                  [displayYear]="displayYear"></chart-small-summarized>-->
+            <chart-small-summarized *ngIf="displayDetailSmall === Detail.summarized" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-small-summarized>
           </div>
         </div>
       </div>

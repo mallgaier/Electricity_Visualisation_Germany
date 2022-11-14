@@ -10,6 +10,8 @@ import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.comp
 import { ChartBigDetailedComponent } from './component/chart-big-detailed.component';
 import {ChartBigSummarizedComponent} from "./component/chart-big-summarized.component";
 import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
+import {ChartSmallGroupedComponent} from "./component/chart-small-grouped.component";
+import {ChartSmallSummarizedComponent} from "./component/chart-small-summarized.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component"
     ChartBigDetailedComponent,
     ChartBigSummarizedComponent,
     ChartSmallDetailedComponent,
-    ChartBigGroupedComponent
+    ChartBigGroupedComponent,
+    ChartSmallGroupedComponent,
+    ChartSmallSummarizedComponent
   ],
   imports: [
     BrowserModule,

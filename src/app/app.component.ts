@@ -8,6 +8,8 @@ import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.comp
 import {ChartBigDetailedComponent} from "./component/chart-big-detailed.component";
 import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
 import {ChartBigSummarizedComponent} from "./component/chart-big-summarized.component";
+import {ChartSmallGroupedComponent} from "./component/chart-small-grouped.component";
+import {ChartSmallSummarizedComponent} from "./component/chart-small-summarized.component";
 
 
 @Component({
@@ -53,6 +55,8 @@ export class AppComponent implements OnInit {
   @ViewChild(ChartBigSummarizedComponent) chartBigSummarizedComponent!: ChartBigSummarizedComponent;
 
   @ViewChild(ChartSmallDetailedComponent) chartSmallDetailedComponent!: ChartSmallDetailedComponent;
+  @ViewChild(ChartSmallGroupedComponent) chartSmallGroupedComponent!: ChartSmallGroupedComponent;
+  @ViewChild(ChartSmallSummarizedComponent) chartSmallSummarizedComponent!: ChartSmallSummarizedComponent;
 
 
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService) {
@@ -89,7 +93,14 @@ export class AppComponent implements OnInit {
       case Detail.summarized: this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       break;
     }
-    this.chartSmallDetailedComponent.updateSmallDetailedChart();
+    switch (this.displayDetailSmall) {
+      case Detail.detailed: this.chartSmallDetailedComponent.updateSmallDetailedChart();
+        break;
+      case Detail.grouped: this.chartSmallGroupedComponent.updateSmallGroupedChart();
+        break;
+      case Detail.summarized: this.chartSmallSummarizedComponent.updateSmallSummarizedChart();
+        break;
+    }
   }
 
   calculatePercentageConventionalRenewable() {
