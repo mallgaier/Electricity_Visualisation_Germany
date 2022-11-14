@@ -118,3 +118,7 @@
   width: 200px;
   height: 200px;
 }
+
+.disabled {
+ color: black;
+}

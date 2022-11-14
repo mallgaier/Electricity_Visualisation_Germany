@@ -20,19 +20,19 @@
           <h6 class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
+                <a class="nav-link disabled" href="#">Individual Data for {{titleBig}}</a>
+              </li>
+              <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.detailed}"
-                     (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}{{displayDetailBig ===
-                Detail.detailed ? titleBig : ''}}</div>
+                     (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}</div>
               </li>
               <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.grouped}"
-                     (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}{{displayDetailBig ===
-                Detail.grouped ? titleBig : ''}}</div>
+                     (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}</div>
               </li>
               <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.summarized}"
-                     (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}{{displayDetailBig ===
-                Detail.summarized ? titleBig : ''}}</div>
+                     (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}</div>
               </li>
             </ul>
           </h6>
@@ -92,6 +92,14 @@
               </select>
             </li>
             <li class="list-group-item">
+              <label>Data Resolution</label>
+              <input *ngIf="displayMonth !== Month.Year" class="form-control text-center" type="text"
+                     placeholder="15-Minutes Interval"
+                     readonly>
+              <input *ngIf="displayMonth === Month.Year" class="form-control text-center" type="text"
+                     placeholder="6-Hour Average" readonly>
+            </li>
+            <li class="list-group-item">
               <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
               <button type="button" class="btn btn-primary" *ngIf="!isUpdating" (click)="updateVisualization()">Update
                 Visualization
@@ -125,33 +133,33 @@
           <h6 class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
+                <a class="nav-link disabled" href="#">Aggredated Data for {{titleBig}}</a>
+              </li>
+              <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.detailed}"
-                     (click)="changeSmallDetail(Detail.detailed)">{{ Detail.detailed }}{{displayDetailSmall ===
-                Detail.detailed ? titleSmall : ''}}</div>
+                     (click)="changeSmallDetail(Detail.detailed)">{{ Detail.detailed }}</div>
               </li>
               <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.grouped}"
-                     (click)="changeSmallDetail(Detail.grouped)">{{ Detail.grouped }}{{displayDetailSmall ===
-                Detail.grouped ? titleSmall : ''}}</div>
+                     (click)="changeSmallDetail(Detail.grouped)">{{ Detail.grouped }}</div>
               </li>
               <li class="nav-item">
                 <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.summarized}"
-                     (click)="changeSmallDetail(Detail.summarized)">{{ Detail.summarized }}{{displayDetailSmall ===
-                Detail.summarized ? titleSmall : ''}}</div>
+                     (click)="changeSmallDetail(Detail.summarized)">{{ Detail.summarized }}</div>
               </li>
             </ul>
-         <!--   <span class="float-end" (click)="changeCollapseSecondRow()">
-              <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
-              <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
-            </span>-->
+            <!--   <span class="float-end" (click)="changeCollapseSecondRow()">
+                 <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
+                 <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
+               </span>-->
           </h6>
           <div *ngIf="!collapseSecondRow" class="card-body" style="height: 200px">
             <chart-small-detailed *ngIf="displayDetailSmall === Detail.detailed" [displayMonth]="displayMonth"
-                                [displayYear]="displayYear"></chart-small-detailed>
-           <chart-small-grouped *ngIf="displayDetailSmall === Detail.grouped" [displayMonth]="displayMonth"
-                               [displayYear]="displayYear"></chart-small-grouped>
+                                  [displayYear]="displayYear"></chart-small-detailed>
+            <chart-small-grouped *ngIf="displayDetailSmall === Detail.grouped" [displayMonth]="displayMonth"
+                                 [displayYear]="displayYear"></chart-small-grouped>
             <chart-small-summarized *ngIf="displayDetailSmall === Detail.summarized" [displayMonth]="displayMonth"
-                                  [displayYear]="displayYear"></chart-small-summarized>
+                                    [displayYear]="displayYear"></chart-small-summarized>
           </div>
         </div>
       </div>

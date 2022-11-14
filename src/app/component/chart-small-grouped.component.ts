@@ -9,7 +9,7 @@ import {ColourService} from "../service/colour.service";
   selector: 'chart-small-grouped',
   templateUrl: './chart-small-grouped.component.html',
 })
-export class ChartSmallGroupedComponent {
+export class ChartSmallGroupedComponent implements OnInit{
 
   // Chart
   highchartSmallGrouped: typeof Highcharts = Highcharts;
@@ -19,6 +19,10 @@ export class ChartSmallGroupedComponent {
   @Input() public displayYear = Year as any;
 
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
+  }
+
+  ngOnInit() {
+    this.updateSmallGroupedChart();
   }
 
   chartOptionsSmallGrouped: any = {
@@ -65,36 +69,22 @@ export class ChartSmallGroupedComponent {
     this.chartOptionsSmallGrouped.series = [{
       name: 'Sum: ',
       data: [{
-        name: 'Hydro Pumped Storage',
+        name: 'Water',
         color: this.colourService.hydroPumpedStorage,
-        y: this.csvService.hydroPumpedStorage.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.hydroPumpedStorage.reduce((sum, current) => sum + current, 0) + this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Photovoltaics',
         color: this.colourService.photovoltaics,
         y: this.csvService.photovoltaics.reduce((sum, current) => sum + current, 0)
       }, {
-        name: 'Wind Offshore',
+        name: 'Wind',
         color: this.colourService.windOffshore,
-        y: this.csvService.windOffshore.reduce((sum, current) => sum + current, 0)
-      }, {
-        name: 'Wind Onshore',
-        color: this.colourService.windOnshore,
-        y: this.csvService.windOnshore.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.windOffshore.reduce((sum, current) => sum + current, 0) + this.csvService.windOnshore.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Biomass',
         color: this.colourService.biomass,
         y: this.csvService.biomass.reduce((sum, current) => sum + current, 0)
       }, {
-        name: 'Hydro Power',
-        color: this.colourService.hydroPower,
-        y: this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
-      },
-      /*  {
-        name: 'other Renewables',
-        color: this.colourService.otherConventional,
-        y: this.csvService.otherRenewable.reduce((sum, current) => sum + current, 0)
-      },*/
-        {
         name: 'Fossil Gas',
         color: this.colourService.fossilGas,
         y: this.csvService.fossilGas.reduce((sum, current) => sum + current, 0)
@@ -103,13 +93,9 @@ export class ChartSmallGroupedComponent {
         color: this.colourService.nuclear,
         y: this.csvService.nuclear.reduce((sum, current) => sum + current, 0)
       }, {
-        name: 'Brown Coal',
+        name: 'Coal',
         color: this.colourService.brownCoal,
-        y: this.csvService.brownCcoal.reduce((sum, current) => sum + current, 0)
-      }, {
-        name: 'Hard Coal',
-        color: this.colourService.hardCoal,
-        y: this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.brownCcoal.reduce((sum, current) => sum + current, 0) + this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Other',
         color: this.colourService.otherConventional,

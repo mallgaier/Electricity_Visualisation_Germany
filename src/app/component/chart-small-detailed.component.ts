@@ -9,7 +9,7 @@ import {ColourService} from "../service/colour.service";
   selector: 'chart-small-detailed',
   templateUrl: './chart-small-detailed.component.html',
 })
-export class ChartSmallDetailedComponent {
+export class ChartSmallDetailedComponent implements OnInit {
 
   // Chart
   highchartSmallDetailed: typeof Highcharts = Highcharts;
@@ -19,6 +19,10 @@ export class ChartSmallDetailedComponent {
   @Input() public displayYear = Year as any;
 
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
+  }
+
+  ngOnInit(): void {
+    this.updateSmallDetailedChart();
   }
 
   chartOptionsSmallDetailed: any = {

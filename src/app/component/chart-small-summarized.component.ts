@@ -9,7 +9,7 @@ import {ColourService} from "../service/colour.service";
   selector: 'chart-small-summarized',
   templateUrl: './chart-small-summarized.component.html',
 })
-export class ChartSmallSummarizedComponent {
+export class ChartSmallSummarizedComponent implements OnInit {
 
   // Chart
   highchartSmallSummarized: typeof Highcharts = Highcharts;
@@ -21,9 +21,13 @@ export class ChartSmallSummarizedComponent {
   constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
   }
 
+  ngOnInit() {
+    this.updateSmallSummarizedChart();
+  }
+
   chartOptionsSmallSummarized: any = {
     chart: {
-      type: 'column',
+      type: 'bar',
     },
     xAxis: {
       categories:[],
@@ -65,7 +69,7 @@ export class ChartSmallSummarizedComponent {
     this.chartOptionsSmallSummarized.series = [{
       name: 'Sum: ',
       data: [{
-        name: 'Fossil',
+        name: 'Conventional',
         color: this.colourService.sumConventional,
         y: this.csvService.sumConventional.reduce((sum, current) => sum + current, 0)
       }, {

@@ -84,21 +84,30 @@ export class AppComponent implements OnInit {
     this.calculatePercentageConventionalRenewable();
     this.calculateNextPreviousMonth();
     this.updateTitles(this.displayYear, this.displayMonth);
+    this.updateDiagrams();
+  }
 
+  updateDiagrams(): void {
     switch (this.displayDetailBig) {
-      case Detail.detailed: this.chartBigDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
-      break;
-      case Detail.grouped: this.chartBigGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
-      break;
-      case Detail.summarized: this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
-      break;
+      case Detail.detailed:
+        this.chartBigDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        break;
+      case Detail.grouped:
+        this.chartBigGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        break;
+      case Detail.summarized:
+        this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        break;
     }
     switch (this.displayDetailSmall) {
-      case Detail.detailed: this.chartSmallDetailedComponent.updateSmallDetailedChart();
+      case Detail.detailed:
+        this.chartSmallDetailedComponent.updateSmallDetailedChart();
         break;
-      case Detail.grouped: this.chartSmallGroupedComponent.updateSmallGroupedChart();
+      case Detail.grouped:
+        this.chartSmallGroupedComponent.updateSmallGroupedChart();
         break;
-      case Detail.summarized: this.chartSmallSummarizedComponent.updateSmallSummarizedChart();
+      case Detail.summarized:
+        this.chartSmallSummarizedComponent.updateSmallSummarizedChart();
         break;
     }
   }
@@ -121,8 +130,8 @@ export class AppComponent implements OnInit {
   }
 
   updateTitles(year: Year, month: Month) {
-    this.titleBig = ' Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
-    this.titleSmall = ' Aggregated Electricity Production in ' + (month === Month.Year ? '' : month + ' ') + year;
+    this.titleBig = (month === Month.Year ? '' : month + ' ') + year;
+    this.titleSmall = (month === Month.Year ? '' : month + ' ') + year;
     if (month === Month.Year) {
       this.subtitleBig = 'The data shown was averaged over a 6-hour period'
     } else {
@@ -168,9 +177,11 @@ export class AppComponent implements OnInit {
 
   changeBigDetail(detail: Detail) {
     this.displayDetailBig = detail;
+    this.updateDiagrams();
   }
 
   changeSmallDetail(detail: Detail) {
     this.displayDetailSmall = detail;
+    this.updateDiagrams();
   }
 }
