@@ -14,7 +14,7 @@ export class CsvService {
   public windOnshore: number[] = [];
   public photovoltaics: number[] = [];
   public otherRenewable: number[] = [];
-  public nuclear: number[] = [1];
+  public nuclear: number[] = [];
   public brownCoal: number[] = [];
   public hardCoal: number[] = [];
   public fossilGas: number[] = [];
@@ -58,6 +58,7 @@ export class CsvService {
   }
 
   async updateCSV(url: string): Promise<boolean> {
+    this.initArrays();
     this.http.get(url, {responseType: 'text'})
       .subscribe(
         data => {
@@ -124,5 +125,29 @@ export class CsvService {
     this.sumWindAggregated = this.sumWind.reduce((sum, current) => sum + current, 0);
     this.sumCoalAggregated = this.sumCoal.reduce((sum, current) => sum + current, 0);
     return true;
+  }
+
+  private initArrays(): void {
+  this.datetime = [];
+  this.biomass = [];
+  this.hydropower = [];
+  this.windOffshore = [];
+  this.windOnshore = [];
+  this.photovoltaics = [];
+  this.otherRenewable = [];
+  this.nuclear = [];
+  this.brownCoal = [];
+  this.hardCoal = [];
+  this.fossilGas = [];
+  this.hydroPumpedStorage = [];
+  this.other = [];
+  this.totalGridLoad = [];
+  this.residualLoad = [];
+  this.reverseHydroPumpedStorage = [];
+  this.sumConventional = [];
+  this.sumRenewable = [];
+  this.hydroPowerSummed = [];
+  this.sumWind = [];
+  this.sumCoal = [];
   }
 }
