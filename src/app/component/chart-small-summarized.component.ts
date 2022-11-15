@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year, Detail} from '../service/enum.service';
-import {ChartService} from "../service/chart.service";
+import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColourService} from "../service/colour.service";
 
@@ -18,7 +17,7 @@ export class ChartSmallSummarizedComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
   }
 
   ngOnInit() {

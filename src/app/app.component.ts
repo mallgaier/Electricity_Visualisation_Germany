@@ -3,7 +3,6 @@ import * as Highcharts from 'highcharts';
 import {CsvService} from "./service/csv.service";
 import {Detail, EnumService, Month, Year} from './service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
-import {ChartService} from "./service/chart.service";
 import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.component";
 import {ChartBigDetailedComponent} from "./component/chart-big-detailed.component";
 import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit {
   @ViewChild(ChartSmallSummarizedComponent) chartSmallSummarizedComponent!: ChartSmallSummarizedComponent;
 
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService) {
+  constructor(public csvService: CsvService, public enumService: EnumService) {
   }
 
   ngOnInit(): void {
@@ -68,15 +67,18 @@ export class AppComponent implements OnInit {
 
   async updateVisualization(): Promise<void> {
     this.isUpdating = true;
-    await this.csvService.initCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+    await this.csvService.updateCSVAndAggregatedValues(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
       this.updateGraph();
       this.isUpdating = false;
     }, 1000);
     const displayBig = this.displayDetailBig;
+    const displaySmall = this.displayDetailSmall;
     this.displayDetailBig = Detail.loading;
+    this.displayDetailSmall = Detail.loading;
     setTimeout(() => {
       this.displayDetailBig = displayBig;
+      this.displayDetailSmall = displaySmall;
     }, 100);
   }
 
@@ -116,7 +118,6 @@ export class AppComponent implements OnInit {
     const sumConventional = this.csvService.sumConventional.reduce((partialSum, a) => partialSum + a, 0);
     const sumRenewable = this.csvService.sumRenewable.reduce((partialSum, a) => partialSum + a, 0);
     this.percentageConventional = Math.round(sumConventional / (sumRenewable + sumConventional) * 100);
-    this.percentageRenewable = Math.round(sumRenewable / (sumRenewable + sumConventional) * 100);
   }
 
   calculateNextPreviousMonth() {
@@ -177,11 +178,9 @@ export class AppComponent implements OnInit {
 
   changeBigDetail(detail: Detail) {
     this.displayDetailBig = detail;
-    this.updateDiagrams();
   }
 
   changeSmallDetail(detail: Detail) {
     this.displayDetailSmall = detail;
-    this.updateDiagrams();
   }
 }

@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year, Detail} from '../service/enum.service';
-import {ChartService} from "../service/chart.service";
+import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColourService} from "../service/colour.service";
 
@@ -18,7 +17,7 @@ export class ChartSmallGroupedComponent implements OnInit{
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public chartService: ChartService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
   }
 
   ngOnInit() {
@@ -69,9 +68,9 @@ export class ChartSmallGroupedComponent implements OnInit{
     this.chartOptionsSmallGrouped.series = [{
       name: 'Sum: ',
       data: [{
-        name: 'Water',
+        name: 'Hydro Power',
         color: this.colourService.hydroPumpedStorage,
-        y: this.csvService.hydroPumpedStorage.reduce((sum, current) => sum + current, 0) + this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.hydroPowerSummed.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Photovoltaics',
         color: this.colourService.photovoltaics,
@@ -79,7 +78,7 @@ export class ChartSmallGroupedComponent implements OnInit{
       }, {
         name: 'Wind',
         color: this.colourService.windOffshore,
-        y: this.csvService.windOffshore.reduce((sum, current) => sum + current, 0) + this.csvService.windOnshore.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.sumWind.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Biomass',
         color: this.colourService.biomass,
@@ -95,11 +94,11 @@ export class ChartSmallGroupedComponent implements OnInit{
       }, {
         name: 'Coal',
         color: this.colourService.brownCoal,
-        y: this.csvService.brownCcoal.reduce((sum, current) => sum + current, 0) + this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.sumCoal.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Other',
-        color: this.colourService.otherConventional,
-        y: this.csvService.otherConventional.reduce((sum, current) => sum + current, 0)
+        color: this.colourService.other,
+        y: this.csvService.other.reduce((sum, current) => sum + current, 0)
       }]
     }]
 

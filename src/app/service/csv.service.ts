@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CsvService {
 
+  //Time-series arrays
   public datetime: string[] = [];
   public biomass: number[] = [];
   public hydropower: number[] = [];
@@ -14,23 +15,49 @@ export class CsvService {
   public photovoltaics: number[] = [];
   public otherRenewable: number[] = [];
   public nuclear: number[] = [1];
-  public brownCcoal: number[] = [];
+  public brownCoal: number[] = [];
   public hardCoal: number[] = [];
   public fossilGas: number[] = [];
   public hydroPumpedStorage: number[] = [];
-  public otherConventional: number[] = [];
+  public other: number[] = [];
   public totalGridLoad: number[] = [];
   public residualLoad: number[] = [];
   public reverseHydroPumpedStorage: number[] = [];
   public sumConventional: number[] = [];
   public sumRenewable: number[] = [];
+  public hydroPowerSummed: number[] = [];
+  public sumWind: number[] = [];
+  public sumCoal: number[] = [];
 
+  //Aggregated values
+  public biomassAggregated = 0;
+  public hydropowerAggregated = 0;
+  public windOffshoreAggregated = 0;
+  public windOnshoreAggregated = 0;
+  public photovoltaicsAggregated = 0;
+  public nuclearAggregated  = 0;
+  public brownCoalAggregated = 0;
+  public hardCoalAggregated = 0;
+  public fossilGasAggregated = 0;
+  public hydroPumpedStorageAggregated = 0;
+  public otherAggregated = 0;
+  public totalGridLoadAggregated = 0;
+  public residualLoadAggregated = 0;
+  public reverseHydroPumpedStorageAggregated = 0;
+  public sumConventionalAggregated = 0;
+  public sumRenewableAggregated = 0;
+  public sumHydroPowerAggregated = 0;
+  public sumWindAggregated = 0;
+  public sumCoalAggregated = 0;
 
   constructor(private http: HttpClient) {
   }
 
-  async initCSV(url: string): Promise<boolean> {
-    this.initArrays();
+  async updateCSVAndAggregatedValues(url: string): Promise<boolean> {
+    return this.updateCSV(url).then(() => this.updateAggregatedValues(), () => false);
+  }
+
+  async updateCSV(url: string): Promise<boolean> {
     this.http.get(url, {responseType: 'text'})
       .subscribe(
         data => {
@@ -51,18 +78,21 @@ export class CsvService {
             this.windOffshore.push(Number(row[3]));
             this.windOnshore.push(Number(row[4]));
             this.photovoltaics.push(Number(row[5]));
-            //this.otherRenewable.push(Number(row[6]));
             this.nuclear.push(Number(row[7]));
-            this.brownCcoal.push(Number(row[8]));
+            this.brownCoal.push(Number(row[8]));
             this.hardCoal.push(Number(row[9]));
             this.fossilGas.push(Number(row[10]));
             this.hydroPumpedStorage.push(Number(row[11]));
-            this.otherConventional.push(Number(row[6]) + Number(row[12]));
+            this.other.push(Number(row[6]) + Number(row[12]));
             this.totalGridLoad.push(Number(row[13]));
             this.residualLoad.push(Number(row[14]));
             this.reverseHydroPumpedStorage.push(Number(row[15]));
             this.sumConventional.push(Number(row[16]));
             this.sumRenewable.push(Number(row[17]));
+            this.hydroPowerSummed.push(Number(row[2]) + Number(row[11]));
+            this.sumWind.push(Number(row[3]) + Number(row[4]));
+            this.sumCoal.push(Number(row[8]) + Number(row[9]));
+
           }
         },
         error => {
@@ -73,24 +103,26 @@ export class CsvService {
     return true;
   }
 
-  private initArrays() {
-    this.datetime = [];
-    this.biomass = [];
-    this.hydropower = [];
-    this.windOffshore = [];
-    this.windOnshore = [];
-    this.photovoltaics = [];
-    this.otherRenewable = [];
-    this.nuclear = [1];
-    this.brownCcoal = [];
-    this.hardCoal = [];
-    this.fossilGas = [];
-    this.hydroPumpedStorage = [];
-    this.otherConventional = [];
-    this.totalGridLoad = [];
-    this.residualLoad = [];
-    this.reverseHydroPumpedStorage = [];
-    this.sumConventional = [];
-    this.sumRenewable = [];
+  async updateAggregatedValues(): Promise<boolean> {
+    this.biomassAggregated = this.biomass.reduce((sum, current) => sum + current, 0);
+    this.hydropowerAggregated = this.hydropower.reduce((sum, current) => sum + current, 0);
+    this.windOffshoreAggregated = this.windOffshore.reduce((sum, current) => sum + current, 0);
+    this.windOnshoreAggregated = this.windOnshore.reduce((sum, current) => sum + current, 0);
+    this.photovoltaicsAggregated = this.photovoltaics.reduce((sum, current) => sum + current, 0);
+    this.nuclearAggregated  = this.nuclear.reduce((sum, current) => sum + current, 0);
+    this.brownCoalAggregated = this.brownCoal.reduce((sum, current) => sum + current, 0);
+    this.hardCoalAggregated = this.hardCoal.reduce((sum, current) => sum + current, 0);
+    this.fossilGasAggregated = this.fossilGas.reduce((sum, current) => sum + current, 0);
+    this.hydroPumpedStorageAggregated = this.hydroPumpedStorage.reduce((sum, current) => sum + current, 0);
+    this.otherAggregated = this.other.reduce((sum, current) => sum + current, 0);
+    this.totalGridLoadAggregated = this.totalGridLoad.reduce((sum, current) => sum + current, 0);
+    // this.residualLoadAggregated = this.residualLoad.reduce((sum, current) => sum + current, 0);
+    // this.reverseHydroPumpedStorageAggregated = this.reverseHydroPumpedStorage.reduce((sum, current) => sum + current, 0);
+    this.sumConventionalAggregated = this.sumConventional.reduce((sum, current) => sum + current, 0);
+    this.sumRenewableAggregated = this.sumRenewable.reduce((sum, current) => sum + current, 0);
+    this.sumHydroPowerAggregated = this.hydroPowerSummed.reduce((sum, current) => sum + current, 0);
+    this.sumWindAggregated = this.sumWind.reduce((sum, current) => sum + current, 0);
+    this.sumCoalAggregated = this.sumCoal.reduce((sum, current) => sum + current, 0);
+    return true;
   }
 }
