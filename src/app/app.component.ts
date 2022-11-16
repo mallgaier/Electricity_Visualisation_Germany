@@ -5,6 +5,8 @@ enum Tab {
   dashboard = "Dashboard",
   timeComparison = "Timeline Comparison",
   sourceComparison = "Source Comparison",
+  priceGeneration ="Price and Generation",
+  priceExport = "Price and Export"
 }
 
 @Component({
@@ -15,7 +17,7 @@ enum Tab {
 export class AppComponent implements OnInit {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.timeComparison;
+  public tabSelected = Tab.priceExport;
   public Tab = Tab;
 
   constructor() {}

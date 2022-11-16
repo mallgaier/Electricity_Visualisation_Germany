@@ -28,6 +28,10 @@ export class CsvService {
   public hydroPowerSummed: number[] = [];
   public sumWind: number[] = [];
   public sumCoal: number[] = [];
+  public dayAheadPrice: number[] = [];
+  public dayAheadNeighbourPrice: number[] = [];
+  public netExport: number[] = [];
+  public deltaPrice: number[] = [];
 
   //Aggregated values
   public biomassAggregated = 0;
@@ -35,7 +39,7 @@ export class CsvService {
   public windOffshoreAggregated = 0;
   public windOnshoreAggregated = 0;
   public photovoltaicsAggregated = 0;
-  public nuclearAggregated  = 0;
+  public nuclearAggregated = 0;
   public brownCoalAggregated = 0;
   public hardCoalAggregated = 0;
   public fossilGasAggregated = 0;
@@ -93,6 +97,10 @@ export class CsvService {
             this.hydroPowerSummed.push(Number(row[2]) + Number(row[11]));
             this.sumWind.push(Number(row[3]) + Number(row[4]));
             this.sumCoal.push(Number(row[8]) + Number(row[9]));
+            this.dayAheadPrice.push(Number(row[18]));
+            this.dayAheadNeighbourPrice.push(Number(row[19]));
+            this.netExport.push(Number(row[20]));
+            this.deltaPrice.push(Number(row[18]) - Number(row[19]));
 
           }
         },
@@ -110,7 +118,7 @@ export class CsvService {
     this.windOffshoreAggregated = this.windOffshore.reduce((sum, current) => sum + current, 0);
     this.windOnshoreAggregated = this.windOnshore.reduce((sum, current) => sum + current, 0);
     this.photovoltaicsAggregated = this.photovoltaics.reduce((sum, current) => sum + current, 0);
-    this.nuclearAggregated  = this.nuclear.reduce((sum, current) => sum + current, 0);
+    this.nuclearAggregated = this.nuclear.reduce((sum, current) => sum + current, 0);
     this.brownCoalAggregated = this.brownCoal.reduce((sum, current) => sum + current, 0);
     this.hardCoalAggregated = this.hardCoal.reduce((sum, current) => sum + current, 0);
     this.fossilGasAggregated = this.fossilGas.reduce((sum, current) => sum + current, 0);
@@ -128,26 +136,30 @@ export class CsvService {
   }
 
   private initArrays(): void {
-  this.datetime = [];
-  this.biomass = [];
-  this.hydropower = [];
-  this.windOffshore = [];
-  this.windOnshore = [];
-  this.photovoltaics = [];
-  this.otherRenewable = [];
-  this.nuclear = [];
-  this.brownCoal = [];
-  this.hardCoal = [];
-  this.fossilGas = [];
-  this.hydroPumpedStorage = [];
-  this.other = [];
-  this.totalGridLoad = [];
-  this.residualLoad = [];
-  this.reverseHydroPumpedStorage = [];
-  this.sumConventional = [];
-  this.sumRenewable = [];
-  this.hydroPowerSummed = [];
-  this.sumWind = [];
-  this.sumCoal = [];
+    this.datetime = [];
+    this.biomass = [];
+    this.hydropower = [];
+    this.windOffshore = [];
+    this.windOnshore = [];
+    this.photovoltaics = [];
+    this.otherRenewable = [];
+    this.nuclear = [];
+    this.brownCoal = [];
+    this.hardCoal = [];
+    this.fossilGas = [];
+    this.hydroPumpedStorage = [];
+    this.other = [];
+    this.totalGridLoad = [];
+    this.residualLoad = [];
+    this.reverseHydroPumpedStorage = [];
+    this.sumConventional = [];
+    this.sumRenewable = [];
+    this.hydroPowerSummed = [];
+    this.sumWind = [];
+    this.sumCoal = [];
+    this.dayAheadPrice = [];
+    this.dayAheadNeighbourPrice = [];
+    this.netExport = [];
+    this.deltaPrice = [];
   }
 }

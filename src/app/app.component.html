@@ -13,6 +13,14 @@
       <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.sourceComparison}"
            (click)="changeTab(Tab.sourceComparison)">{{ Tab.sourceComparison }}</div>
     </li>
+    <li class="nav-item">
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.priceGeneration}"
+           (click)="changeTab(Tab.priceGeneration)">{{ Tab.priceGeneration }}</div>
+    </li>
+    <li class="nav-item">
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.priceExport}"
+           (click)="changeTab(Tab.priceExport)">{{ Tab.priceExport }}</div>
+    </li>
   </ul>
   <div class="spacer"></div>
   <div>{{version}}</div>
@@ -30,6 +38,8 @@
 <div class="content">
   <dashboard *ngIf="tabSelected === Tab.dashboard"></dashboard>
   <comparison *ngIf="tabSelected === Tab.timeComparison"></comparison>
+  <priceGeneration *ngIf="tabSelected === Tab.priceGeneration"></priceGeneration>
+  <priceExport *ngIf="tabSelected === Tab.priceExport"></priceExport>
 </div>
 <!--<footer class="footer bg-secondary text-white">
   <div>Data provided by the Federal Network Agency ("Bundesnetzagentur") Germany under the CC BY 4.0 licence</div>

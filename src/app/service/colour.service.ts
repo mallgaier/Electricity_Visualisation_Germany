@@ -24,6 +24,9 @@ export class ColourService {
   // Used for the summarization chart
   public sumRenewables =  '#66c2a5';
   public sumConventional =  '#8da0cb';
-  public totalGridLoad =  '#fc8d62'
+  public totalGridLoad =  '#fc8d62';
 
+  public dayAheadPrice = '#a80000';
+  public netExport = '#5a5a5a';
+  public dayAheadNeighbourPrice = '#5500AA';
 }
