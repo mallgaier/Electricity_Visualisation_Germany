@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
   public titleSmall: string | undefined;
   public subtitleBig: string | undefined;
   public isUpdating = false;
-  public version = 'v 0.1.1';
 
   // Icons
   public faArrowRight = faArrowRight;
@@ -86,6 +85,7 @@ export class AppComponent implements OnInit {
   updateGraph(): void {
     this.calculatePercentageConventionalRenewable();
     this.calculateNextPreviousMonth();
+    this.updateTitles(this.displayYear, this.displayMonth);
     this.updateDiagrams();
   }
 
@@ -127,6 +127,16 @@ export class AppComponent implements OnInit {
     } else {
       this.previousMonth = this.enumService.getPreviousMonthAsString(this.displayMonth, this.displayYear);
       this.nextMonth = this.enumService.getNextMonthAsString(this.displayMonth, this.displayYear);
+    }
+  }
+
+  updateTitles(year: Year, month: Month) {
+    this.titleBig = (month === Month.Year ? '' : month + ' ') + year;
+    this.titleSmall = (month === Month.Year ? '' : month + ' ') + year;
+    if (month === Month.Year) {
+      this.subtitleBig = 'The data shown was averaged over a 6-hour period'
+    } else {
+      this.subtitleBig = 'The data shown was recorded at 15min intervals';
     }
   }
 
