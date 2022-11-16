@@ -2,12 +2,16 @@
   <h4 class="ms-2 me-4">Electricity Generation in Germany</h4>
   <ul class="nav nav-pills">
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.Visualization}"
-           (click)="changeTab(Tab.Visualization)">{{ Tab.Visualization }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.dashboard}"
+           (click)="changeTab(Tab.dashboard)">{{ Tab.dashboard }}</div>
     </li>
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.Comparison}"
-           (click)="changeTab(Tab.Comparison)">{{ Tab.Comparison }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.timeComparison}"
+           (click)="changeTab(Tab.timeComparison)">{{ Tab.timeComparison }}</div>
+    </li>
+    <li class="nav-item">
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.sourceComparison}"
+           (click)="changeTab(Tab.sourceComparison)">{{ Tab.sourceComparison }}</div>
     </li>
   </ul>
   <div class="spacer"></div>
@@ -24,8 +28,8 @@
 </div>
 
 <div class="content">
-  <dashboard *ngIf="tabSelected === Tab.Visualization"></dashboard>
-  <comparison *ngIf="tabSelected === Tab.Comparison"></comparison>
+  <dashboard *ngIf="tabSelected === Tab.dashboard"></dashboard>
+  <comparison *ngIf="tabSelected === Tab.timeComparison"></comparison>
 </div>
 <!--<footer class="footer bg-secondary text-white">
   <div>Data provided by the Federal Network Agency ("Bundesnetzagentur") Germany under the CC BY 4.0 licence</div>

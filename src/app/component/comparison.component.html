@@ -123,10 +123,10 @@
         <div class="card-body" style="height: 325px">
           <chart-big-second-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth2"
                               [displayYear]="displayYear2"></chart-big-second-detailed>
-          <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
-                             [displayYear]="displayYear"></chart-big-grouped>
-          <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
-                                [displayYear]="displayYear"></chart-big-summarized>
+          <chart-big-second-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth2"
+                             [displayYear]="displayYear2"></chart-big-second-grouped>
+          <chart-big-second-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth2"
+                                [displayYear]="displayYear2"></chart-big-second-summarized>
           <h4 *ngIf="displayDetailBig === Detail.loading"
               class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
         </div>

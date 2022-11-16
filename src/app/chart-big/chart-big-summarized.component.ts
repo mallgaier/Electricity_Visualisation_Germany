@@ -21,7 +21,7 @@ export class ChartBigSummarizedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),2022);
+    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
   }
 
   chartOptionsBigSummarized: any = {

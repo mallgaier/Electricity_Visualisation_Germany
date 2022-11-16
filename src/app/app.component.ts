@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import packageJson from "../../package.json";
 
 enum Tab {
-  Visualization = "Visualization",
-  Comparison = "Comparison",
+  dashboard = "Dashboard",
+  timeComparison = "Timeline Comparison",
+  sourceComparison = "Source Comparison",
 }
 
 @Component({
@@ -14,7 +15,7 @@ enum Tab {
 export class AppComponent implements OnInit {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.Visualization;
+  public tabSelected = Tab.dashboard;
   public Tab = Tab;
 
   constructor() {}

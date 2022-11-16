@@ -6,15 +6,17 @@ import {HighchartsChartModule} from 'highcharts-angular';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {ChartSmallDetailedComponent} from "./charts/chart-small-detailed.component";
-import { ChartBigDetailedComponent } from './charts/chart-big-detailed.component';
-import {ChartBigSummarizedComponent} from "./charts/chart-big-summarized.component";
-import {ChartBigGroupedComponent} from "./charts/chart-big-grouped.component";
-import {ChartSmallGroupedComponent} from "./charts/chart-small-grouped.component";
-import {ChartSmallSummarizedComponent} from "./charts/chart-small-summarized.component";
+import {ChartSmallDetailedComponent} from "./charts-small/chart-small-detailed.component";
+import { ChartBigDetailedComponent } from './chart-big/chart-big-detailed.component';
+import {ChartBigSummarizedComponent} from "./chart-big/chart-big-summarized.component";
+import {ChartBigGroupedComponent} from "./chart-big/chart-big-grouped.component";
+import {ChartSmallGroupedComponent} from "./charts-small/chart-small-grouped.component";
+import {ChartSmallSummarizedComponent} from "./charts-small/chart-small-summarized.component";
 import {DashboardComponent} from "./component/dashboard.component";
 import {ComparisonComponent} from "./component/comparison.component";
-import {ChartBigSecondDetailedComponent} from "./charts/chart-big-second-detailed.component";
+import {ChartBigSecondDetailedComponent} from "./chart-big-second/chart-big-second-detailed.component";
+import {ChartBigSecondGroupedComponent} from "./chart-big-second/chart-big-second-grouped.component";
+import {ChartBigSecondSummarizedComponent} from "./chart-big-second/chart-big-second-summarized.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {ChartBigSecondDetailedComponent} from "./charts/chart-big-second-detaile
     ChartSmallSummarizedComponent,
     DashboardComponent,
     ComparisonComponent,
-    ChartBigSecondDetailedComponent
+    ChartBigSecondDetailedComponent,
+    ChartBigSecondGroupedComponent,
+    ChartBigSecondSummarizedComponent
   ],
   imports: [
     BrowserModule,

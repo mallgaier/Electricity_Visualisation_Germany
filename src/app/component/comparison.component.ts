@@ -3,13 +3,13 @@ import * as Highcharts from 'highcharts';
 import {CsvService} from "../service/csv.service";
 import {Detail, EnumService, Month, Year} from '../service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
-import {ChartSmallDetailedComponent} from "../charts/chart-small-detailed.component";
-import {ChartBigDetailedComponent} from "../charts/chart-big-detailed.component";
-import {ChartBigGroupedComponent} from "../charts/chart-big-grouped.component";
-import {ChartBigSummarizedComponent} from "../charts/chart-big-summarized.component";
-import {ChartSmallGroupedComponent} from "../charts/chart-small-grouped.component";
-import {ChartSmallSummarizedComponent} from "../charts/chart-small-summarized.component";
-import {ChartBigSecondDetailedComponent} from "../charts/chart-big-second-detailed.component";
+import {ChartSmallDetailedComponent} from "../charts-small/chart-small-detailed.component";
+import {ChartBigDetailedComponent} from "../chart-big/chart-big-detailed.component";
+import {ChartBigGroupedComponent} from "../chart-big/chart-big-grouped.component";
+import {ChartBigSummarizedComponent} from "../chart-big/chart-big-summarized.component";
+import {ChartSmallGroupedComponent} from "../charts-small/chart-small-grouped.component";
+import {ChartSmallSummarizedComponent} from "../charts-small/chart-small-summarized.component";
+import {ChartBigSecondDetailedComponent} from "../chart-big-second/chart-big-second-detailed.component";
 import {CsvSecondService} from "../service/csvSecond.service";
 
 
