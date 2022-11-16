@@ -1,0 +1,201 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="card">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">{{displayMonth}}  {{displayYear}}</a>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.detailed}"
+                   (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.grouped}"
+                   (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.summarized}"
+                   (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}</div>
+            </li>
+          </ul>
+        </h6>
+        <div class="card-body" style="height: 400px">
+          <chart-big-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
+                              [displayYear]="displayYear"></chart-big-detailed>
+          <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+                             [displayYear]="displayYear"></chart-big-grouped>
+          <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-big-summarized>
+          <h4 *ngIf="displayDetailBig === Detail.loading"
+              class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card justify-content-center text-center d-flex">
+        <h6 class="card-header">Visualization Options</h6>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <label for="select_year">Year</label>
+            <select #selectYear class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayYear"
+                    (ngModelChange)="selectYear.value = setDisplayYear($event)"
+                    name="selectYear"
+                    id="select_year">
+              <option selected [value]="Year.y2022">{{Year.y2022}}</option>
+              <option [value]="Year.y2021">{{Year.y2021}}</option>
+              <option [value]="Year.y2020">{{Year.y2020}}</option>
+              <option [value]="Year.y2019">{{Year.y2019}}</option>
+              <option [value]="Year.y2018">{{Year.y2018}}</option>
+              <option [value]="Year.y2017">{{Year.y2017}}</option>
+              <option [value]="Year.y2016">{{Year.y2016}}</option>
+              <option [value]="Year.y2015">{{Year.y2015}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label for="select_month">Month</label>
+            <select #selectMonth class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayMonth"
+                    (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
+                    name="selectMonth"
+                    id="select_month">
+              <option [value]="Month.Year">{{Month.Year}}</option>
+              <option [value]="Month.Jan">{{Month.Jan}}</option>
+              <option [value]="Month.Feb">{{Month.Feb}}</option>
+              <option [value]="Month.Mar">{{Month.Mar}}</option>
+              <option [value]="Month.Apr">{{Month.Apr}}</option>
+              <option [value]="Month.May">{{Month.May}}</option>
+              <option [value]="Month.Jun">{{Month.Jun}}</option>
+              <option [value]="Month.Jul">{{Month.Jul}}</option>
+              <option selected [value]="Month.Aug">{{Month.Aug}}</option>
+              <option [value]="Month.Sep">{{Month.Sep}}</option>
+              <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
+              <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
+              <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label>Data Resolution</label>
+            <input *ngIf="displayMonth !== Month.Year" class="form-control text-center" type="text"
+                   placeholder="15-Minutes Interval"
+                   readonly>
+            <input *ngIf="displayMonth === Month.Year" class="form-control text-center" type="text"
+                   placeholder="6-Hour Average" readonly>
+          </li>
+          <li class="list-group-item">
+            <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
+            <button type="button" class="btn btn-primary" *ngIf="!isUpdatingFirst" (click)="updateFirstDiagram()">Update
+              Visualization
+            </button>
+            <button *ngIf="isUpdatingFirst" class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Updating ...
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-10">
+      <div class="card">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">{{displayMonth2}}  {{displayYear2}}</a>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.detailed}"
+                   (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.grouped}"
+                   (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.summarized}"
+                   (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}</div>
+            </li>
+          </ul>
+        </h6>
+        <div class="card-body" style="height: 325px">
+          <chart-big-second-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth2"
+                              [displayYear]="displayYear2"></chart-big-second-detailed>
+          <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+                             [displayYear]="displayYear"></chart-big-grouped>
+          <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-big-summarized>
+          <h4 *ngIf="displayDetailBig === Detail.loading"
+              class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card justify-content-center text-center d-flex">
+        <h6 class="card-header">Visualization Options</h6>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <label for="select_year">Year</label>
+            <select #selectYear class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayYear2"
+                    (ngModelChange)="selectYear.value = setDisplayYear2($event)"
+                    name="selectYear2"
+                    id="select_year2">
+              <option selected [value]="Year.y2022">{{Year.y2022}}</option>
+              <option [value]="Year.y2021">{{Year.y2021}}</option>
+              <option [value]="Year.y2020">{{Year.y2020}}</option>
+              <option [value]="Year.y2019">{{Year.y2019}}</option>
+              <option [value]="Year.y2018">{{Year.y2018}}</option>
+              <option [value]="Year.y2017">{{Year.y2017}}</option>
+              <option [value]="Year.y2016">{{Year.y2016}}</option>
+              <option [value]="Year.y2015">{{Year.y2015}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label for="select_month">Month</label>
+            <select #selectMonth class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayMonth2"
+                    (ngModelChange)="selectMonth.value = setDisplayMonth2($event)"
+                    name="selectMonth2"
+                    id="select_month2">
+              <option [value]="Month.Year">{{Month.Year}}</option>
+              <option [value]="Month.Jan">{{Month.Jan}}</option>
+              <option [value]="Month.Feb">{{Month.Feb}}</option>
+              <option [value]="Month.Mar">{{Month.Mar}}</option>
+              <option [value]="Month.Apr">{{Month.Apr}}</option>
+              <option [value]="Month.May">{{Month.May}}</option>
+              <option [value]="Month.Jun">{{Month.Jun}}</option>
+              <option [value]="Month.Jul">{{Month.Jul}}</option>
+              <option selected [value]="Month.Aug">{{Month.Aug}}</option>
+              <option [value]="Month.Sep">{{Month.Sep}}</option>
+              <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
+              <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
+              <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label>Data Resolution</label>
+            <input *ngIf="displayMonth2 !== Month.Year" class="form-control text-center" type="text"
+                   placeholder="15-Minutes Interval"
+                   readonly>
+            <input *ngIf="displayMonth2 === Month.Year" class="form-control text-center" type="text"
+                   placeholder="6-Hour Average" readonly>
+          </li>
+          <li class="list-group-item">
+            <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
+            <button type="button" class="btn btn-primary" *ngIf="!isUpdatingSecond" (click)="updateSecondDiagram()">Update
+              Visualization
+            </button>
+            <button *ngIf="isUpdatingSecond" class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Updating ...
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>

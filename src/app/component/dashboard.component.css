@@ -1,0 +1,25 @@
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #9E9E9E;
+}
+
+.bg-conventional {
+  background-color: #8da0cb;
+}
+
+.bg-renewable {
+  background-color: #66c2a5;
+}
+
+.center-spinner {
+  display: block;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  margin-top: -200px; /* half of the elements height */
+  margin-right: -100px; /* half of the elements width */
+}
+
+.spinner-border-xl {
+  width: 200px;
+  height: 200px;
+}

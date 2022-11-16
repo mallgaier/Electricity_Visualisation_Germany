@@ -1,6 +1,6 @@
 {
-  "name": "da-vis-electricity-production-germany",
-  "version": "0.0.0",
+  "name": "electricity-generation-germany",
+  "version": "0.2.0",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",

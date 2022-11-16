@@ -1,0 +1,183 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="card">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Timeline Data</a>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.detailed}"
+                   (click)="changeBigDetail(Detail.detailed)">{{ Detail.detailed }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.grouped}"
+                   (click)="changeBigDetail(Detail.grouped)">{{ Detail.grouped }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailBig === Detail.summarized}"
+                   (click)="changeBigDetail(Detail.summarized)">{{ Detail.summarized }}</div>
+            </li>
+          </ul>
+        </h6>
+        <div class="card-body" style="height: 500px">
+          <chart-big-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
+                              [displayYear]="displayYear"></chart-big-detailed>
+          <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
+                             [displayYear]="displayYear"></chart-big-grouped>
+          <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-big-summarized>
+          <h4 *ngIf="displayDetailBig === Detail.loading"
+              class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card justify-content-center text-center d-flex">
+        <h6 class="card-header">Visualization Options</h6>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <label for="select_year">Year</label>
+            <select #selectYear class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayYear"
+                    (ngModelChange)="selectYear.value = setDisplayYear($event)"
+                    name="selectYear"
+                    id="select_year">
+              <option selected [value]="Year.y2022">{{Year.y2022}}</option>
+              <option [value]="Year.y2021">{{Year.y2021}}</option>
+              <option [value]="Year.y2020">{{Year.y2020}}</option>
+              <option [value]="Year.y2019">{{Year.y2019}}</option>
+              <option [value]="Year.y2018">{{Year.y2018}}</option>
+              <option [value]="Year.y2017">{{Year.y2017}}</option>
+              <option [value]="Year.y2016">{{Year.y2016}}</option>
+              <option [value]="Year.y2015">{{Year.y2015}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label for="select_month">Month</label>
+            <select #selectMonth class="form-select text-center" aria-label="Default select example"
+                    [ngModel]="displayMonth"
+                    (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
+                    name="selectMonth"
+                    id="select_month">
+              <option [value]="Month.Year">{{Month.Year}}</option>
+              <option [value]="Month.Jan">{{Month.Jan}}</option>
+              <option [value]="Month.Feb">{{Month.Feb}}</option>
+              <option [value]="Month.Mar">{{Month.Mar}}</option>
+              <option [value]="Month.Apr">{{Month.Apr}}</option>
+              <option [value]="Month.May">{{Month.May}}</option>
+              <option [value]="Month.Jun">{{Month.Jun}}</option>
+              <option [value]="Month.Jul">{{Month.Jul}}</option>
+              <option selected [value]="Month.Aug">{{Month.Aug}}</option>
+              <option [value]="Month.Sep">{{Month.Sep}}</option>
+              <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
+              <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
+              <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <label>Data Resolution</label>
+            <input *ngIf="displayMonth !== Month.Year" class="form-control text-center" type="text"
+                   placeholder="15-Minutes Interval"
+                   readonly>
+            <input *ngIf="displayMonth === Month.Year" class="form-control text-center" type="text"
+                   placeholder="6-Hour Average" readonly>
+          </li>
+          <li class="list-group-item">
+            <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
+            <button type="button" class="btn btn-primary" *ngIf="!isUpdating" (click)="updateVisualization()">Update
+              Visualization
+            </button>
+            <button *ngIf="isUpdating" class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Updating ...
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="row mt-4">
+        <div class="col">
+          <div class="card clickable text-center" *ngIf="previousMonth" (click)="tilePreviousMonth()">
+            <fa-icon class="card-body fa-2x" [icon]="faArrowLeft"></fa-icon>
+            <span> {{ previousMonth }} </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card clickable text-center" *ngIf="nextMonth" (click)="tileNextMonth()">
+            <fa-icon class="card-body fa-2x" [icon]="faArrowRight"></fa-icon>
+            <span> {{ nextMonth }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-10">
+      <div class="card">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Aggregated Data</a>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.detailed}"
+                   (click)="changeSmallDetail(Detail.detailed)">{{ Detail.detailed }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.grouped}"
+                   (click)="changeSmallDetail(Detail.grouped)">{{ Detail.grouped }}</div>
+            </li>
+            <li class="nav-item">
+              <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.summarized}"
+                   (click)="changeSmallDetail(Detail.summarized)">{{ Detail.summarized }}</div>
+            </li>
+          </ul>
+          <!--   <span class="float-end" (click)="changeCollapseSecondRow()">
+               <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
+               <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
+             </span>-->
+        </h6>
+        <div *ngIf="!collapseSecondRow" class="card-body" style="height: 200px">
+          <chart-small-detailed *ngIf="displayDetailSmall === Detail.detailed" [displayMonth]="displayMonth"
+                                [displayYear]="displayYear"></chart-small-detailed>
+          <chart-small-grouped *ngIf="displayDetailSmall === Detail.grouped" [displayMonth]="displayMonth"
+                               [displayYear]="displayYear"></chart-small-grouped>
+          <chart-small-summarized *ngIf="displayDetailSmall === Detail.summarized" [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-small-summarized>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Percentage Data</a>
+            </li>
+          </ul>
+          <!--<span class="float-end" (click)="changeCollapseSecondRow()">
+            <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
+            <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
+          </span>-->
+        </h6>
+        <div *ngIf="!collapseSecondRow" class="card-body">
+          <div class="card-group">
+            <div class="card text-center">
+              <h6 class="card-header bg bg-conventional text-white">Conventional</h6>
+              <h1 class="card-body" *ngIf="!isUpdating"> {{percentageConventional}}%</h1>
+              <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
+                    aria-hidden="true"></span>
+            </div>
+            <div class="card text-center">
+              <h6 class="card-header bg bg-renewable text-white">Renewable</h6>
+              <h1 class="card-body" *ngIf="!isUpdating"> {{100 - percentageConventional}}%</h1>
+              <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
+                    aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

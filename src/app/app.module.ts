@@ -6,12 +6,15 @@ import {HighchartsChartModule} from 'highcharts-angular';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {ChartSmallDetailedComponent} from "./component/chart-small-detailed.component";
-import { ChartBigDetailedComponent } from './component/chart-big-detailed.component';
-import {ChartBigSummarizedComponent} from "./component/chart-big-summarized.component";
-import {ChartBigGroupedComponent} from "./component/chart-big-grouped.component";
-import {ChartSmallGroupedComponent} from "./component/chart-small-grouped.component";
-import {ChartSmallSummarizedComponent} from "./component/chart-small-summarized.component";
+import {ChartSmallDetailedComponent} from "./charts/chart-small-detailed.component";
+import { ChartBigDetailedComponent } from './charts/chart-big-detailed.component';
+import {ChartBigSummarizedComponent} from "./charts/chart-big-summarized.component";
+import {ChartBigGroupedComponent} from "./charts/chart-big-grouped.component";
+import {ChartSmallGroupedComponent} from "./charts/chart-small-grouped.component";
+import {ChartSmallSummarizedComponent} from "./charts/chart-small-summarized.component";
+import {DashboardComponent} from "./component/dashboard.component";
+import {ComparisonComponent} from "./component/comparison.component";
+import {ChartBigSecondDetailedComponent} from "./charts/chart-big-second-detailed.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import {ChartSmallSummarizedComponent} from "./component/chart-small-summarized.
     ChartSmallDetailedComponent,
     ChartBigGroupedComponent,
     ChartSmallGroupedComponent,
-    ChartSmallSummarizedComponent
+    ChartSmallSummarizedComponent,
+    DashboardComponent,
+    ComparisonComponent,
+    ChartBigSecondDetailedComponent
   ],
   imports: [
     BrowserModule,
