@@ -11,6 +11,8 @@ import {ChartSmallGroupedComponent} from "../charts-small/chart-small-grouped.co
 import {ChartSmallSummarizedComponent} from "../charts-small/chart-small-summarized.component";
 import {ChartBigSecondDetailedComponent} from "../chart-big-second/chart-big-second-detailed.component";
 import {CsvSecondService} from "../service/csvSecond.service";
+import { ChartBigSecondGroupedComponent } from '../chart-big-second/chart-big-second-grouped.component';
+import {ChartBigSecondSummarizedComponent} from "../chart-big-second/chart-big-second-summarized.component";
 
 
 @Component({
@@ -28,7 +30,8 @@ export class ComparisonComponent implements OnInit {
   public displayYear = Year.y2022;
   public displayMonth2 = Month.Feb;
   public displayYear2 = Year.y2022;
-  public displayDetailBig = Detail.detailed;
+  public displayDetailFirst = Detail.detailed;
+  public displayDetailSecond = Detail.detailed;
 
   public isUpdatingFirst = false;
   public isUpdatingSecond = false;
@@ -38,6 +41,8 @@ export class ComparisonComponent implements OnInit {
   @ViewChild(ChartBigSummarizedComponent) chartBigSummarizedComponent!: ChartBigSummarizedComponent;
 
   @ViewChild(ChartBigSecondDetailedComponent) chartBigSecondDetailedComponent!: ChartBigSecondDetailedComponent;
+  @ViewChild(ChartBigSecondGroupedComponent) chartBigSecondGroupedComponent!: ChartBigSecondGroupedComponent;
+  @ViewChild(ChartBigSecondDetailedComponent) chartBigSecondSummarizedComponent!: ChartBigSecondSummarizedComponent;
 
 
   constructor(public csvService: CsvService, public csvSecondService: CsvSecondService, public enumService: EnumService) {
@@ -57,16 +62,24 @@ export class ComparisonComponent implements OnInit {
       await this.csvSecondService.updateCSVAndAggregatedValues(this.enumService.enumToFileName(this.displayMonth2, this.displayYear2));
     }
     setTimeout(() => {
-        if (first) {
-          this.updateDiagram1();
-        }
-        if (second) {
-          this.updateDiagram2();
-        }
-        this.isUpdatingFirst = false;
-        this.isUpdatingSecond  = false;
-      }
-      , 1000);
+      this.updateDiagram1();
+      this.updateDiagram2();
+      this.isUpdatingFirst = false;
+      this.isUpdatingSecond = false;
+    }, 1000);
+
+    const displayFirst = this.displayDetailFirst;
+    const displaySecond = this.displayDetailSecond;
+    if (first) {
+      this.displayDetailFirst = Detail.loading;
+    }
+    if (second) {
+      this.displayDetailSecond = Detail.loading;
+    }
+    setTimeout(() => {
+      this.displayDetailFirst = displayFirst;
+      this.displayDetailSecond = displaySecond;
+    }, 100);
   }
 
   updateFirstDiagram(): void {
@@ -78,7 +91,7 @@ export class ComparisonComponent implements OnInit {
   }
 
   updateDiagram1(): void {
-    switch (this.displayDetailBig) {
+    switch (this.displayDetailFirst) {
       case Detail.detailed:
         this.chartBigDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
         break;
@@ -92,15 +105,15 @@ export class ComparisonComponent implements OnInit {
   }
 
   updateDiagram2(): void {
-    switch (this.displayDetailBig) {
+    switch (this.displayDetailFirst) {
       case Detail.detailed:
-        this.chartBigSecondDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        this.chartBigSecondDetailedComponent.updateDetailedChart(this.enumService.toNumericMonth(this.displayMonth2), Number(this.displayYear.toString()));
         break;
       case Detail.grouped:
-        this.chartBigGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        this.chartBigSecondGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth2), Number(this.displayYear.toString()));
         break;
       case Detail.summarized:
-        this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+        this.chartBigSecondSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth2), Number(this.displayYear.toString()));
         break;
     }
   }
@@ -114,18 +127,15 @@ export class ComparisonComponent implements OnInit {
   }
 
   setDisplayMonth2(value: Month) {
-    return this.displayMonth = value;
+    return this.displayMonth2 = value;
   }
 
   setDisplayYear2(value: Year) {
-    return this.displayYear = value;
-  }
-
-  setDisplayDetail(value: Detail) {
-    return this.displayDetailBig = value;
+    return this.displayYear2 = value;
   }
 
   changeBigDetail(detail: Detail) {
-    this.displayDetailBig = detail;
+    this.displayDetailFirst = detail;
+    this.displayDetailSecond = detail;
   }
 }

@@ -15,7 +15,7 @@ enum Tab {
 export class AppComponent implements OnInit {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.dashboard;
+  public tabSelected = Tab.timeComparison;
   public Tab = Tab;
 
   constructor() {}
