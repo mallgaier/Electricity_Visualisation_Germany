@@ -187,7 +187,6 @@ export class CsvHeatmapService {
       const numberArray: number[] = [time, 6, this.Sunday[time]];
       this.heatmap.push(numberArray);
     }
-    console.log(this.heatmap);
   }
 
   private initArrays(): void {

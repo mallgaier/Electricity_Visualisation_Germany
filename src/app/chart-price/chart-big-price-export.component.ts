@@ -3,6 +3,7 @@ import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColourService} from "../service/colour.service";
+import {CsvScatterService} from "../service/csvScatter.service";
 
 @Component({
   selector: 'chart-big-price-export',
@@ -17,7 +18,7 @@ export class ChartBigPriceExportComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvScatterService: CsvScatterService, public enumService: EnumService, public colourService: ColourService) {
   }
 
   ngOnInit(): void {
@@ -26,56 +27,70 @@ export class ChartBigPriceExportComponent implements OnInit {
 
   chartOptionsBigPriceExport: any = {
     chart: {
-      type: 'area',
-      zoomType: 'x',
-      alignThresholds: true
+      type: 'scatter',
+      zoomType: 'xy',
     },
     xAxis: {
       title: {
-        text: 'Date'
+        text: 'Electricity Export'
       },
-      type: 'datetime',
+      type: 'number',
+      labels: {
+        format: '{value} MWh'
+      },
     },
-    yAxis: [{
+    yAxis: {
       labels: {
-        format: '{value}',
+        format: '{value} €',
       },
       title: {
-        text: 'Net Export (in MWh)'
-      }
-    }, {
-      lineWidth: 1,
-      opposite: true,
-      labels: {
-        format: '{value}€',
+        text: 'Price Difference'
       },
-      title: {
-        text: 'Day-Ahead Price'
-      }
-    }],
+      startOnTick: true,
+      endOnTick: true,
+      showLastLabel: true
+    },
     title: {
       text: '',
     },
+    legend: {enabled: false},
     tooltip: {
-      shared: true,
-      headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>',
-      xDateFormat: '%A %d.%m.%Y %k:%M'
-    },
-    plotOptions: {
-      series: {
-      },
-      area: {
-        stacking: 'normal',
-        lineColor: '#666666',
-        lineWidth: 1,
-
-        marker: {
-          lineWidth: 1,
-          lineColor: '#666666'
+      formatter: function(): string {
+        // @ts-ignore
+        if (this.x > 0) {
+          // @ts-ignore
+          return 'Export: <b>' + this.x +'</b> MWh <br/> Price Difference: <b>'+ this.y + '</b> € <br/>'
+        } else {
+          // @ts-ignore
+          return 'Import: <b>' + -this.x + '</b> MWh <br/> Price Difference: <b>' + this.y + '</b> € <br/>'
         }
       }
     },
-    series: [{}]
+    plotOptions: {
+      scatter: {
+        marker: {
+          radius: 2.5,
+          symbol: 'circle',
+          states: {
+            hover: {
+              enabled: true,
+              lineColor: 'rgb(100,100,100)'
+            }
+          }
+        },
+        states: {
+          hover: {
+            marker: {
+              enabled: false
+            }
+          }
+        }
+      }
+    },
+    series: [{
+      name: 'Net Export',
+      data: this.csvScatterService.priceExport,
+    }]
   };
 
   updatedChart(monthNumeric: number, yearNumeric: number) {
@@ -89,37 +104,8 @@ export class ChartBigPriceExportComponent implements OnInit {
 
     this.chartOptionsBigPriceExport.series[0] = {
       name: 'Net Export',
-      type: 'line',
-      yAxis: 0,
-      threshold: 0,
-      color: this.colourService.netExport,
-      data: this.csvService.netExport,
+      data: this.csvScatterService.priceExport,
     }
-    this.chartOptionsBigPriceExport.series[1] = {
-      name: 'day-Ahead Price in Germany',
-      type: 'line',
-      yAxis: 1,
-      threshold: 0,
-      color: this.colourService.dayAheadPrice,
-      data: this.csvService.dayAheadPrice
-    }
-    this.chartOptionsBigPriceExport.series[2] = {
-      name: 'day-Ahead Price in Neighboring Countries',
-      type: 'line',
-      yAxis: 1,
-      threshold: 0,
-      color: this.colourService.dayAheadNeighbourPrice,
-      data: this.csvService.dayAheadNeighbourPrice
-    }
-      this.chartOptionsBigPriceExport.series[3] = {
-        name: 'Difference in Day-Ahead Price',
-        type: 'line',
-        yAxis: 1,
-        threshold: 0,
-        color: this.colourService.dayAheadNeighbourPrice,
-        data: this.csvService.deltaPrice
-      }
-
     this.updateFlagBigPriceExport = true;
   }
 

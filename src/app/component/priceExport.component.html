@@ -5,14 +5,15 @@
         <h6 class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">{{displayMonth}}  {{displayYear}}</a>
+              <a class="nav-link disabled" href="#">Electricity Export / Import and Price Differences
+                in {{displayMonth}}  {{displayYear}}</a>
             </li>
           </ul>
         </h6>
         <div class="card-body" style="height: 750px">
           <chart-big-price-export *ngIf="displayDetailFirst === Detail.detailed"
-                                              [displayMonth]="displayMonth"
-                                              [displayYear]="displayYear"></chart-big-price-export>
+                                  [displayMonth]="displayMonth"
+                                  [displayYear]="displayYear"></chart-big-price-export>
           <h4 *ngIf="displayDetailFirst === Detail.loading"
               class="text-center align-middle">Updating...</h4>
         </div>
@@ -100,27 +101,23 @@
         <h6 class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <div [ngClass]="{'nav-link': true, 'active': meritOrder === true}"
-                   (click)="changeInfo(true)">
+              <div class="nav-link disabled">
                 <fa-icon [icon]="faCircleInfo"></fa-icon>
-                Merit-Order
-              </div>
-            </li>
-            <li class="nav-item">
-              <div [ngClass]="{'nav-link': true, 'active': meritOrder === false}"
-                   (click)="changeInfo(false)">Energy Crisis
+                Scatterplot
               </div>
             </li>
           </ul>
         </h6>
-        <div class="card-body" *ngIf="meritOrder"> The day-ahead price is determined based on the merit order. The
-          power plant with the highest marginal costs, still needed to meet demand, defines the price for all power
-          plants.
+        <div class="card-body">
+          <div>The scatterplot depicts the electricity export/import along with the price difference
+            relative to the neighbouring countries
+          </div>
+          <div> If electricity prices are higher in the neighbouring countries, more electricity is exported from
+            Germany.
+          </div>
+          <div> If the prices in neighbouring countries are lower, Germany is importing more electricity.</div>
         </div>
-        <div class="card-body" *ngIf="!meritOrder"> At the end of 2021, the gas price had already started to rise, and
-          with the outbreak of the Ukraine war in March 2022, the gas price multiplied. Due to the merit order, the
-          increased gas price has an impact on the day-ahead prices.
-        </div>
+
       </div>
     </div>
   </div>

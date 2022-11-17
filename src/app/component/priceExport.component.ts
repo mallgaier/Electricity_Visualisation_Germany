@@ -5,6 +5,7 @@ import {faArrowLeft, faArrowRight, faCircleInfo} from '@fortawesome/free-solid-s
 import {CsvSecondService} from "../service/csvSecond.service";
 import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-price-generation-grouped.component";
 import {ChartBigPriceExportComponent} from "../chart-price/chart-big-price-export.component";
+import {CsvScatterService} from "../service/csvScatter.service";
 
 
 @Component({
@@ -21,7 +22,6 @@ export class PriceExportComponent implements OnInit {
   public displayMonth = Month.Aug;
   public displayYear = Year.y2022;
   public displayDetailFirst = Detail.detailed;
-  public meritOrder = true;
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
 
@@ -35,7 +35,7 @@ export class PriceExportComponent implements OnInit {
   @ViewChild(ChartBigPriceExportComponent) chartBigPriceExportComponent!: ChartBigPriceExportComponent;
 
 
-  constructor(public csvService: CsvService, public csvSecondService: CsvSecondService, public enumService: EnumService) {
+  constructor(public csvScatterService: CsvScatterService, public enumService: EnumService) {
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class PriceExportComponent implements OnInit {
 
   async updateVisualization(): Promise<void> {
     this.isUpdatingFirst = true;
-    await this.csvService.updateCSVAndAggregatedValues(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+    await this.csvScatterService.updateCSVAndMatrix(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
       this.chartBigPriceExportComponent.updatedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       this.isUpdatingFirst = false;
@@ -73,10 +73,6 @@ export class PriceExportComponent implements OnInit {
 
   changeBigDetail(detail: Detail) {
     this.displayDetailFirst = detail;
-  }
-
-  changeInfo(info: boolean) {
-    this.meritOrder = info;
   }
 
   calculateNextPreviousMonth() {
