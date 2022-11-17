@@ -20,5 +20,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-// Highchart 2
 bootstrapApplication(AppComponent);

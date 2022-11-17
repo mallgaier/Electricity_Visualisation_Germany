@@ -1,6 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import packageJson from "../../package.json";
 
+/*
+Hej fellow developer,
+I'm glad that you became aware of this little project.
+
+I must warn you at this point that any changes made to the code are at your own risk.
+
+The project was developed rapidly. Accordingly, the functionality is cobbled together,
+the data management is a nightmare, and you will also search in vain for detailed documentation.
+
+The main goal is a working software - everything else is unnecessary :)
+ */
+
 enum Tab {
   dashboard = "Dashboard",
   timeComparison = "Timeline Comparison",
