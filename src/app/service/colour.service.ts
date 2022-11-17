@@ -33,7 +33,7 @@ export class ColourService {
   public netExport = '#5a5a5a';
   public dayAheadNeighbourPrice = '#5500AA';
 
-  public sourceToColour(source: Source): string {
+  public sourceTo(source: Source): string {
     switch (source) {
       case Source.hydroPumpedStorage: return this.hydroPumpedStorage;
       case Source.hydroPower: return this.hydroPower;
@@ -49,6 +49,24 @@ export class ColourService {
       case Source.brownCoal: return this.brownCoal;
       case Source.hardCoal : return this.hardCoal;
       case Source.coal : return this.brownCoal;
+    }
+    
+    public sourceToColour(source: Source): string {
+    switch (source) {
+      case Source.hydroPumpedStorage: return '#08306b';
+      case Source.hydroPower: return '#08306b';
+      case Source.hydroPowerCombined: return '#08306b';
+      case Source.windOffshore: return '#00441b';
+      case Source.windOnshore: return '#00441b';
+      case Source.wind: return '#00441b';
+      case Source.nuclear: return '#67000d';
+      case Source.fossilGas : return '#7f2704';
+      case Source.other : return '#3f007d';
+      case Source.biomass: return '#3f007d';
+      case Source.photovoltaics : return this.photovoltaics;
+      case Source.brownCoal: return '#000000';
+      case Source.hardCoal : return '#000000';
+      case Source.coal : return '#000000';
     }
   }
 }
