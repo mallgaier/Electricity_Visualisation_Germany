@@ -7,7 +7,11 @@ import {HttpClient} from "@angular/common/http";
 export class CsvScatterService {
 
   //Time-series arrays
-  public priceExport: number[][] = [];
+  public priceExport1: number[][] = [];
+  public priceExport2: number[][] = [];
+  public priceExport3: number[][] = [];
+  public priceExport4: number[][] = [];
+  public priceExport5: number[][] = [];
 
   constructor(private http: HttpClient) {
   }
@@ -30,12 +34,26 @@ export class CsvScatterService {
             if (row.length < 17) {
               break;
             }
+            const hour = new Date(row[0]).getHours();
+
             // dayAheadPrice 18 - dayAheadNeighbourPrice 19
             const netExport = Math.round(Number(row[20]));
+            let price: number;
             if (netExport > 5) {
-              this.priceExport.push([netExport, Math.round((Number(row[19]) - Number(row[18])) * 100) / 100]);
+              price = Math.round((Number(row[19]) - Number(row[18])) * 100) / 100;
             } else if (netExport < -5) {
-              this.priceExport.push([netExport, Math.round((Number(row[18]) - Number(row[19])) * 100) / 100]);
+              price = Math.round((Number(row[18]) - Number(row[19])) * 100) / 100;
+            }
+            if (hour <= 3) {
+              this.priceExport1.push([netExport,price!]);
+            } else if (hour <= 8) {
+              this.priceExport2.push([netExport,price!]);
+            } else if (hour <= 12) {
+              this.priceExport3.push([netExport,price!]);
+            } else if (hour <= 16) {
+              this.priceExport4.push([netExport,price!]);
+            } else if (hour <= 20) {
+              this.priceExport5.push([netExport,price!]);
             }
           }
         },
@@ -52,6 +70,10 @@ export class CsvScatterService {
 
 
   private initArrays(): void {
-    this.priceExport = [];
+    this.priceExport1 = [];
+    this.priceExport2 = [];
+    this.priceExport3 = [];
+    this.priceExport4 = [];
+    this.priceExport5 = [];
   }
 }

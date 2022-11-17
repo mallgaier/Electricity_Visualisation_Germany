@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
-import {CsvService} from "../service/csv.service";
-import {ColourService} from "../service/colour.service";
+import {Month, Year} from '../service/enum.service';
 import {CsvScatterService} from "../service/csvScatter.service";
 
 @Component({
@@ -18,11 +16,11 @@ export class ChartBigPriceExportComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvScatterService: CsvScatterService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvScatterService: CsvScatterService) {
   }
 
   ngOnInit(): void {
-    this.updatedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
+    this.updatedChart();
   }
 
   chartOptionsBigPriceExport: any = {
@@ -53,13 +51,12 @@ export class ChartBigPriceExportComponent implements OnInit {
     title: {
       text: '',
     },
-    legend: {enabled: false},
     tooltip: {
-      formatter: function(): string {
+      formatter: function (): string {
         // @ts-ignore
         if (this.x > 0) {
           // @ts-ignore
-          return 'Export: <b>' + this.x +'</b> MWh <br/> Price Difference: <b>'+ this.y + '</b> € <br/>'
+          return 'Export: <b>' + this.x + '</b> MWh <br/> Price Difference: <b>' + this.y + '</b> € <br/>'
         } else {
           // @ts-ignore
           return 'Import: <b>' + -this.x + '</b> MWh <br/> Price Difference: <b>' + this.y + '</b> € <br/>'
@@ -69,7 +66,7 @@ export class ChartBigPriceExportComponent implements OnInit {
     plotOptions: {
       scatter: {
         marker: {
-          radius: 2.5,
+          radius: 4.5,
           symbol: 'circle',
           states: {
             hover: {
@@ -87,24 +84,39 @@ export class ChartBigPriceExportComponent implements OnInit {
         }
       }
     },
-    series: [{
-      name: 'Net Export',
-      data: this.csvScatterService.priceExport,
-    }]
+    series: [{}]
   };
 
-  updatedChart(monthNumeric: number, yearNumeric: number) {
-    if (monthNumeric === 0) {
-      this.chartOptionsBigPriceExport.plotOptions.series.pointStart = Date.UTC(yearNumeric, 0, 1)
-      this.chartOptionsBigPriceExport.plotOptions.series.pointInterval = 6 * 60 * 60 * 1000
-    } else {
-      this.chartOptionsBigPriceExport.plotOptions.series.pointStart = Date.UTC(yearNumeric, monthNumeric - 1, 1)
-      this.chartOptionsBigPriceExport.plotOptions.series.pointInterval = 15 * 60 * 1000
-    }
-
+  updatedChart() {
     this.chartOptionsBigPriceExport.series[0] = {
-      name: 'Net Export',
-      data: this.csvScatterService.priceExport,
+      name: 'Export (0 - 3:45)',
+      color: '#7570b3',
+      data: this.csvScatterService.priceExport1,
+    }
+    this.chartOptionsBigPriceExport.series[1] = {
+      color: '#1b9e77',
+      name: 'Export (4 - 7:45)',
+      data: this.csvScatterService.priceExport2,
+    }
+    this.chartOptionsBigPriceExport.series[2] = {
+      name: 'Export (8 - 11:45)',
+      color: '#66a61e',
+      data: this.csvScatterService.priceExport3,
+    }
+    this.chartOptionsBigPriceExport.series[3] = {
+      name: 'Export (12 - 15:45)',
+      color: '#e6ab02',
+      data: this.csvScatterService.priceExport4,
+    }
+    this.chartOptionsBigPriceExport.series[4] = {
+      name: 'Export (16 - 19:45)',
+      color: '#d95f02',
+      data: this.csvScatterService.priceExport5,
+    }
+    this.chartOptionsBigPriceExport.series[5] = {
+      name: 'Export (20 - 23:45)',
+      color: '#e7298a',
+      data: this.csvScatterService.priceExport5,
     }
     this.updateFlagBigPriceExport = true;
   }

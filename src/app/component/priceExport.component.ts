@@ -1,9 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CsvService} from "../service/csv.service";
 import {Detail, EnumService, Month, Year} from '../service/enum.service';
 import {faArrowLeft, faArrowRight, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
-import {CsvSecondService} from "../service/csvSecond.service";
-import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-price-generation-grouped.component";
 import {ChartBigPriceExportComponent} from "../chart-price/chart-big-price-export.component";
 import {CsvScatterService} from "../service/csvScatter.service";
 
@@ -46,7 +43,7 @@ export class PriceExportComponent implements OnInit {
     this.isUpdatingFirst = true;
     await this.csvScatterService.updateCSVAndMatrix(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
     setTimeout(() => {
-      this.chartBigPriceExportComponent.updatedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      this.chartBigPriceExportComponent.updatedChart();
       this.isUpdatingFirst = false;
     }, 1000);
     this.calculateNextPreviousMonth();
