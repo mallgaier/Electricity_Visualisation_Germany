@@ -50,6 +50,7 @@ export class ColourService {
       case Source.hardCoal : return this.hardCoal;
       case Source.coal : return this.brownCoal;
     }
+  }
     
     public sourceToColour(source: Source): string {
     switch (source) {
