@@ -4,7 +4,7 @@ import packageJson from "../../package.json";
 enum Tab {
   dashboard = "Dashboard",
   timeComparison = "Timeline Comparison",
-  sourceComparison = "Source Comparison",
+  sourceHeatmap = "Source Heatmap",
   priceGeneration ="Price and Generation",
   priceExport = "Price and Export"
 }
@@ -17,7 +17,7 @@ enum Tab {
 export class AppComponent implements OnInit {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.priceExport;
+  public tabSelected = Tab.sourceHeatmap;
   public Tab = Tab;
 
   constructor() {}

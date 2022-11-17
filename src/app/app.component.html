@@ -10,8 +10,8 @@
            (click)="changeTab(Tab.timeComparison)">{{ Tab.timeComparison }}</div>
     </li>
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.sourceComparison}"
-           (click)="changeTab(Tab.sourceComparison)">{{ Tab.sourceComparison }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.sourceHeatmap}"
+           (click)="changeTab(Tab.sourceHeatmap)">{{ Tab.sourceHeatmap }}</div>
     </li>
     <li class="nav-item">
       <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.priceGeneration}"
@@ -38,6 +38,7 @@
 <div class="content">
   <dashboard *ngIf="tabSelected === Tab.dashboard"></dashboard>
   <comparison *ngIf="tabSelected === Tab.timeComparison"></comparison>
+  <sourceHeatmap *ngIf="tabSelected === Tab.sourceHeatmap"></sourceHeatmap>
   <priceGeneration *ngIf="tabSelected === Tab.priceGeneration"></priceGeneration>
   <priceExport *ngIf="tabSelected === Tab.priceExport"></priceExport>
 </div>

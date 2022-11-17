@@ -17,10 +17,12 @@ import {ComparisonComponent} from "./component/comparison.component";
 import {ChartBigSecondDetailedComponent} from "./chart-big-second/chart-big-second-detailed.component";
 import {ChartBigSecondGroupedComponent} from "./chart-big-second/chart-big-second-grouped.component";
 import {ChartBigSecondSummarizedComponent} from "./chart-big-second/chart-big-second-summarized.component";
-import {PriceGenerationComponent} from "./component/priceGeneration.component";
 import {ChartBigPriceGenerationGroupedComponent} from "./chart-price/chart-big-price-generation-grouped.component";
 import {ChartBigPriceExportComponent} from "./chart-price/chart-big-price-export.component";
 import {PriceExportComponent} from "./component/priceExport.component";
+import {ChartSourceHeatmapComponent} from "./chart-price/chart-source-heatmap.component";
+import { SourceHeatmapComponent } from './component/sourceHeatmap.component';
+import {PriceGenerationComponent} from "./component/priceGeneration.component";
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import {PriceExportComponent} from "./component/priceExport.component";
     ChartBigSecondDetailedComponent,
     ChartBigSecondGroupedComponent,
     ChartBigSecondSummarizedComponent,
-    PriceGenerationComponent,
     ChartBigPriceGenerationGroupedComponent,
     ChartBigPriceExportComponent,
-    PriceExportComponent
+    PriceExportComponent,
+    ChartSourceHeatmapComponent,
+    SourceHeatmapComponent,
+    PriceGenerationComponent
   ],
   imports: [
     BrowserModule,

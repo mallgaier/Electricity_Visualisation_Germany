@@ -34,6 +34,23 @@ export enum Detail {
   loading = "Loading"
 }
 
+export enum Source {
+  hydroPumpedStorage = 'Hydro Pumped Storage',
+  hydroPower = 'Hydro Power',
+  hydroPowerCombined = 'Hydro Power (Combined)',
+  windOffshore = 'Wind Offshore',
+  windOnshore = 'Wind Onshore',
+  wind = 'Wind',
+  nuclear = 'Nuclear',
+  fossilGas = 'Fossil Gas',
+  other = 'Other',
+  biomass = 'Biomass',
+  photovoltaics = 'Photovoltaics',
+  brownCoal = 'Brown Coal',
+  hardCoal = 'Hard Coal',
+  coal = 'Coal'
+}
+
 @Injectable({
   providedIn: 'root',
 })
