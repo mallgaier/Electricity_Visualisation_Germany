@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
@@ -8,7 +8,7 @@ import {ColorService} from "../service/color.service";
   selector: 'chart-big-price-generation-grouped',
   templateUrl: './chart-big-price-generation-grouped.component.html',
 })
-export class ChartBigPriceGenerationGroupedComponent implements OnInit {
+export class ChartBigPriceGenerationGroupedComponent{
 
   // Chart
   highchartBigPriceGenerationGrouped: typeof Highcharts = Highcharts;
@@ -20,9 +20,6 @@ export class ChartBigPriceGenerationGroupedComponent implements OnInit {
   constructor(private csvService: CsvService, public enumService: EnumService, public colorService: ColorService) {
   }
 
-  ngOnInit(): void {
-    this.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
-  }
 
   chartOptionsBigPriceGenerationGrouped: any = {
     chart: {

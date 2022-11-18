@@ -55,9 +55,12 @@ export class ChartSmallSummarizedComponent implements OnInit {
         },
         dataLabels: {
           enabled: true,
-          /*formatter: function() {
-            return this.y + '%';
-          }*/
+          formatter: function (): any {
+            // @ts-ignore
+            var pcnt = (this.y / this.series.data.map(p => p.y).reduce((a, b) => a + b, 0)) * 100;
+            // @ts-ignore
+            return Highcharts.numberFormat(pcnt) + '%';
+          }
         }
       }
     },
@@ -70,11 +73,11 @@ export class ChartSmallSummarizedComponent implements OnInit {
       data: [{
         name: 'Conventional',
         color: this.colorService.sumConventional,
-        y: this.csvService.sumConventional.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.sumConventionalAggregated
       }, {
         name: 'Renewable',
         color: this.colorService.sumRenewables,
-        y: this.csvService.sumRenewable.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.sumRenewableAggregated
       }]
     }]
 

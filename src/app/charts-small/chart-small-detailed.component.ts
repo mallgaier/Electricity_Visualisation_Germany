@@ -28,15 +28,14 @@ export class ChartSmallDetailedComponent implements OnInit {
     chart: {
       type: 'column',
     },
-    xAxis: {
-      categories:[],
-      // categories: ['Hydro Pumped Storage', 'Photovoltaics', 'Wind Offshore', 'Wind Onshore', 'Biomass',
-      // 'HydroPower', 'other Renewables', 'Fossil Gas', 'Nuclear', 'Brown Coal', 'Hard Coal', 'other Conventional',]
-
-    },
+    /*   xAxis: {
+         categories:[],
+         // categories: ['Hydro Pumped Storage', 'Photovoltaics', 'Wind Offshore', 'Wind Onshore', 'Biomass',
+         // 'HydroPower', 'other Renewables', 'Fossil Gas', 'Nuclear', 'Brown Coal', 'Hard Coal', 'other Conventional',]
+       },*/
     yAxis: {
       title: {
-        text: 'MWh'
+        text: 'Aggregated Production'
       },
     },
     title: {
@@ -44,7 +43,7 @@ export class ChartSmallDetailedComponent implements OnInit {
     },
     tooltip: {
       shared: true,
-      headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>',
+      headerFormat: '<b>{point.key}</b><br>',
     },
     legend: {enabled: false},
     plotOptions: {
@@ -55,9 +54,12 @@ export class ChartSmallDetailedComponent implements OnInit {
         },
         dataLabels: {
           enabled: true,
-          /*formatter: function() {
-            return this.y + '%';
-          }*/
+          formatter: function (): any {
+            // @ts-ignore
+            var pcnt = (this.y / this.series.data.map(p => p.y).reduce((a, b) => a + b, 0)) * 100;
+            // @ts-ignore
+            return Highcharts.numberFormat(pcnt) + '%';
+          }
         }
       }
     },
@@ -70,49 +72,52 @@ export class ChartSmallDetailedComponent implements OnInit {
       data: [{
         name: 'Hydro Pumped Storage',
         color: this.colorService.hydroPumpedStorage,
-        y: this.csvService.hydroPumpedStorage.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.hydroPumpedStorageAggregated
       }, {
         name: 'Photovoltaics',
         color: this.colorService.photovoltaics,
-        y: this.csvService.photovoltaics.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.photovoltaicsAggregated
       }, {
         name: 'Wind Offshore',
         color: this.colorService.windOffshore,
-        y: this.csvService.windOffshore.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.windOffshoreAggregated
       }, {
         name: 'Wind Onshore',
         color: this.colorService.windOnshore,
-        y: this.csvService.windOnshore.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.windOnshoreAggregated
       }, {
         name: 'Biomass',
         color: this.colorService.biomass,
-        y: this.csvService.biomass.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.biomassAggregated
       }, {
         name: 'Hydro Power',
         color: this.colorService.hydroPower,
-        y: this.csvService.hydropower.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.hydropowerAggregated
       }, {
         name: 'Fossil Gas',
         color: this.colorService.fossilGas,
-        y: this.csvService.fossilGas.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.fossilGasAggregated
       }, {
         name: 'Nuclear',
         color: this.colorService.nuclear,
-        y: this.csvService.nuclear.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.nuclearAggregated
       }, {
         name: 'Brown Coal',
         color: this.colorService.brownCoal,
-        y: this.csvService.brownCoal.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.brownCoalAggregated
       }, {
         name: 'Hard Coal',
         color: this.colorService.hardCoal,
-        y: this.csvService.hardCoal.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.hardCoalAggregated
       }, {
         name: 'Other',
         color: this.colorService.other,
-        y: this.csvService.other.reduce((sum, current) => sum + current, 0)
+        y: this.csvService.otherAggregated
       }]
     }]
+    this.chartOptionsSmallDetailed.xAxis = {
+      categories: []
+    }
 
     this.updateFlagSmallDetailed = true;
   }

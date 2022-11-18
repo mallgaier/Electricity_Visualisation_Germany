@@ -58,10 +58,10 @@ export class CsvService {
   }
 
   async updateCSVAndAggregatedValues(url: string): Promise<boolean> {
-    return this.updateCSV(url).then(() => this.updateAggregatedValues(), () => false);
+    return this.updateCSV(url, true);
   }
 
-  async updateCSV(url: string): Promise<boolean> {
+  async updateCSV(url: string, aggValues: boolean): Promise<boolean> {
     this.initArrays();
     this.http.get(url, {responseType: 'text'})
       .subscribe(
@@ -107,12 +107,17 @@ export class CsvService {
         error => {
           console.log(error);
           return false;
+        },
+        () => {
+          if (aggValues) {
+            this.updateAggregatedValues();
+          }
         }
       );
     return true;
   }
 
-  async updateAggregatedValues(): Promise<boolean> {
+  updateAggregatedValues():void {
     this.biomassAggregated = this.biomass.reduce((sum, current) => sum + current, 0);
     this.hydropowerAggregated = this.hydropower.reduce((sum, current) => sum + current, 0);
     this.windOffshoreAggregated = this.windOffshore.reduce((sum, current) => sum + current, 0);
@@ -132,7 +137,6 @@ export class CsvService {
     this.sumHydroPowerAggregated = this.hydroPowerSummed.reduce((sum, current) => sum + current, 0);
     this.sumWindAggregated = this.sumWind.reduce((sum, current) => sum + current, 0);
     this.sumCoalAggregated = this.sumCoal.reduce((sum, current) => sum + current, 0);
-    return true;
   }
 
   private initArrays(): void {

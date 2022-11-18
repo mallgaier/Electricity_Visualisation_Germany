@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Source, Year} from '../service/enum.service';
 import {ColorService} from "../service/color.service";
@@ -11,7 +11,7 @@ HC_map(Highcharts);
   selector: 'chart-source-heatmap',
   templateUrl: './chart-source-heatmap.component.html',
 })
-export class ChartSourceHeatmapComponent implements OnInit {
+export class ChartSourceHeatmapComponent {
 
   // Chart
   highchartSourceHeatmap: typeof Highcharts = Highcharts;
@@ -24,9 +24,6 @@ export class ChartSourceHeatmapComponent implements OnInit {
   constructor(private csvHeatmapService: CsvHeatmapService, public enumService: EnumService, public colorService: ColorService) {
   }
 
-  ngOnInit(): void {
-    this.updatedChart(this.source);
-  }
 
   chartOptionsSourceHeatmap: any = {
     chart: {

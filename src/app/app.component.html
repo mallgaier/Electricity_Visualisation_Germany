@@ -1,4 +1,4 @@
-<div class="toolbar bg-dark" role="banner">
+<div class="toolbar toolbar-height bg-dark" role="banner">
   <h4 class="ms-2 me-4">Electricity Generation in Germany</h4>
   <ul class="nav nav-pills">
     <li class="nav-item">
@@ -35,7 +35,7 @@
   </a>
 </div>
 
-<div class="content">
+<div class="content content-margin">
   <dashboard *ngIf="tabSelected === Tab.dashboard"></dashboard>
   <comparison *ngIf="tabSelected === Tab.timeComparison"></comparison>
   <sourceHeatmap *ngIf="tabSelected === Tab.sourceHeatmap"></sourceHeatmap>

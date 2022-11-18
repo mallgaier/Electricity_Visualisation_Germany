@@ -43,7 +43,7 @@ export class PriceGenerationComponent implements OnInit {
 
   async updateVisualization(): Promise<void> {
     this.isUpdatingFirst = true;
-    await this.csvService.updateCSVAndAggregatedValues(this.enumService.enumToFileName(this.displayMonth, this.displayYear));
+    await this.csvService.updateCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear), false);
     setTimeout(() => {
       this.chartBigPriceGenerationGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
       this.isUpdatingFirst = false;

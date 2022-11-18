@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {Month, Year} from '../service/enum.service';
 import {CsvScatterService} from "../service/csvScatter.service";
@@ -7,7 +7,7 @@ import {CsvScatterService} from "../service/csvScatter.service";
   selector: 'chart-big-price-export',
   templateUrl: './chart-big-price-export.component.html',
 })
-export class ChartBigPriceExportComponent implements OnInit {
+export class ChartBigPriceExportComponent {
 
   // Chart
   highchartBigPriceExport: typeof Highcharts = Highcharts;
@@ -17,10 +17,6 @@ export class ChartBigPriceExportComponent implements OnInit {
   @Input() public displayYear = Year as any;
 
   constructor(private csvScatterService: CsvScatterService) {
-  }
-
-  ngOnInit(): void {
-    this.updatedChart();
   }
 
   chartOptionsBigPriceExport: any = {

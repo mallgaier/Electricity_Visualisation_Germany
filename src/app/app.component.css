@@ -1,8 +1,11 @@
 .content {
   display: flex;
-  margin: 82px auto 3px;
   padding: 0 8px;
   flex-direction: column;
+}
+
+.content-margin {
+  margin: 82px auto 3px;
 }
 
 .spacer {
@@ -14,13 +17,33 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
   display: flex;
   align-items: center;
   color: white;
   font-weight: 600;
   padding-left: 8px;
   padding-right: 8px;
+}
+.toolbar-height {
+  height: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+  .toolbar-height {
+    height: 250px;
+  }
+  .content-margin {
+    margin: 280px auto 3px;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 990px) {
+  .toolbar-height {
+    height: 100px;
+  }
+  .content-margin {
+    margin: 120px auto 3px;
+  }
 }
 
 .selected {
