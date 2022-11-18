@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
-import {ColourService} from "../service/colour.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'chart-small-grouped',
@@ -17,7 +17,7 @@ export class ChartSmallGroupedComponent implements OnInit{
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colorService: ColorService) {
   }
 
   ngOnInit() {
@@ -69,35 +69,35 @@ export class ChartSmallGroupedComponent implements OnInit{
       name: 'Sum: ',
       data: [{
         name: 'Hydro Power',
-        color: this.colourService.hydroPumpedStorage,
+        color: this.colorService.hydroPumpedStorage,
         y: this.csvService.hydroPowerSummed.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Photovoltaics',
-        color: this.colourService.photovoltaics,
+        color: this.colorService.photovoltaics,
         y: this.csvService.photovoltaics.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Wind',
-        color: this.colourService.windOffshore,
+        color: this.colorService.windOffshore,
         y: this.csvService.sumWind.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Biomass',
-        color: this.colourService.biomass,
+        color: this.colorService.biomass,
         y: this.csvService.biomass.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Fossil Gas',
-        color: this.colourService.fossilGas,
+        color: this.colorService.fossilGas,
         y: this.csvService.fossilGas.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Nuclear',
-        color: this.colourService.nuclear,
+        color: this.colorService.nuclear,
         y: this.csvService.nuclear.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Coal',
-        color: this.colourService.brownCoal,
+        color: this.colorService.brownCoal,
         y: this.csvService.sumCoal.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Other',
-        color: this.colourService.other,
+        color: this.colorService.other,
         y: this.csvService.other.reduce((sum, current) => sum + current, 0)
       }]
     }]

@@ -1,9 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CsvService} from "../service/csv.service";
 import {Detail, EnumService, Month, Source, Year} from '../service/enum.service';
 import {faArrowLeft, faArrowRight, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
-import {CsvSecondService} from "../service/csvSecond.service";
-import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-price-generation-grouped.component";
 import {ChartSourceHeatmapComponent} from "../chart-price/chart-source-heatmap.component";
 import {CsvHeatmapService} from "../service/csvHeatmap.service";
 
@@ -22,7 +19,7 @@ export class SourceHeatmapComponent implements OnInit {
   public Source = Source;
   public displayMonth = Month.Aug;
   public displayYear = Year.y2022;
-  public displaySource = Source.windOnshore;
+  public displaySource = Source.hydroPumpedStorage;
   public displayDetailFirst = Detail.detailed;
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
@@ -34,7 +31,7 @@ export class SourceHeatmapComponent implements OnInit {
 
   public isUpdatingFirst = false;
 
-  @ViewChild(ChartSourceHeatmapComponent) chartSourceHeatmapComponent! :ChartSourceHeatmapComponent;
+  @ViewChild(ChartSourceHeatmapComponent) chartSourceHeatmapComponent!: ChartSourceHeatmapComponent;
 
 
   constructor(public csvHeatmapService: CsvHeatmapService, public enumService: EnumService) {
@@ -47,10 +44,11 @@ export class SourceHeatmapComponent implements OnInit {
   async updateVisualization(): Promise<void> {
     this.isUpdatingFirst = true;
     await this.csvHeatmapService.updateCSVAndAggregatedValues(this.enumService.enumToFileName(this.displayMonth, this.displayYear), this.displaySource);
+
     setTimeout(() => {
-      this.chartSourceHeatmapComponent.updatedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()), this.displaySource);
+      this.chartSourceHeatmapComponent.updatedChart(this.displaySource);
       this.isUpdatingFirst = false;
-    }, 2000);
+    }, 1500);
     this.calculateNextPreviousMonth();
 
     const displayFirst = this.displayDetailFirst;

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
-import {ColourService} from "../service/colour.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'chart-small-summarized',
@@ -17,7 +17,7 @@ export class ChartSmallSummarizedComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colorService: ColorService) {
   }
 
   ngOnInit() {
@@ -69,11 +69,11 @@ export class ChartSmallSummarizedComponent implements OnInit {
       name: 'Sum: ',
       data: [{
         name: 'Conventional',
-        color: this.colourService.sumConventional,
+        color: this.colorService.sumConventional,
         y: this.csvService.sumConventional.reduce((sum, current) => sum + current, 0)
       }, {
         name: 'Renewable',
-        color: this.colourService.sumRenewables,
+        color: this.colorService.sumRenewables,
         y: this.csvService.sumRenewable.reduce((sum, current) => sum + current, 0)
       }]
     }]

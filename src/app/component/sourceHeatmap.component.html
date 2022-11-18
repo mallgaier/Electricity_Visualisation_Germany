@@ -71,7 +71,6 @@
                     id="select_Source">
               <option [value]="Source.hydroPumpedStorage">{{Source.hydroPumpedStorage}}</option>
               <option [value]="Source.hydroPower">{{Source.hydroPower}}</option>
-              <option [value]="Source.hydroPowerCombined">{{Source.hydroPowerCombined}}</option>
               <option [value]="Source.windOffshore">{{Source.windOffshore}}</option>
               <option [value]="Source.windOnshore">{{Source.windOnshore}}</option>
               <option [value]="Source.wind">{{Source.wind}}</option>
@@ -120,7 +119,22 @@
           </div>
         </div>
       </div>
-      <div class="card justify-content-center d-flex mt-3">
+      <div *ngIf="displaySource === Source.hydroPumpedStorage" class="card justify-content-center d-flex mt-3">
+        <h6 class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <div class="nav-link disabled">
+                <fa-icon [icon]="faCircleInfo"></fa-icon>
+                Hydro Pumped Storage
+              </div>
+            </li>
+          </ul>
+        </h6>
+        <div class="card-body">
+          Hydro Pumped Storage can <b style="color:#2166ac;">generate</b> electricity by channelling
+          water from the mountain to the valley. <br> These can also <b style="color:#b2182b;">store</b> electricity by
+          pumping water from the valley up the mountain. Excess electricity is used for this purpose.
+        </div>
       </div>
     </div>
   </div>

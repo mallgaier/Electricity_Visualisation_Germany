@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
-import {ColourService} from "../service/colour.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'chart-big-grouped',
@@ -17,7 +17,7 @@ export class ChartBigGroupedComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colorService: ColorService) {
   }
 
   ngOnInit(): void {
@@ -75,72 +75,72 @@ export class ChartBigGroupedComponent implements OnInit {
     }
 
     this.chartOptionsBigGrouped.colors = [
-      this.colourService.hydroPumpedStorage,
-      this.colourService.photovoltaics,
-      this.colourService.windOffshore,
-      this.colourService.windOnshore,
-      this.colourService.biomass,
-      this.colourService.hydroPower,
-      this.colourService.fossilGas,
-      this.colourService.nuclear,
-      this.colourService.brownCoal,
-      this.colourService.hardCoal,
-      this.colourService.other,
-      this.colourService.totalGridLoad
+      this.colorService.hydroPumpedStorage,
+      this.colorService.photovoltaics,
+      this.colorService.windOffshore,
+      this.colorService.windOnshore,
+      this.colorService.biomass,
+      this.colorService.hydroPower,
+      this.colorService.fossilGas,
+      this.colorService.nuclear,
+      this.colorService.brownCoal,
+      this.colorService.hardCoal,
+      this.colorService.other,
+      this.colorService.totalGridLoad
     ]
     this.chartOptionsBigGrouped.series[0] = {
       name: 'Hydro Power',
       type: 'area',
-      color: this.colourService.hydroPumpedStorage,
+      color: this.colorService.hydroPumpedStorage,
       data: this.csvService.hydroPowerSummed,
     }
     this.chartOptionsBigGrouped.series[1] = {
       name: 'Photovoltaics',
       type: 'area',
-      color: this.colourService.photovoltaics,
+      color: this.colorService.photovoltaics,
       data: this.csvService.photovoltaics
     }
     this.chartOptionsBigGrouped.series[2] = {
       name: 'Wind',
       type: 'area',
-      color: this.colourService.windOffshore,
+      color: this.colorService.windOffshore,
       data: this.csvService.sumWind,
 
     }
     this.chartOptionsBigGrouped.series[3] = {
       name: 'Biomass',
       type: 'area',
-      color: this.colourService.biomass,
+      color: this.colorService.biomass,
       data: this.csvService.biomass
     }
     this.chartOptionsBigGrouped.series[4] = {
       name: 'Fossil Gas',
       type: 'area',
-      color: this.colourService.fossilGas,
+      color: this.colorService.fossilGas,
       data: this.csvService.fossilGas
     }
     this.chartOptionsBigGrouped.series[5] = {
       name: 'Nuclear',
       type: 'area',
-      color: this.colourService.nuclear,
+      color: this.colorService.nuclear,
       data: this.csvService.nuclear
     }
     this.chartOptionsBigGrouped.series[6] = {
       name: 'Coal',
       type: 'area',
-      color: this.colourService.brownCoal,
+      color: this.colorService.brownCoal,
       data: this.csvService.sumCoal
     }
     this.chartOptionsBigGrouped.series[7] = {
       name: 'Other',
       type: 'area',
-      color: this.colourService.other,
+      color: this.colorService.other,
       data: this.csvService.other
     }
     this.chartOptionsBigGrouped.series[8] = {
       name: 'total Grid load',
       type: 'line',
-      color: this.colourService.totalGridLoad,
+      color: this.colorService.totalGridLoad,
       data: this.csvService.totalGridLoad
     }
 

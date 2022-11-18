@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {EnumService, Month, Year} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
-import {ColourService} from "../service/colour.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'chart-big-summarized',
@@ -17,7 +17,7 @@ export class ChartBigSummarizedComponent implements OnInit {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvService: CsvService, public enumService: EnumService, public colourService: ColourService) {
+  constructor(private csvService: CsvService, public enumService: EnumService, public colorService: ColorService) {
   }
 
   ngOnInit(): void {
@@ -78,9 +78,9 @@ export class ChartBigSummarizedComponent implements OnInit {
 
   updateSummarizedChart(monthNumeric: number, yearNumeric: number) {
     this.chartOptionsBigSummarized.colors = [
-      this.colourService.sumRenewables,
-      this.colourService.sumConventional,
-      this.colourService.totalGridLoad
+      this.colorService.sumRenewables,
+      this.colorService.sumConventional,
+      this.colorService.totalGridLoad
     ]
     this.chartOptionsBigSummarized.plotOptions.series = {
       pointStart: Date.UTC(yearNumeric, monthNumeric - 1, 1),
