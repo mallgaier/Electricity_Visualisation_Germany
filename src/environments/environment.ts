@@ -4,6 +4,14 @@
 
 export const environment = {
   production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyD1-bP5VPFjdP0RxGI0s98KXOY_hVT1BHk",
+    authDomain: "electricity-vis-germany.firebaseapp.com",
+    projectId: "electricity-vis-germany",
+    storageBucket: "electricity-vis-germany.appspot.com",
+    messagingSenderId: "585920969694",
+    appId: "1:585920969694:web:9170c0a68762e9963a3b4f"
+  },
 };
 
 /*
