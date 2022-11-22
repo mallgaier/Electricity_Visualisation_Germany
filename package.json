@@ -1,6 +1,6 @@
 {
   "name": "electricity-generation-germany",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -22,8 +22,10 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "@fortawesome/angular-fontawesome": "^0.11.1",
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",
     "bootstrap-jquery": "^3.3.2",
     "csv": "^6.2.0",

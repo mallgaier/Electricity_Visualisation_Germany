@@ -23,6 +23,7 @@ import {PriceExportComponent} from "./component/priceExport.component";
 import {ChartSourceHeatmapComponent} from "./chart-price/chart-source-heatmap.component";
 import { SourceHeatmapComponent } from './component/sourceHeatmap.component';
 import {PriceGenerationComponent} from "./component/priceGeneration.component";
+import {AboutComponent} from "./component/about.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {PriceGenerationComponent} from "./component/priceGeneration.component";
     PriceExportComponent,
     ChartSourceHeatmapComponent,
     SourceHeatmapComponent,
-    PriceGenerationComponent
+    PriceGenerationComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import packageJson from "../../package.json";
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 /*
 Hej fellow developer,
@@ -13,12 +14,14 @@ the data management is a nightmare, and you will also search in vain for detaile
 The main goal is a working software - everything else is unnecessary :)
  */
 
-enum Tab {
+export enum Tab {
   dashboard = "Dashboard",
   timeComparison = "Timeline Comparison",
   sourceHeatmap = "Source Heatmap",
   priceGeneration ="Price and Generation",
-  priceExport = "Price and Export"
+  priceExport = "Price and Export",
+  about = "About",
+  scatterplot = "Scatterplot"
 }
 
 @Component({
@@ -26,15 +29,15 @@ enum Tab {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.sourceHeatmap;
+  public tabSelected = Tab.about;
   public Tab = Tab;
 
-  constructor() {}
+  public faGithub = faGithub;
 
-  ngOnInit(): void {}
+  constructor() {}
 
   changeTab(tab: Tab): void {
     this.tabSelected = tab;

@@ -1,0 +1,80 @@
+<div class="container-fluid ps-5 pe-5 align-middle text-center">
+  <h1>Data Visualization of the Electricity Generation in Germany</h1>
+  <div class="row mt-5">
+    <div class="col-lg-3">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-warning" [icon]="faBoltLightning"></fa-icon>
+          <span class="ms-4"><h4>Electricity Generation</h4>broken down by source</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-secondary" [icon]="faPlug"></fa-icon>
+          <span class="ms-4"><h4>Electricity Consumption</h4>in Germany</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-primary" [icon]="faEuroSign"></fa-icon>
+          <span class="ms-4"><h4>Day-Ahead Prices</h4>of Germany and the neighboring countries</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-success" [icon]="faCalendar"></fa-icon>
+          <span class="ms-4"><h4>From 2015 to 2022</h4>in 15min-intervals</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4 class="mt-5">Utilize several views to explore the data</h4>
+  <div class="row row-cols-1 row-cols-lg-3 text-center mt-2">
+    <ng-container *ngFor="let tab of Tab | keyvalue">
+      <div class="col mt-3" *ngIf="tab.value !== Tab.about">
+        <div class="card card-clickable" (click)="emitClick(tab.value)">
+          <h6 class="card-header text-white bg-dark">{{tab.value}}</h6>
+          <div class="card-body"> {{getDescriptionForTab(tab.value)}}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="spacer"></div>
+  <h4>About</h4>
+  <div class="row mt-3">
+    <div class="col-lg-4">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-secondary" [icon]="faGlobe"></fa-icon>
+          <a class="ms-4" target="_blank" rel="noopener" style="color: black" href="https://www.smard.de/"> The Data is provided by the
+            Federal Network Agency ("Bundesnetzagentur") Germany under the CC BY 4.0 licence</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-secondary" [icon]="faCircleInfo"></fa-icon>
+          <span class="ms-4">This small project was developed as part of the course "Data Visualization" in the winter
+            semester 2022 / 2023 at Aarhus University.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x" [icon]="faGithub"></fa-icon>
+          <a class="ms-4" target="_blank" rel="noopener" style="color: black"
+             href="https://github.com/mallgaier/Data_Visualization_Electricity_Production_Germany">Find the project
+            on Github</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
