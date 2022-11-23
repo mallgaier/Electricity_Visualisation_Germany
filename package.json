@@ -1,6 +1,7 @@
 {
-  "name": "electricity-generation-germany",
+  "name": "electricity-visualization-germany",
   "version": "0.3.5",
+  "main": "electron-config.js",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -8,6 +9,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "electron": "electron .",
+    "electron-build": "ng build --configuration production && electron .",
+    "electron-package-win": "ng build --configuration production && electron-packager . --no-prune --ignore=/node_modules --ignore=/e2e --overwrite",
     "heroku-postbuild": "ng build"
   },
   "private": true,
@@ -46,6 +52,8 @@
     "@angular/cli": "~14.2.3",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "electron": "^21.3.0",
+    "electron-packager": "^17.1.1",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
