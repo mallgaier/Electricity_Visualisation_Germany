@@ -1,12 +1,29 @@
-# Data Visualization of the Electricity Production in Germany
+# Electricity Visualization of Germany
 
-This small project was conducted as part of the course "Data Visualization" in the winter semester 2022 / 2023 at Aarhus University.
+## Features
+- __Electricity Generation__ broken down by source
+- __Electricity Consumption__ in Germany
+- __Day-Ahead Prices__ of Germany and the neighboring countries
+- From __2015 to 2022__ in 15min-intervals
 
-The interactive tool enables the visualization and analysis of the electricity generation and consumption of Germany.
+## Utilize several views to explore the data
+- __Dashboard__: Explore the electricity production from several viewpoints through a timeline
+- __Price and Export__: Understand how the day-ahead price is related to the amount of electricity imported / exported.
+- __Price and Generation__: See which electricity sources determine and push up the price of electricity as a result of the merit order.
+- __Scatterplot__: Identify the correlation of two variables, divided by years or seasons, using a custom-build scatterplot
+- __Source Heatmap__: Discover the percentage contribution of each electricity source, broken down by weekdays, to total production.
+- __Timeline Comparison__: Compare two timelines of electricity production
 
-## Live instance 
-A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ 
 
-## Data Source
+## About
+- __Data Source__: The Data is provided by the [Federal Network Agency ("Bundesnetzagentur") Germany](https://www.smard.de/) under the CC BY 4.0 licence.
+- The project is part of the course "Data Visualization" in the winter semester 2022 / 2023 at Aarhus University.
+- __Price and Generation__: See which electricity sources determine and push up the price of electricity as a result of the merit order.
 
-The Data is provided by the Federal Network Agency ("Bundesnetzagentur") Germany under the CC BY 4.0 licence.
+## Access
+- __Live Instance__: A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ 
+- __Executable Version__: A .exe can be found in the release
+- __Local__: use `npm start-local` or `ng serve` to deploy a local instance
+
+
+
