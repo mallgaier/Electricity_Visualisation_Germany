@@ -11,6 +11,8 @@ function createWindow () {
     icon: `file://${__dirname}/dist/da-vis-electricity-production-germany/assets/favicon.ico`,
     autoHideMenuBar: true
   })
+  win.maximize();
+  win.show();
 
 
   win.loadURL(`file://${__dirname}/dist/da-vis-electricity-production-germany/index.html`)
