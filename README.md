@@ -18,7 +18,6 @@
 ## About
 - __Data Source__: The Data is provided by the [Federal Network Agency ("Bundesnetzagentur") Germany](https://www.smard.de/) under the CC BY 4.0 licence.
 - The project is part of the course "Data Visualization" in the winter semester 2022 / 2023 at Aarhus University.
-- __Price and Generation__: See which electricity sources determine and push up the price of electricity as a result of the merit order.
 
 ## Access
 - __Live Instance__: A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ 
