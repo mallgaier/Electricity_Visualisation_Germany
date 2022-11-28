@@ -45,6 +45,8 @@ export class CsvHeatmapService {
         case Source.hydroPumpedStorage:
           await this.updateCSVForHydroPumpedStorageCombined(url);
           break;
+        case Source.co2:
+          await this.updateCO2(url);
       }
     }
     return true;
@@ -167,6 +169,81 @@ export class CsvHeatmapService {
           this.maxHydroPumpedStorageCombined = Math.round(this.maxHydroPumpedStorageCombined * 100);
           this.transferArray();
           this.combineArray();
+        }
+      );
+    return true;
+  }
+
+  async updateCO2(url: string): Promise<boolean> {
+    this.initArrays();
+    this.http.get(url, {responseType: 'text'})
+      .subscribe(
+        data => {
+          let csvToRowArray = data.split("\n");
+          // Index 1 due to header
+          for (let index = 1; index < csvToRowArray.length - 1; index++) {
+            let row = csvToRowArray[index].split(";");
+
+            // If the row is shorter than the length of a date -> aboard parsing
+            if (row.length < 17) {
+              break;
+            }
+            // 2019-04-01
+            if (Number(row[0].substring(8, 10)) !== this.day) {
+              if (this.day !== 0) {
+                this.transferArray();
+              }
+              this.weekdayNumeric = new Date(row[0].substring(0, 10)).getDay();
+              this.day++;
+            }
+            let value = Math.round((((Number(row[8]) + Number(row[9])) * 820 + Number(row[1]) * 230 + Number(row[10]) * 740 + Number(row[5]) * 41 + (Number(row[2]) + Number(row[11])) * 24 + Number(row[7]) * 12 + Number(row[3]) * 12 + Number(row[4]) * 11)) / (Number(row[16]) + Number(row[17]) - Number(row[6]) - Number(row[12])));
+            this.weekdayArray.push(value);
+          }
+        },
+        error => {
+          console.log(error);
+          return false;
+        },
+        () => {
+            switch (this.weekdayNumeric) {
+          case 0:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Sunday[i] = Math.round(((this.Sunday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 1:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Monday[i] = Math.round(((this.Monday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 2:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Tuesday[i] = Math.round(((this.Tuesday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 3:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Wednesday[i] = Math.round(((this.Wednesday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 4:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Thursday[i] = Math.round(((this.Thursday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 5:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Friday[i] = Math.round(((this.Friday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          case 6:
+            for (let i = 0; i < this.weekdayArray.length; i++) {
+              this.Saturday[i] = Math.round(((this.Saturday[i] + this.weekdayArray[i]) / 2));
+            }
+            break;
+          }
+          this.weekdayArray = [];
+          this.combineArray()
         }
       );
     return true;

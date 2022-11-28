@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Source} from '../service/enum.service';
+import {CsvService} from "../service/csv.service";
 
 
 
@@ -11,10 +12,11 @@ import {Source} from '../service/enum.service';
 export class PercentageDashboardComponent {
 
   // Displayed values
-  @Input() public percentageConventional = 0;
   @Input() public isUpdating = false;
   public Source = Source;
 
-  constructor() {}
+  constructor(public csvService: CsvService) {
+  }
+
 
 }

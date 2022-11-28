@@ -10,6 +10,10 @@
   background-color: #66c2a5;
 }
 
+.bg-co2 {
+  background-color: rgba(177, 89, 40, 0.63);
+}
+
 .center-spinner {
   display: block;
   position: fixed;

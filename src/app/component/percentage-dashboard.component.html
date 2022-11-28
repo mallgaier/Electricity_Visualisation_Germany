@@ -2,7 +2,7 @@
   <h6 class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Percentage Data</a>
+        <a class="nav-link disabled" href="#">Overview Data</a>
       </li>
     </ul>
   </h6>
@@ -10,16 +10,25 @@
     <div class="card-group">
       <div class="card text-center">
         <h6 class="card-header bg bg-conventional text-white">{{this.Source.conventional}}</h6>
-        <h1 class="card-body" *ngIf="!isUpdating"> {{percentageConventional}}%</h1>
+        <h1 class="card-body" *ngIf="!isUpdating"> {{this.csvService.percentageConventional}}%</h1>
         <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
               aria-hidden="true"></span>
       </div>
       <div class="card text-center">
         <h6 class="card-header bg bg-renewable text-white">{{this.Source.renewable}}</h6>
-        <h1 class="card-body" *ngIf="!isUpdating"> {{100 - percentageConventional}}%</h1>
+        <h1 class="card-body" *ngIf="!isUpdating"> {{100 - this.csvService.percentageConventional}}%</h1>
         <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
               aria-hidden="true"></span>
       </div>
+    </div>
+    <div class="card text-center mt-2">
+      <h6 class="card-header bg bg-co2 text-white">CO2 Equivalent</h6>
+      <h6 class="card-body" *ngIf="!isUpdating"><h1 style="display: inline-block"
+      >{{this.csvService.co2Aggregated}}</h1>
+        gr./kWh
+      </h6>
+      <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
+            aria-hidden="true"></span>
     </div>
   </div>
 </div>

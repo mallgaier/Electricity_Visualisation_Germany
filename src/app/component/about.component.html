@@ -1,11 +1,11 @@
 <div class="container-fluid ps-5 pe-5 align-middle text-center">
   <h1>Electricity Visualization of Germany</h1>
-  <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 mt-5">
+  <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 mt-5">
     <div class="col mt-3">
       <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x text-warning" [icon]="faBoltLightning"></fa-icon>
-          <span class="ms-4"><h4>Electricity Generation</h4>broken down by source</span>
+          <span class="ms-4"><h4>Generation</h4>broken down by source</span>
         </div>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x text-success" [icon]="faPlug"></fa-icon>
-          <span class="ms-4"><h4>Electricity Consumption</h4>in Germany</span>
+          <span class="ms-4"><h4>Consumption</h4>in Germany</span>
         </div>
       </div>
     </div>
@@ -21,7 +21,15 @@
       <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x text-primary" [icon]="faEuroSign"></fa-icon>
-          <span class="ms-4"><h4>Electricity Import/Export</h4>with the neighboring countries</span>
+          <span class="ms-4"><h4>Import/Export</h4>with the neighboring countries</span>
+        </div>
+      </div>
+    </div>
+    <div class="col mt-3">
+      <div class="card d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex align-items-center">
+          <fa-icon class="fa-3x text-brown" [icon]="faCloud"></fa-icon>
+          <span class="ms-4"><h4>CO2 Equivalent</h4>per kWh</span>
         </div>
       </div>
     </div>
@@ -46,19 +54,23 @@
     </ng-container>
   </div>
   <div class="mt-lg-5"></div>
-  <div class="mt-lg-4"></div>
   <h4 class="mt-5">About</h4>
   <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
     <div class="col mt-3">
-      <a class="card card-clickable d-flex justify-content-center align-items-center" target="_blank" rel="noopener"
-         style="color: black" href="https://www.smard.de/">
+      <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x text-secondary" [icon]="faGlobe"></fa-icon>
-          <div class="ms-4"> The Data is provided by the Federal Network Agency ("Bundesnetzagentur") Germany with
-            an CC BY 4.0 licence</div>
+          <a target="_blank" rel="noopener"
+             style="color: black" href="https://www.smard.de/"> The Data is provided by the Federal Network Agency
+            ("Bundesnetzagentur") Germany with an CC BY 4.0 licence</a>
+          <a target="_blank" rel="noopener"
+             style="color: black"
+             href="https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_annex-iii.pdf">The CO2-Equivalents are
+            taken from: Steffen
+            Schlömer (ed.), Technology-specific Cost and Performance Parameters </a>
         </div>
-      </a>
       </div>
+    </div>
     <div class="col mt-3">
       <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
@@ -70,7 +82,7 @@
     </div>
     <div class="col mt-3">
       <a class="card d-flex justify-content-center align-items-center" target="_blank" rel="noopener"
-           style="color: black" href="https://github.com/mallgaier/Data_Visualization_Electricity_Production_Germany">
+         style="color: black" href="https://github.com/mallgaier/Data_Visualization_Electricity_Production_Germany">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x" [icon]="faGithub"></fa-icon>
           <div class="ms-4">The repository of the project is available on Github</div>

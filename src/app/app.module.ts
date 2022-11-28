@@ -22,7 +22,7 @@ import {ChartBigPriceExportComponent} from "./chart-price/chart-big-price-export
 import {PriceExportComponent} from "./component/priceExport.component";
 import {ChartSourceHeatmapComponent} from "./chart-price/chart-source-heatmap.component";
 import { SourceHeatmapComponent } from './component/sourceHeatmap.component';
-import {PriceGenerationComponent} from "./component/priceGeneration.component";
+import {ScatterplotComponent} from "./component/scatterplot.component";
 import {AboutComponent} from "./component/about.component";
 import {PercentageDashboardComponent} from "./component/percentage-dashboard.component";
 
@@ -45,7 +45,7 @@ import {PercentageDashboardComponent} from "./component/percentage-dashboard.com
     PriceExportComponent,
     ChartSourceHeatmapComponent,
     SourceHeatmapComponent,
-    PriceGenerationComponent,
+    ScatterplotComponent,
     AboutComponent,
     PercentageDashboardComponent
   ],

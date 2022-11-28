@@ -54,6 +54,14 @@
   color: black;
 }
 
+.text-brown {
+  color: #b15928;
+}
+
+.card-clickable {
+  cursor: pointer;
+}
+
 @media only screen and (max-height: 950px) {
   .comparison-first {
     height: 375px;

@@ -7,11 +7,11 @@ import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-
 
 
 @Component({
-  selector: 'priceGeneration',
-  templateUrl: './priceGeneration.component.html',
+  selector: 'scatterplot',
+  templateUrl: './scatterplot.component.html',
   styleUrls: ['../app.component.css'],
 })
-export class PriceGenerationComponent implements OnInit {
+export class ScatterplotComponent implements OnInit {
 
   // Select Options
   public Month = Month;

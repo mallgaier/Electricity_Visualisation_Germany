@@ -52,7 +52,8 @@ export enum Source {
   conventional = 'Conventional',
   renewable = 'Renewable',
   totalGridLoad = 'Total Grid Load',
-  netExport = 'Net Export'
+  netExport = 'Net Export',
+  co2 = 'CO2 Emissions'
 }
 
 @Injectable({

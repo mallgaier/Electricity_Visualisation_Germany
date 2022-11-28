@@ -2,20 +2,20 @@
   <h4 class="ms-2 me-4">Electricity Visualization</h4>
   <ul class="nav nav-pills">
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.dashboard}"
-           (click)="changeTab(Tab.dashboard)">{{ Tab.dashboard }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.explorer}"
+           (click)="changeTab(Tab.explorer)">{{ Tab.explorer }}</div>
     </li>
     <li class="nav-item">
       <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.timeComparison}"
            (click)="changeTab(Tab.timeComparison)">{{ Tab.timeComparison }}</div>
     </li>
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.sourceHeatmap}"
-           (click)="changeTab(Tab.sourceHeatmap)">{{ Tab.sourceHeatmap }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.heatmap}"
+           (click)="changeTab(Tab.heatmap)">{{ Tab.heatmap }}</div>
     </li>
     <li class="nav-item">
-      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.priceGeneration}"
-           (click)="changeTab(Tab.priceGeneration)">{{ Tab.priceGeneration }}</div>
+      <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.scatterplot}"
+           (click)="changeTab(Tab.scatterplot)">{{ Tab.scatterplot }}</div>
     </li>
     <li class="nav-item">
       <div [ngClass]="{'nav-link text-white': true, 'active': tabSelected === Tab.priceExport}"
@@ -41,10 +41,10 @@
 </div>
 
 <div class="content content-margin">
-  <dashboard *ngIf="tabSelected === Tab.dashboard"></dashboard>
+  <dashboard *ngIf="tabSelected === Tab.explorer"></dashboard>
   <comparison *ngIf="tabSelected === Tab.timeComparison"></comparison>
-  <sourceHeatmap *ngIf="tabSelected === Tab.sourceHeatmap"></sourceHeatmap>
-  <priceGeneration *ngIf="tabSelected === Tab.priceGeneration"></priceGeneration>
+  <sourceHeatmap *ngIf="tabSelected === Tab.heatmap"></sourceHeatmap>
+  <scatterplot *ngIf="tabSelected === Tab.scatterplot"></scatterplot>
   <priceExport *ngIf="tabSelected === Tab.priceExport"></priceExport>
   <about *ngIf="tabSelected === Tab.about" (newItemEvent)="changeTab($event)"></about>
 </div>

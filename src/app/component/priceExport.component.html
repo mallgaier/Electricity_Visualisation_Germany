@@ -85,13 +85,13 @@
       </div>
       <div class="row mt-3">
         <div class="col">
-          <div class="card clickable text-center" *ngIf="previousMonth" (click)="tilePreviousMonth()">
+          <div class="card card-clickable text-center" *ngIf="previousMonth" (click)="tilePreviousMonth()">
             <fa-icon class="card-body fa-2x" [icon]="faArrowLeft"></fa-icon>
             <span> {{ previousMonth }} </span>
           </div>
         </div>
         <div class="col">
-          <div class="card clickable text-center" *ngIf="nextMonth" (click)="tileNextMonth()">
+          <div class="card card-clickable text-center" *ngIf="nextMonth" (click)="tileNextMonth()">
             <fa-icon class="card-body fa-2x" [icon]="faArrowRight"></fa-icon>
             <span> {{ nextMonth }} </span>
           </div>

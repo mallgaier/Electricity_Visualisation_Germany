@@ -15,10 +15,9 @@ The main goal is a working software - everything else is unnecessary :)
  */
 
 export enum Tab {
-  dashboard = "Dashboard",
+  explorer = "Data Explorer",
   timeComparison = "Timeline Comparison",
-  sourceHeatmap = "Source Heatmap",
-  priceGeneration ="Price and Generation",
+  heatmap = "Heatmap",
   priceExport = "Price and Export",
   about = "About",
   scatterplot = "Scatterplot"

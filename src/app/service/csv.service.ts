@@ -31,7 +31,6 @@ export class CsvService {
   public dayAheadPrice: number[] = [];
   public dayAheadNeighbourPrice: number[] = [];
   public netExport: number[] = [];
-  public deltaPrice: number[] = [];
 
   //Aggregated values
   public biomassAggregated = 0;
@@ -53,6 +52,8 @@ export class CsvService {
   public sumHydroPowerAggregated = 0;
   public sumWindAggregated = 0;
   public sumCoalAggregated = 0;
+  public co2Aggregated = 0;
+  public percentageConventional = 0;
 
   constructor(private http: HttpClient) {
   }
@@ -100,7 +101,6 @@ export class CsvService {
             this.dayAheadPrice.push(Number(row[18]));
             this.dayAheadNeighbourPrice.push(Number(row[19]));
             this.netExport.push(Number(row[20]));
-            this.deltaPrice.push(Number(row[18]) - Number(row[19]));
 
           }
         },
@@ -117,7 +117,7 @@ export class CsvService {
     return true;
   }
 
-  updateAggregatedValues():void {
+  updateAggregatedValues(): void {
     this.biomassAggregated = this.biomass.reduce((sum, current) => sum + current, 0);
     this.hydropowerAggregated = this.hydropower.reduce((sum, current) => sum + current, 0);
     this.windOffshoreAggregated = this.windOffshore.reduce((sum, current) => sum + current, 0);
@@ -135,6 +135,8 @@ export class CsvService {
     this.sumHydroPowerAggregated = this.hydroPowerSummed.reduce((sum, current) => sum + current, 0);
     this.sumWindAggregated = this.sumWind.reduce((sum, current) => sum + current, 0);
     this.sumCoalAggregated = this.sumCoal.reduce((sum, current) => sum + current, 0);
+    this.co2Aggregated = Math.round((this.sumCoalAggregated * 820 + this.biomassAggregated * 230 + this.fossilGasAggregated * 740 + this.photovoltaicsAggregated * 41 + this.sumHydroPowerAggregated * 24 + this.nuclearAggregated * 12 + this.windOffshoreAggregated * 12 + this.windOnshoreAggregated * 11) / (this.sumConventionalAggregated + this.sumRenewableAggregated - this.otherAggregated));
+    this.percentageConventional = Math.round(this.sumConventionalAggregated / (this.sumRenewableAggregated + this.sumConventionalAggregated) * 100);
   }
 
   private initArrays(): void {
@@ -162,6 +164,5 @@ export class CsvService {
     this.dayAheadPrice = [];
     this.dayAheadNeighbourPrice = [];
     this.netExport = [];
-    this.deltaPrice = [];
   }
 }

@@ -77,6 +77,8 @@ public Source = Source;
   updatedChart(source: Source) {
     if (source === Source.hydroPumpedStorage) {
       this.updatedChartForHydroPumedStorageCombined();
+    } else if (source === Source.co2) {
+      this.updatedChartForCO2Emissions();
     } else {
       this.chartOptionsSourceHeatmap.series[0].data = this.csvHeatmapService.heatmap;
       this.chartOptionsSourceHeatmap.colorAxis = {
@@ -125,6 +127,25 @@ public Source = Source;
       formatter: function (): any {
         // @ts-ignore
         return '<b>' + this.point.series['yAxis'].categories[this.point['y']] + 's </b> at <b>' + this.point.series['xAxis'].categories[this.point['x']] + '</b><br>Hydro Pumped Storage ' + (this.point.value < 0 ? ('<b style="color:#b2182b;">used</b>' + '<br><b>' + -this.point.value + '%</b> of the total generation') : ('<b style="color:#2166ac;">contributed</b>' + '<br><b>' + this.point.value + '%</b> to the total generation'));
+      }
+    }
+    this.updateFlagSourceHeatmap = true;
+  }
+
+  updatedChartForCO2Emissions() {
+    this.chartOptionsSourceHeatmap.series[0].data = this.csvHeatmapService.heatmap;
+    this.chartOptionsSourceHeatmap.colorAxis = {
+      stops: this.colorService.orange9sequential,
+      startOnTick: true,
+      endOnTick: true,
+      labels: {
+        format: '{value} gr./kWh'
+      }
+    }
+    this.chartOptionsSourceHeatmap.tooltip = {
+      formatter: function (): any {
+        // @ts-ignore
+        return '<b>' + this.point.series['yAxis'].categories[this.point['y']] + 's </b> at <b>' + this.point.series['xAxis'].categories[this.point['x']] + '<br>' + this.point.value + '</b> gr./kWh';
       }
     }
     this.updateFlagSourceHeatmap = true;
