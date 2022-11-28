@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {ColorService} from "../service/color.service";
 import {CsvSecondService} from "../service/csvSecond.service";
 
@@ -14,6 +14,7 @@ export class ChartBigSecondSummarizedComponent implements OnInit {
   highchartBigSecondSummarized: typeof Highcharts = Highcharts;
   public updateFlagBigSecondSummarized = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -21,7 +22,7 @@ export class ChartBigSecondSummarizedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
+    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), this.displayYear);
   }
 
   chartOptionsBigSecondSummarized: any = {
@@ -69,7 +70,7 @@ export class ChartBigSecondSummarizedComponent implements OnInit {
       name: 'Sum Conventional',
       data: this.csvSecondService.sumConventional
     }, {
-      name: 'total Grid load',
+      name: this.Source.totalGridLoad,
       type: 'line',
       data: this.csvSecondService.totalGridLoad
     }]
@@ -93,10 +94,12 @@ export class ChartBigSecondSummarizedComponent implements OnInit {
       name: 'Sum Conventional',
       data: this.csvSecondService.sumConventional
     }
-    this.chartOptionsBigSecondSummarized.series[2] = {
-      name: 'total Grid load',
-      type: 'line',
-      data: this.csvSecondService.totalGridLoad
+    if (this.displayMonth !== Month.Year) {
+      this.chartOptionsBigSecondSummarized.series[2] = {
+        name: this.Source.totalGridLoad,
+        type: 'line',
+        data: this.csvSecondService.totalGridLoad
+      }
     }
 
     this.updateFlagBigSecondSummarized = true;

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {ColorService} from "../service/color.service";
 import {CsvSecondService} from "../service/csvSecond.service";
 
@@ -14,6 +14,7 @@ export class ChartBigSecondGroupedComponent implements OnInit {
   highchartBigSecondGrouped: typeof Highcharts = Highcharts;
   public updateFlagBigSecondGrouped = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -21,7 +22,7 @@ export class ChartBigSecondGroupedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
+    this.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), this.displayYear);
   }
 
   chartOptionsBigSecondGrouped: any = {
@@ -50,8 +51,7 @@ export class ChartBigSecondGroupedComponent implements OnInit {
       xDateFormat: '%A %d.%m.%Y %k:%M'
     },
     plotOptions: {
-      series: {
-      },
+      series: {},
       area: {
         stacking: 'normal',
         lineColor: '#666666',
@@ -75,59 +75,60 @@ export class ChartBigSecondGroupedComponent implements OnInit {
       this.chartOptionsBigSecondGrouped.plotOptions.series.pointInterval = 15 * 60 * 1000
     }
     this.chartOptionsBigSecondGrouped.series[0] = {
-      name: 'Hydro Power',
+      name: this.Source.hydroPower,
       type: 'area',
       color: this.colorService.hydroPumpedStorage,
       data: this.csvSecondService.hydroPowerSummed,
     }
     this.chartOptionsBigSecondGrouped.series[1] = {
-      name: 'Photovoltaics',
+      name: this.Source.photovoltaics,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvSecondService.photovoltaics
     }
     this.chartOptionsBigSecondGrouped.series[2] = {
-      name: 'Wind',
+      name: this.Source.wind,
       type: 'area',
       color: this.colorService.windOffshore,
       data: this.csvSecondService.sumWind,
-
     }
     this.chartOptionsBigSecondGrouped.series[3] = {
-      name: 'Biomass',
-      type: 'area',
-      color: this.colorService.biomass,
-      data: this.csvSecondService.biomass
-    }
-    this.chartOptionsBigSecondGrouped.series[4] = {
-      name: 'Fossil Gas',
+      name: this.Source.fossilGas,
       type: 'area',
       color: this.colorService.fossilGas,
       data: this.csvSecondService.fossilGas
     }
+    this.chartOptionsBigSecondGrouped.series[4] = {
+      name: this.Source.coal,
+      type: 'area',
+      color: this.colorService.brownCoal,
+      data: this.csvSecondService.sumCoal
+    }
     this.chartOptionsBigSecondGrouped.series[5] = {
-      name: 'Nuclear',
+      name: this.Source.nuclear,
       type: 'area',
       color: this.colorService.nuclear,
       data: this.csvSecondService.nuclear
     }
     this.chartOptionsBigSecondGrouped.series[6] = {
-      name: 'Coal',
+      name: this.Source.biomass,
       type: 'area',
-      color: this.colorService.brownCoal,
-      data: this.csvSecondService.sumCoal
+      color: this.colorService.biomass,
+      data: this.csvSecondService.biomass
     }
     this.chartOptionsBigSecondGrouped.series[7] = {
-      name: 'Other',
+      name: this.Source.other,
       type: 'area',
       color: this.colorService.other,
       data: this.csvSecondService.other
     }
-    this.chartOptionsBigSecondGrouped.series[8] = {
-      name: 'total Grid load',
-      type: 'line',
-      color: this.colorService.totalGridLoad,
-      data: this.csvSecondService.totalGridLoad
+    if (this.displayMonth !== Month.Year) {
+      this.chartOptionsBigSecondGrouped.series[8] = {
+        name: this.Source.totalGridLoad,
+        type: 'line',
+        color: this.colorService.totalGridLoad,
+        data: this.csvSecondService.totalGridLoad
+      }
     }
 
     this.updateFlagBigSecondGrouped = true;

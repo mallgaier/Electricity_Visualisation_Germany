@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColorService} from "../service/color.service";
 
@@ -14,6 +14,7 @@ export class ChartSmallGroupedComponent implements OnInit{
   highchartSmallGrouped: typeof Highcharts = Highcharts;
   @Input() public updateFlagSmallGrouped = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -71,40 +72,56 @@ export class ChartSmallGroupedComponent implements OnInit{
     this.chartOptionsSmallGrouped.series = [{
       name: 'Sum: ',
       data: [{
-        name: 'Hydro Power (combined)',
+        name: this.Source.hydroPowerCombined,
         color: this.colorService.hydroPumpedStorage,
         y: this.csvService.sumHydroPowerAggregated
       }, {
-        name: 'Photovoltaics',
+        name: this.Source.photovoltaics,
         color: this.colorService.photovoltaics,
         y: this.csvService.photovoltaicsAggregated
       }, {
-        name: 'Wind',
+        name: this.Source.wind,
         color: this.colorService.windOffshore,
         y: this.csvService.sumWindAggregated
       }, {
-        name: 'Biomass',
+        name: this.Source.biomass,
         color: this.colorService.biomass,
         y: this.csvService.biomassAggregated
       }, {
-        name: 'Fossil Gas',
+        name: this.Source.fossilGas,
         color: this.colorService.fossilGas,
         y: this.csvService.fossilGasAggregated
       }, {
-        name: 'Nuclear',
+        name: this.Source.nuclear,
         color: this.colorService.nuclear,
         y: this.csvService.nuclearAggregated
       }, {
-        name: 'Coal',
+        name: this.Source.coal,
         color: this.colorService.brownCoal,
         y: this.csvService.sumCoalAggregated
       }, {
-        name: 'Other',
+        name: this.Source.other,
         color: this.colorService.other,
         y: this.csvService.otherAggregated
       }]
     }]
 
+    this.chartOptionsSmallGrouped.xAxis = {
+      categories: this.updateCategories()
+    }
+
     this.updateFlagSmallGrouped = true;
+  }
+
+  private updateCategories(): string[] {
+    let categories = [[this.Source.hydroPowerCombined, this.csvService.sumHydroPowerAggregated],
+      [this.Source.photovoltaics, this.csvService.photovoltaicsAggregated],
+      [this.Source.wind, this.csvService.sumWindAggregated],
+      [this.Source.biomass, this.csvService.biomassAggregated],
+      [this.Source.fossilGas, this.csvService.fossilGasAggregated],
+      [this.Source.nuclear, this.csvService.nuclearAggregated],
+      [this.Source.coal, this.csvService.sumCoalAggregated],
+      [this.Source.other, this.csvService.otherAggregated]];
+    return categories.sort((a: any, b: any) => b[1] - a[1]).map((a:any) => a[0]);
   }
 }

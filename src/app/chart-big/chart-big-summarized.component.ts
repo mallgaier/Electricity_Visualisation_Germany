@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColorService} from "../service/color.service";
 
@@ -14,6 +14,7 @@ export class ChartBigSummarizedComponent implements OnInit {
   highchartBigSummarized: typeof Highcharts = Highcharts;
   public updateFlagBigSummarized = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -21,7 +22,7 @@ export class ChartBigSummarizedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth),this.displayYear);
+    this.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), this.displayYear);
   }
 
   chartOptionsBigSummarized: any = {
@@ -70,7 +71,7 @@ export class ChartBigSummarizedComponent implements OnInit {
       name: 'Sum Conventional',
       data: this.csvService.sumConventional
     }, {
-      name: 'total Grid load',
+      name: this.Source.totalGridLoad,
       type: 'line',
       data: this.csvService.totalGridLoad
     }]
@@ -94,10 +95,12 @@ export class ChartBigSummarizedComponent implements OnInit {
       name: 'Sum Conventional',
       data: this.csvService.sumConventional
     }
-    this.chartOptionsBigSummarized.series[2] = {
-      name: 'total Grid load',
-      type: 'line',
-      data: this.csvService.totalGridLoad
+    if (this.displayMonth !== Month.Year) {
+      this.chartOptionsBigSummarized.series[2] = {
+        name: this.Source.totalGridLoad,
+        type: 'line',
+        data: this.csvService.totalGridLoad
+      }
     }
 
     this.updateFlagBigSummarized = true;

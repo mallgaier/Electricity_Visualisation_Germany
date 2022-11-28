@@ -48,7 +48,11 @@ export enum Source {
   photovoltaics = 'Photovoltaics',
   brownCoal = 'Brown Coal',
   hardCoal = 'Hard Coal',
-  coal = 'Coal'
+  coal = 'Coal',
+  conventional = 'Conventional',
+  renewable = 'Renewable',
+  totalGridLoad = 'Total Grid Load',
+  netExport = 'Net Export'
 }
 
 @Injectable({

@@ -132,36 +132,4 @@ export class ColorService {
     }
   }
 
-  public sourceTo(source: Source): string {
-    switch (source) {
-      case Source.hydroPumpedStorage:
-        return this.hydroPumpedStorage;
-      case Source.hydroPower:
-        return this.hydroPower;
-      case Source.windOffshore:
-        return this.windOffshore;
-      case Source.windOnshore:
-        return this.windOnshore;
-      case Source.wind:
-        return this.windOnshore;
-      case Source.nuclear:
-        return this.nuclear;
-      case Source.fossilGas :
-        return this.fossilGas;
-      case Source.other :
-        return this.other;
-      case Source.biomass:
-        return this.biomass;
-      case Source.photovoltaics :
-        return this.photovoltaics;
-      case Source.brownCoal:
-        return this.brownCoal;
-      case Source.hardCoal :
-        return this.hardCoal;
-      case Source.coal :
-        return this.brownCoal;
-      case Source.hydroPowerCombined:
-        return this.hydroPumpedStorage;
-    }
-  }
 }

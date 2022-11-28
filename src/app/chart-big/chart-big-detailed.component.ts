@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColorService} from "../service/color.service";
 
@@ -14,6 +14,7 @@ export class ChartBigDetailedComponent implements OnInit {
   highchartBigDetailed: typeof Highcharts = Highcharts;
   public updateFlagBigDetailed = false;
   public chartRef!: Highcharts.Chart;
+public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -74,76 +75,78 @@ export class ChartBigDetailedComponent implements OnInit {
       this.chartOptionsBigDetailed.plotOptions.series.pointInterval = 15 * 60 * 1000
     }
     this.chartOptionsBigDetailed.series[0] = {
-      name: 'Hydro Pumped Storage',
+      name: this.Source.hydroPumpedStorage,
       type: 'area',
       color: this.colorService.hydroPumpedStorage,
       data: this.csvService.hydroPumpedStorage
     }
     this.chartOptionsBigDetailed.series[1] = {
-      name: 'Photovoltaics',
+      name: this.Source.photovoltaics,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvService.photovoltaics
     }
     this.chartOptionsBigDetailed.series[2] = {
-      name: 'Wind Offshore',
+      name: this.Source.windOffshore,
       type: 'area',
       color: this.colorService.windOffshore,
       data: this.csvService.windOffshore
     }
     this.chartOptionsBigDetailed.series[3] = {
-      name: 'Wind Onshore',
+      name: this.Source.windOnshore,
       type: 'area',
       color: this.colorService.windOnshore,
       data: this.csvService.windOnshore
     }
     this.chartOptionsBigDetailed.series[4] = {
-      name: 'Biomass',
-      type: 'area',
-      color: this.colorService.biomass,
-      data: this.csvService.biomass
-    }
-    this.chartOptionsBigDetailed.series[5] = {
-      name: 'Hydro Power',
-      type: 'area',
-      color: this.colorService.hydroPower,
-      data: this.csvService.hydropower
-    }
-    this.chartOptionsBigDetailed.series[6] = {
-      name: 'Fossil Gas',
+      name: this.Source.fossilGas,
       type: 'area',
       color: this.colorService.fossilGas,
       data: this.csvService.fossilGas
     }
+    this.chartOptionsBigDetailed.series[5] = {
+      name: this.Source.hardCoal,
+      type: 'area',
+      color: this.colorService.hardCoal,
+      data: this.csvService.hardCoal
+    }
+    this.chartOptionsBigDetailed.series[6] = {
+      name: this.Source.brownCoal,
+      type: 'area',
+      color: this.colorService.brownCoal,
+      data: this.csvService.brownCoal
+    }
     this.chartOptionsBigDetailed.series[7] = {
-      name: 'Nuclear',
+      name: this.Source.nuclear,
       type: 'area',
       color: this.colorService.nuclear,
       data: this.csvService.nuclear
     }
     this.chartOptionsBigDetailed.series[8] = {
-      name: 'Brown Coal',
+      name: this.Source.hydroPower,
       type: 'area',
-      color: this.colorService.brownCoal,
-      data: this.csvService.brownCoal
+      color: this.colorService.hydroPower,
+      data: this.csvService.hydropower
     }
     this.chartOptionsBigDetailed.series[9] = {
-      name: 'Hard Coal',
+      name: this.Source.biomass,
       type: 'area',
-      color: this.colorService.hardCoal,
-      data: this.csvService.hardCoal
+      color: this.colorService.biomass,
+      data: this.csvService.biomass
     }
     this.chartOptionsBigDetailed.series[10] = {
-      name: 'Other',
+      name: this.Source.other,
       type: 'area',
       color: this.colorService.other,
       data: this.csvService.other
     }
-    this.chartOptionsBigDetailed.series[11] = {
-      name: 'total Grid load',
-      type: 'line',
-      color: this.colorService.totalGridLoad,
-      data: this.csvService.totalGridLoad
+    if (this.displayMonth !== Month.Year) {
+      this.chartOptionsBigDetailed.series[11] = {
+        name: this.Source.totalGridLoad,
+        type: 'line',
+        color: this.colorService.totalGridLoad,
+        data: this.csvService.totalGridLoad
+      }
     }
 
     this.updateFlagBigDetailed = true;

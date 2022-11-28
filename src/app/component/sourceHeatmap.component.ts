@@ -8,7 +8,7 @@ import {CsvHeatmapService} from "../service/csvHeatmap.service";
 @Component({
   selector: 'sourceHeatmap',
   templateUrl: './sourceHeatmap.component.html',
-  // styleUrls: ['./comparison.component.css'],
+  styleUrls: ['../app.component.css'],
 })
 export class SourceHeatmapComponent implements OnInit {
 

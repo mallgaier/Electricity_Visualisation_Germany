@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {Month, Year} from '../service/enum.service';
+import {Month, Year, Source} from '../service/enum.service';
 import {CsvScatterService} from "../service/csvScatter.service";
 
 @Component({
@@ -13,6 +13,7 @@ export class ChartBigPriceExportComponent {
   highchartBigPriceExport: typeof Highcharts = Highcharts;
   public updateFlagBigPriceExport = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColorService} from "../service/color.service";
 
@@ -14,6 +14,7 @@ export class ChartSmallSummarizedComponent implements OnInit {
   highchartSmallSummarized: typeof Highcharts = Highcharts;
   @Input() public updateFlagSmallSummarized = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -71,15 +72,20 @@ export class ChartSmallSummarizedComponent implements OnInit {
     this.chartOptionsSmallSummarized.series = [{
       name: 'Sum: ',
       data: [{
-        name: 'Conventional',
+        name: this.Source.conventional,
         color: this.colorService.sumConventional,
         y: this.csvService.sumConventionalAggregated
       }, {
-        name: 'Renewable',
+        name: this.Source.renewable,
         color: this.colorService.sumRenewables,
         y: this.csvService.sumRenewableAggregated
       }]
     }]
+
+    this.chartOptionsSmallSummarized.xAxis = {
+      categories: [[this.Source.conventional, this.csvService.sumConventionalAggregated],
+        [this.Source.renewable, this.csvService.sumRenewableAggregated]].sort((a: any, b: any) => b[1] - a[1]).map((a:any) => a[0])
+    }
 
     this.updateFlagSmallSummarized = true;
   }

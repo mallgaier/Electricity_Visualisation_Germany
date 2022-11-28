@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Detail, Month, Source, Year} from '../service/enum.service';
 import {Tab} from "../app.component";
-import {faGlobe, faEuroSign, faBoltLightning, faPlug, faCalendar, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
+import {faGlobe, faArrowDownUpAcrossLine, faBoltLightning, faPlug, faCalendar, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 
@@ -22,7 +22,7 @@ export class AboutComponent {
 
   //Icons
   public faBoltLightning = faBoltLightning;
-  public faEuroSign = faEuroSign;
+  public faEuroSign = faArrowDownUpAcrossLine;
   public faPlug = faPlug;
   public faCalendar = faCalendar;
   public faCircleInfo = faCircleInfo;
