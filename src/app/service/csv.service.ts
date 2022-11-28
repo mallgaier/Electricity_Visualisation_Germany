@@ -130,8 +130,6 @@ export class CsvService {
     this.hydroPumpedStorageAggregated = this.hydroPumpedStorage.reduce((sum, current) => sum + current, 0);
     this.otherAggregated = this.other.reduce((sum, current) => sum + current, 0);
     this.totalGridLoadAggregated = this.totalGridLoad.reduce((sum, current) => sum + current, 0);
-    // this.residualLoadAggregated = this.residualLoad.reduce((sum, current) => sum + current, 0);
-    // this.reverseHydroPumpedStorageAggregated = this.reverseHydroPumpedStorage.reduce((sum, current) => sum + current, 0);
     this.sumConventionalAggregated = this.sumConventional.reduce((sum, current) => sum + current, 0);
     this.sumRenewableAggregated = this.sumRenewable.reduce((sum, current) => sum + current, 0);
     this.sumHydroPowerAggregated = this.hydroPowerSummed.reduce((sum, current) => sum + current, 0);

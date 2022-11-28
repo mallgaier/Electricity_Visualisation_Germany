@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import * as Highcharts from 'highcharts';
 import {CsvService} from "../service/csv.service";
-import {Detail, EnumService, Month, Year} from '../service/enum.service';
+import {Detail, EnumService, Month, Year, Source} from '../service/enum.service';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {ChartSmallDetailedComponent} from "../charts-small/chart-small-detailed.component";
 import {ChartBigDetailedComponent} from "../chart-big/chart-big-detailed.component";
@@ -14,7 +13,7 @@ import {ChartSmallSummarizedComponent} from "../charts-small/chart-small-summari
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['../app.component.css', './dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -30,13 +29,13 @@ export class DashboardComponent implements OnInit {
 
   // Displayed values
   public percentageConventional = 0;
-  public percentageRenewable = 0;
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
   public titleBig: string | undefined;
   public titleSmall: string | undefined;
   public subtitleBig: string | undefined;
   public isUpdating = false;
+  public Source = Source;
 
 
   // Icons
@@ -46,10 +45,6 @@ export class DashboardComponent implements OnInit {
   public faArrowUp = faArrowUp;
 
   // Chart
-  highchartBig: typeof Highcharts = Highcharts;
-  public updateFlagBig = false;
-  public chartRef!: Highcharts.Chart;
-
   @ViewChild(ChartBigDetailedComponent) chartBigDetailedComponent!: ChartBigDetailedComponent;
   @ViewChild(ChartBigGroupedComponent) chartBigGroupedComponent!: ChartBigGroupedComponent;
   @ViewChild(ChartBigSummarizedComponent) chartBigSummarizedComponent!: ChartBigSummarizedComponent;
@@ -102,16 +97,18 @@ export class DashboardComponent implements OnInit {
         this.chartBigSummarizedComponent.updateSummarizedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
         break;
     }
-    switch (this.displayDetailSmall) {
-      case Detail.detailed:
-        this.chartSmallDetailedComponent.updateSmallDetailedChart();
-        break;
-      case Detail.grouped:
-        this.chartSmallGroupedComponent.updateSmallGroupedChart();
-        break;
-      case Detail.summarized:
-        this.chartSmallSummarizedComponent.updateSmallSummarizedChart();
-        break;
+    if (!this.collapseSecondRow) {
+      switch (this.displayDetailSmall) {
+        case Detail.detailed:
+          this.chartSmallDetailedComponent.updateSmallDetailedChart();
+          break;
+        case Detail.grouped:
+          this.chartSmallGroupedComponent.updateSmallGroupedChart();
+          break;
+        case Detail.summarized:
+          this.chartSmallSummarizedComponent.updateSmallSummarizedChart();
+          break;
+      }
     }
   }
 
@@ -134,11 +131,6 @@ export class DashboardComponent implements OnInit {
   updateTitles(year: Year, month: Month) {
     this.titleBig = (month === Month.Year ? '' : month + ' ') + year;
     this.titleSmall = (month === Month.Year ? '' : month + ' ') + year;
-    if (month === Month.Year) {
-      this.subtitleBig = 'The data shown was averaged over a 6-hour period'
-    } else {
-      this.subtitleBig = 'The data shown was recorded at 15min intervals';
-    }
   }
 
   tilePreviousMonth() {
@@ -155,10 +147,10 @@ export class DashboardComponent implements OnInit {
     this.updateVisualization();
   }
 
-
-  chartCallback: Highcharts.ChartCallbackFunction = chart => {
-    this.chartRef = chart;
-  };
+  changeCollapseSecondRow() {
+    this.collapseSecondRow = !this.collapseSecondRow;
+    this.updateVisualization();
+  }
 
   setDisplayMonth(value: Month) {
     return this.displayMonth = value;
@@ -170,11 +162,6 @@ export class DashboardComponent implements OnInit {
 
   setDisplayDetail(value: Detail) {
     return this.displayDetailBig = value;
-  }
-
-  changeCollapseSecondRow() {
-    this.collapseSecondRow = !this.collapseSecondRow;
-    this.updateFlagBig = true;
   }
 
   changeBigDetail(detail: Detail) {

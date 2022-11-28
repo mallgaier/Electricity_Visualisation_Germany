@@ -1,24 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import * as Highcharts from 'highcharts';
 import {CsvService} from "../service/csv.service";
 import {Detail, EnumService, Month, Year} from '../service/enum.service';
-import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from '@fortawesome/free-solid-svg-icons';
-import {ChartSmallDetailedComponent} from "../charts-small/chart-small-detailed.component";
 import {ChartBigDetailedComponent} from "../chart-big/chart-big-detailed.component";
 import {ChartBigGroupedComponent} from "../chart-big/chart-big-grouped.component";
 import {ChartBigSummarizedComponent} from "../chart-big/chart-big-summarized.component";
-import {ChartSmallGroupedComponent} from "../charts-small/chart-small-grouped.component";
-import {ChartSmallSummarizedComponent} from "../charts-small/chart-small-summarized.component";
 import {ChartBigSecondDetailedComponent} from "../chart-big-second/chart-big-second-detailed.component";
 import {CsvSecondService} from "../service/csvSecond.service";
-import { ChartBigSecondGroupedComponent } from '../chart-big-second/chart-big-second-grouped.component';
+import {ChartBigSecondGroupedComponent } from '../chart-big-second/chart-big-second-grouped.component';
 import {ChartBigSecondSummarizedComponent} from "../chart-big-second/chart-big-second-summarized.component";
 
 
 @Component({
   selector: 'comparison',
   templateUrl: './comparison.component.html',
-  styleUrls: ['./comparison.component.css'],
+  styleUrls: ['../app.component.css', './comparison.component.css'],
 })
 export class ComparisonComponent implements OnInit {
 

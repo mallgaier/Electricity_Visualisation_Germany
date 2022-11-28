@@ -21,7 +21,8 @@
             </li>
           </ul>
         </h6>
-        <div class="card-body" style="height: 500px">
+        <div [ngClass]='{"card-body": true,  "dashboard-first": !collapseSecondRow,
+        "dashboard-full": collapseSecondRow}'>
           <chart-big-detailed *ngIf="displayDetailBig === Detail.detailed" [displayMonth]="displayMonth"
                               [displayYear]="displayYear"></chart-big-detailed>
           <chart-big-grouped *ngIf="displayDetailBig === Detail.grouped" [displayMonth]="displayMonth"
@@ -29,7 +30,7 @@
           <chart-big-summarized *ngIf="displayDetailBig === Detail.summarized" [displayMonth]="displayMonth"
                                 [displayYear]="displayYear"></chart-big-summarized>
           <h4 *ngIf="displayDetailBig === Detail.loading"
-              class="spinner-border spinner-border-xl center-spinner" role="status" aria-hidden="true"></h4>
+              class="text-center align-middle">Updating...</h4>
         </div>
       </div>
     </div>
@@ -85,7 +86,6 @@
                    placeholder="6-Hour Average" readonly>
           </li>
           <li class="list-group-item">
-            <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
             <button type="button" class="btn btn-primary" *ngIf="!isUpdating" (click)="updateVisualization()">Update
               Visualization
             </button>
@@ -110,6 +110,10 @@
           </div>
         </div>
       </div>
+      <div *ngIf="collapseSecondRow"  class="row mt-3">
+        <percentage-dashboard [isUpdating]="isUpdating"
+                              [percentageConventional]="percentageConventional"></percentage-dashboard>
+      </div>
     </div>
   </div>
   <div class="row mt-3">
@@ -120,64 +124,40 @@
             <li class="nav-item">
               <a class="nav-link disabled" href="#">Aggregated Data</a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="!collapseSecondRow" class="nav-item">
               <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.detailed}"
                    (click)="changeSmallDetail(Detail.detailed)">{{ Detail.detailed }}</div>
             </li>
-            <li class="nav-item">
+            <li *ngIf="!collapseSecondRow" class="nav-item">
               <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.grouped}"
                    (click)="changeSmallDetail(Detail.grouped)">{{ Detail.grouped }}</div>
             </li>
-            <li class="nav-item">
+            <li *ngIf="!collapseSecondRow" class="nav-item">
               <div [ngClass]="{'nav-link': true, 'active': displayDetailSmall === Detail.summarized}"
                    (click)="changeSmallDetail(Detail.summarized)">{{ Detail.summarized }}</div>
             </li>
+            <span class="spacer"></span>
+            <div (click)="changeCollapseSecondRow()">
+              <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
+              <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
+            </div>
           </ul>
-          <!--   <span class="float-end" (click)="changeCollapseSecondRow()">
-               <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
-               <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
-             </span>-->
         </h6>
-        <div *ngIf="!collapseSecondRow" class="card-body" style="height: 300px">
+        <div *ngIf="!collapseSecondRow" class="card-body dashboard-second">
           <chart-small-detailed *ngIf="displayDetailSmall === Detail.detailed" [displayMonth]="displayMonth"
                                 [displayYear]="displayYear"></chart-small-detailed>
           <chart-small-grouped *ngIf="displayDetailSmall === Detail.grouped" [displayMonth]="displayMonth"
                                [displayYear]="displayYear"></chart-small-grouped>
           <chart-small-summarized *ngIf="displayDetailSmall === Detail.summarized" [displayMonth]="displayMonth"
                                   [displayYear]="displayYear"></chart-small-summarized>
+          <h4 *ngIf="displayDetailSmall === Detail.loading"
+              class="text-center align-middle">Updating...</h4>
         </div>
       </div>
     </div>
     <div class="col-lg-2">
-      <div class="card">
-        <h6 class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Percentage Data</a>
-            </li>
-          </ul>
-          <!--<span class="float-end" (click)="changeCollapseSecondRow()">
-            <fa-icon *ngIf="!collapseSecondRow" [icon]="faArrowDown"></fa-icon>
-            <fa-icon *ngIf="collapseSecondRow" [icon]="faArrowUp"></fa-icon>
-          </span>-->
-        </h6>
-        <div *ngIf="!collapseSecondRow" class="card-body">
-          <div class="card-group">
-            <div class="card text-center">
-              <h6 class="card-header bg bg-conventional text-white">Conventional</h6>
-              <h1 class="card-body" *ngIf="!isUpdating"> {{percentageConventional}}%</h1>
-              <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
-                    aria-hidden="true"></span>
-            </div>
-            <div class="card text-center">
-              <h6 class="card-header bg bg-renewable text-white">Renewable</h6>
-              <h1 class="card-body" *ngIf="!isUpdating"> {{100 - percentageConventional}}%</h1>
-              <span *ngIf="isUpdating" class="card-body spinner-border spinner-border-sm m-4" role="status"
-                    aria-hidden="true"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <percentage-dashboard *ngIf="!collapseSecondRow" [isUpdating]="isUpdating"
+                            [percentageConventional]="percentageConventional"></percentage-dashboard>
     </div>
   </div>
 </div>

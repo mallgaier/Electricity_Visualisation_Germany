@@ -24,6 +24,7 @@ import {ChartSourceHeatmapComponent} from "./chart-price/chart-source-heatmap.co
 import { SourceHeatmapComponent } from './component/sourceHeatmap.component';
 import {PriceGenerationComponent} from "./component/priceGeneration.component";
 import {AboutComponent} from "./component/about.component";
+import {PercentageDashboardComponent} from "./component/percentage-dashboard.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {AboutComponent} from "./component/about.component";
     ChartSourceHeatmapComponent,
     SourceHeatmapComponent,
     PriceGenerationComponent,
-    AboutComponent
+    AboutComponent,
+    PercentageDashboardComponent
   ],
   imports: [
     BrowserModule,

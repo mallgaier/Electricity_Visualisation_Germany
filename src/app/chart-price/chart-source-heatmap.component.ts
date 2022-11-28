@@ -17,6 +17,7 @@ export class ChartSourceHeatmapComponent {
   highchartSourceHeatmap: typeof Highcharts = Highcharts;
   public updateFlagSourceHeatmap = false;
   public chartRef!: Highcharts.Chart;
+public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
   @Input() public source = Source as any;

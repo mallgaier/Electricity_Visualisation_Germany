@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
-import {EnumService, Month, Year} from '../service/enum.service';
+import {EnumService, Month, Year, Source} from '../service/enum.service';
 import {CsvService} from "../service/csv.service";
 import {ColorService} from "../service/color.service";
 
@@ -8,12 +8,13 @@ import {ColorService} from "../service/color.service";
   selector: 'chart-big-price-generation-grouped',
   templateUrl: './chart-big-price-generation-grouped.component.html',
 })
-export class ChartBigPriceGenerationGroupedComponent{
+export class ChartBigPriceGenerationGroupedComponent {
 
   // Chart
   highchartBigPriceGenerationGrouped: typeof Highcharts = Highcharts;
   public updateFlagBigPriceGenerationGrouped = false;
   public chartRef!: Highcharts.Chart;
+  public Source = Source;
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
@@ -58,8 +59,7 @@ export class ChartBigPriceGenerationGroupedComponent{
       xDateFormat: '%A %d.%m.%Y %k:%M'
     },
     plotOptions: {
-      series: {
-      },
+      series: {},
       area: {
         stacking: 'normal',
         lineColor: '#666666',
@@ -84,60 +84,53 @@ export class ChartBigPriceGenerationGroupedComponent{
     }
 
     this.chartOptionsBigPriceGenerationGrouped.series[0] = {
-      name: 'Hydro Power',
+      name: this.Source.hydroPower,
       type: 'area',
       color: this.colorService.hydroPumpedStorage,
       data: this.csvService.hydroPowerSummed,
     }
     this.chartOptionsBigPriceGenerationGrouped.series[1] = {
-      name: 'Photovoltaics',
+      name: this.Source.photovoltaics,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvService.photovoltaics
     }
     this.chartOptionsBigPriceGenerationGrouped.series[2] = {
-      name: 'Wind',
+      name: this.Source.wind,
       type: 'area',
       color: this.colorService.windOffshore,
       data: this.csvService.sumWind,
 
     }
     this.chartOptionsBigPriceGenerationGrouped.series[3] = {
-      name: 'Biomass',
+      name: this.Source.biomass,
       type: 'area',
       color: this.colorService.biomass,
       data: this.csvService.biomass
     }
     this.chartOptionsBigPriceGenerationGrouped.series[4] = {
-      name: 'Fossil Gas',
+      name: this.Source.fossilGas,
       type: 'area',
       color: this.colorService.fossilGas,
       data: this.csvService.fossilGas
     }
     this.chartOptionsBigPriceGenerationGrouped.series[5] = {
-      name: 'Nuclear',
+      name: this.Source.nuclear,
       type: 'area',
       color: this.colorService.nuclear,
       data: this.csvService.nuclear
     }
     this.chartOptionsBigPriceGenerationGrouped.series[6] = {
-      name: 'Coal',
+      name: this.Source.coal,
       type: 'area',
       color: this.colorService.brownCoal,
       data: this.csvService.sumCoal
     }
     this.chartOptionsBigPriceGenerationGrouped.series[7] = {
-      name: 'Other',
+      name: this.Source.other,
       type: 'area',
       color: this.colorService.other,
       data: this.csvService.other
-    }
-    this.chartOptionsBigPriceGenerationGrouped.series[8] = {
-      name: 'day-Ahead Price',
-      type: 'line',
-      yAxis: 1,
-      color: this.colorService.dayAheadPrice,
-      data: this.csvService.dayAheadPrice
     }
 
     this.updateFlagBigPriceGenerationGrouped = true;

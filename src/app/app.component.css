@@ -24,6 +24,7 @@
   padding-left: 8px;
   padding-right: 8px;
 }
+
 .toolbar-height {
   height: 60px;
 }
@@ -32,6 +33,7 @@
   .toolbar-height {
     height: 250px;
   }
+
   .content-margin {
     margin: 280px auto 3px;
   }
@@ -41,6 +43,7 @@
   .toolbar-height {
     height: 100px;
   }
+
   .content-margin {
     margin: 120px auto 3px;
   }
@@ -49,4 +52,56 @@
 .selected {
   background-color: white;;
   color: black;
+}
+
+@media only screen and (max-height: 950px) {
+  .comparison-first {
+    height: 375px;
+  }
+
+  .comparison-second {
+    height: 325px;
+  }
+
+  .dashboard-first {
+    height: 450px;
+  }
+
+  .dashboard-second {
+    height: 250px;
+  }
+
+  .dashboard-full {
+    height: 650px;
+  }
+
+  .full-box {
+    height: 750px;
+  }
+}
+
+@media only screen and (min-height: 951px) {
+  .comparison-first {
+    height: 425px;
+  }
+
+  .comparison-second {
+    height: 375px;
+  }
+
+  .dashboard-first {
+    height: 500px;
+  }
+
+  .dashboard-second {
+    height: 300px;
+  }
+
+  .dashboard-full {
+    height: 750px;
+  }
+
+  .full-box {
+    height: 850px;
+  }
 }

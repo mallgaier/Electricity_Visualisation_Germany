@@ -9,7 +9,7 @@ import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-
 @Component({
   selector: 'priceGeneration',
   templateUrl: './priceGeneration.component.html',
-  // styleUrls: ['./comparison.component.css'],
+  styleUrls: ['../app.component.css'],
 })
 export class PriceGenerationComponent implements OnInit {
 

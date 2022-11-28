@@ -54,7 +54,7 @@ export class CsvSecondService {
   }
 
   async updateCSVAndAggregatedValues(url: string): Promise<boolean> {
-    return this.updateCSV(url).then(() => this.updateAggregatedValues(), () => false);
+    return this.updateCSV(url);
   }
 
   async updateCSV(url: string): Promise<boolean> {
@@ -101,29 +101,6 @@ export class CsvSecondService {
           return false;
         }
       );
-    return true;
-  }
-
-  async updateAggregatedValues(): Promise<boolean> {
-    this.biomassAggregated = this.biomass.reduce((sum, current) => sum + current, 0);
-    this.hydropowerAggregated = this.hydropower.reduce((sum, current) => sum + current, 0);
-    this.windOffshoreAggregated = this.windOffshore.reduce((sum, current) => sum + current, 0);
-    this.windOnshoreAggregated = this.windOnshore.reduce((sum, current) => sum + current, 0);
-    this.photovoltaicsAggregated = this.photovoltaics.reduce((sum, current) => sum + current, 0);
-    this.nuclearAggregated  = this.nuclear.reduce((sum, current) => sum + current, 0);
-    this.brownCoalAggregated = this.brownCoal.reduce((sum, current) => sum + current, 0);
-    this.hardCoalAggregated = this.hardCoal.reduce((sum, current) => sum + current, 0);
-    this.fossilGasAggregated = this.fossilGas.reduce((sum, current) => sum + current, 0);
-    this.hydroPumpedStorageAggregated = this.hydroPumpedStorage.reduce((sum, current) => sum + current, 0);
-    this.otherAggregated = this.other.reduce((sum, current) => sum + current, 0);
-    this.totalGridLoadAggregated = this.totalGridLoad.reduce((sum, current) => sum + current, 0);
-    // this.residualLoadAggregated = this.residualLoad.reduce((sum, current) => sum + current, 0);
-    // this.reverseHydroPumpedStorageAggregated = this.reverseHydroPumpedStorage.reduce((sum, current) => sum + current, 0);
-    this.sumConventionalAggregated = this.sumConventional.reduce((sum, current) => sum + current, 0);
-    this.sumRenewableAggregated = this.sumRenewable.reduce((sum, current) => sum + current, 0);
-    this.sumHydroPowerAggregated = this.hydroPowerSummed.reduce((sum, current) => sum + current, 0);
-    this.sumWindAggregated = this.sumWind.reduce((sum, current) => sum + current, 0);
-    this.sumCoalAggregated = this.sumCoal.reduce((sum, current) => sum + current, 0);
     return true;
   }
 

@@ -8,7 +8,7 @@ import {CsvScatterService} from "../service/csvScatter.service";
 @Component({
   selector: 'priceExport',
   templateUrl: './priceExport.component.html',
-  // styleUrls: ['./comparison.component.css'],
+  styleUrls: ['../app.component.css'],
 })
 export class PriceExportComponent implements OnInit {
 
