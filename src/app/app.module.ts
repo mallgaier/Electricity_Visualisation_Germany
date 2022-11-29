@@ -17,7 +17,6 @@ import {ComparisonComponent} from "./component/comparison.component";
 import {ChartBigSecondDetailedComponent} from "./chart-big-second/chart-big-second-detailed.component";
 import {ChartBigSecondGroupedComponent} from "./chart-big-second/chart-big-second-grouped.component";
 import {ChartBigSecondSummarizedComponent} from "./chart-big-second/chart-big-second-summarized.component";
-import {ChartBigPriceGenerationGroupedComponent} from "./chart-price/chart-big-price-generation-grouped.component";
 import {ChartBigPriceExportComponent} from "./chart-price/chart-big-price-export.component";
 import {PriceExportComponent} from "./component/priceExport.component";
 import {ChartSourceHeatmapComponent} from "./chart-price/chart-source-heatmap.component";
@@ -25,6 +24,7 @@ import { SourceHeatmapComponent } from './component/sourceHeatmap.component';
 import {ScatterplotComponent} from "./component/scatterplot.component";
 import {AboutComponent} from "./component/about.component";
 import {PercentageDashboardComponent} from "./component/percentage-dashboard.component";
+import {ChartScatterplotComponent} from "./chart-price/chart-scatterplot.component";
 
 @NgModule({
   declarations: [
@@ -40,14 +40,14 @@ import {PercentageDashboardComponent} from "./component/percentage-dashboard.com
     ChartBigSecondDetailedComponent,
     ChartBigSecondGroupedComponent,
     ChartBigSecondSummarizedComponent,
-    ChartBigPriceGenerationGroupedComponent,
     ChartBigPriceExportComponent,
     PriceExportComponent,
     ChartSourceHeatmapComponent,
     SourceHeatmapComponent,
     ScatterplotComponent,
     AboutComponent,
-    PercentageDashboardComponent
+    PercentageDashboardComponent,
+    ChartScatterplotComponent
   ],
   imports: [
     BrowserModule,

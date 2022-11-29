@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CsvService} from "../service/csv.service";
-import {Detail, EnumService, Month, Year} from '../service/enum.service';
+import {Detail, EnumService, Month, ScatterGrouping, Source, Year} from '../service/enum.service';
 import {faArrowLeft, faArrowRight, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
 import {CsvSecondService} from "../service/csvSecond.service";
-import {ChartBigPriceGenerationGroupedComponent} from "../chart-price/chart-big-price-generation-grouped.component";
+import {ChartScatterplotComponent} from "../chart-price/chart-scatterplot.component";
+import {CsvScatterService} from "../service/csvScatter.service";
 
 
 @Component({
@@ -17,8 +17,15 @@ export class ScatterplotComponent implements OnInit {
   public Month = Month;
   public Year = Year;
   public Detail = Detail;
-  public displayMonth = Month.Aug;
+  public ScatterGrouping = ScatterGrouping;
+  public Source = Source;
+  public displayMonth = Month.Year;
   public displayYear = Year.y2022;
+  public scatterGrouping = ScatterGrouping.season;
+  public dataResolution = ScatterGrouping.weekly;
+  public scatterXAxis = Source.cw;
+  public scatterYAxis = Source.photovoltaics;
+
   public displayDetailFirst = Detail.detailed;
   public meritOrder = true;
   public nextMonth: string | undefined;
@@ -31,10 +38,10 @@ export class ScatterplotComponent implements OnInit {
 
   public isUpdatingFirst = false;
 
-  @ViewChild(ChartBigPriceGenerationGroupedComponent) chartBigPriceGenerationGroupedComponent!: ChartBigPriceGenerationGroupedComponent;
+  @ViewChild(ChartScatterplotComponent) chartScatterplotComponent!: ChartScatterplotComponent;
 
 
-  constructor(public csvService: CsvService, public csvSecondService: CsvSecondService, public enumService: EnumService) {
+  constructor(public csvScatterService: CsvScatterService, public csvSecondService: CsvSecondService, public enumService: EnumService) {
   }
 
   ngOnInit(): void {
@@ -43,9 +50,9 @@ export class ScatterplotComponent implements OnInit {
 
   async updateVisualization(): Promise<void> {
     this.isUpdatingFirst = true;
-    await this.csvService.updateCSV(this.enumService.enumToFileName(this.displayMonth, this.displayYear), false);
+    await this.csvScatterService.updateCSVAndMatrix(this.scatterGrouping, this.displayYear, this.dataResolution, this.scatterXAxis, this.scatterYAxis);
     setTimeout(() => {
-      this.chartBigPriceGenerationGroupedComponent.updateGroupedChart(this.enumService.toNumericMonth(this.displayMonth), Number(this.displayYear.toString()));
+      this.chartScatterplotComponent.updatedChart(this.scatterXAxis, this.scatterYAxis);
       this.isUpdatingFirst = false;
     }, 1000);
     this.calculateNextPreviousMonth();
@@ -69,6 +76,27 @@ export class ScatterplotComponent implements OnInit {
     return this.displayYear = value;
   }
 
+  setScatterGrouping(value: ScatterGrouping) {
+    this.scatterGrouping = value;
+    if (this.scatterGrouping === ScatterGrouping.year) {
+      this.displayYear = Year.yAll;
+    }
+  }
+
+  setDataResolution(value: ScatterGrouping) {
+    this.dataResolution = value;
+    if (this.dataResolution === ScatterGrouping.daily && this.displayYear === Year.yAll) {
+      this.displayYear = Year.y2022;
+    }
+  }
+
+  setScatterXAxis(value: Source) {
+    return this.scatterXAxis = value;
+  }
+
+  setScatterYAxis(value: Source) {
+    return this.scatterYAxis = value;
+  }
 
   changeBigDetail(detail: Detail) {
     this.displayDetailFirst = detail;

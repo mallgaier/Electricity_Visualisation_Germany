@@ -24,7 +24,8 @@ export enum Year {
   y2018 = '2018',
   y2017 = '2017',
   y2016 = '2016',
-  y2015 = '2015'
+  y2015 = '2015',
+  yAll = 'All Years'
 }
 
 export enum Detail {
@@ -52,8 +53,21 @@ export enum Source {
   conventional = 'Conventional',
   renewable = 'Renewable',
   totalGridLoad = 'Total Grid Load',
+  residualLoad = 'Residual Load',
   netExport = 'Net Export',
-  co2 = 'CO2 Emissions'
+  co2 = 'CO2 Emissions',
+  sumConventional = 'Sum Conventional',
+  sumRenewable = 'Sum Renewable',
+  sumGeneration = 'Sum Generation',
+  cw = 'Calendar Week',
+  date = 'Continuous Date'
+}
+
+export enum ScatterGrouping {
+  year = 'Year',
+  season = 'Season',
+  daily = 'Daily',
+  weekly = 'Weekly'
 }
 
 @Injectable({

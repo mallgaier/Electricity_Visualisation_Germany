@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import * as Highcharts from 'highcharts';
 import {Month, Year, Source} from '../service/enum.service';
-import {CsvScatterService} from "../service/csvScatter.service";
+import {CsvPriceScatterService} from "../service/csvPriceScatter.service";
 
 @Component({
   selector: 'chart-big-price-export',
@@ -17,7 +17,7 @@ export class ChartBigPriceExportComponent {
   @Input() public displayMonth = Month as any;
   @Input() public displayYear = Year as any;
 
-  constructor(private csvScatterService: CsvScatterService) {
+  constructor(private csvScatterService: CsvPriceScatterService) {
   }
 
   chartOptionsBigPriceExport: any = {

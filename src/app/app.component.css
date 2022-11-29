@@ -62,7 +62,7 @@
   cursor: pointer;
 }
 
-@media only screen and (max-height: 950px) {
+@media only screen and (max-height: 980px) {
   .comparison-first {
     height: 375px;
   }
@@ -88,7 +88,7 @@
   }
 }
 
-@media only screen and (min-height: 951px) {
+@media only screen and (min-height: 981px) {
   .comparison-first {
     height: 425px;
   }

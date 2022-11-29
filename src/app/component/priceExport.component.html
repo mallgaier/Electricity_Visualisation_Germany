@@ -31,13 +31,7 @@
                     name="selectYear"
                     id="select_year">
               <option selected [value]="Year.y2022">{{Year.y2022}}</option>
-              <option [value]="Year.y2021">{{Year.y2021}}</option>
-              <option [value]="Year.y2020">{{Year.y2020}}</option>
-              <option [value]="Year.y2019">{{Year.y2019}}</option>
-              <option [value]="Year.y2018">{{Year.y2018}}</option>
-              <option [value]="Year.y2017">{{Year.y2017}}</option>
-              <option [value]="Year.y2016">{{Year.y2016}}</option>
-              <option [value]="Year.y2015">{{Year.y2015}}</option>
+              <option [disabled]="true" [value]="Year.y2021">More years currently not available</option>
             </select>
           </li>
           <li class="list-group-item">
@@ -47,19 +41,8 @@
                     (ngModelChange)="selectMonth.value = setDisplayMonth($event)"
                     name="selectMonth"
                     id="select_month">
-              <option [value]="Month.Year">{{Month.Year}}</option>
-              <option [value]="Month.Jan">{{Month.Jan}}</option>
-              <option [value]="Month.Feb">{{Month.Feb}}</option>
-              <option [value]="Month.Mar">{{Month.Mar}}</option>
-              <option [value]="Month.Apr">{{Month.Apr}}</option>
-              <option [value]="Month.May">{{Month.May}}</option>
-              <option [value]="Month.Jun">{{Month.Jun}}</option>
-              <option [value]="Month.Jul">{{Month.Jul}}</option>
               <option [value]="Month.Aug">{{Month.Aug}}</option>
-              <option [value]="Month.Sep">{{Month.Sep}}</option>
-              <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
-              <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
-              <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
+              <option [disabled]="true" [value]="Month.Sep">More months currently not available</option>
             </select>
           </li>
           <li class="list-group-item">
@@ -71,7 +54,6 @@
                    placeholder="6-Hour Average" readonly>
           </li>
           <li class="list-group-item">
-            <!-- <button type="button" class="btn btn-secondary mb-2" (click)="updateData()">Update Data</button> -->
             <button type="button" class="btn btn-primary" *ngIf="!isUpdatingFirst" (click)="updateFirstDiagram()">
               Update
               Visualization

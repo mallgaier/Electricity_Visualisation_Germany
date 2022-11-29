@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Detail, EnumService, Month, Year} from '../service/enum.service';
 import {faArrowLeft, faArrowRight, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
 import {ChartBigPriceExportComponent} from "../chart-price/chart-big-price-export.component";
-import {CsvScatterService} from "../service/csvScatter.service";
+import {CsvPriceScatterService} from "../service/csvPriceScatter.service";
 
 
 @Component({
@@ -32,7 +32,7 @@ export class PriceExportComponent implements OnInit {
   @ViewChild(ChartBigPriceExportComponent) chartBigPriceExportComponent!: ChartBigPriceExportComponent;
 
 
-  constructor(public csvScatterService: CsvScatterService, public enumService: EnumService) {
+  constructor(public csvScatterService: CsvPriceScatterService, public enumService: EnumService) {
   }
 
   ngOnInit(): void {
