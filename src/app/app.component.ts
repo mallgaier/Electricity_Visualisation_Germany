@@ -32,7 +32,7 @@ export enum Tab {
 export class AppComponent {
 
   public version: string = packageJson.version;
-  public tabSelected = Tab.scatterplot;
+  public tabSelected = Tab.about;
   public Tab = Tab;
 
   public faGithub = faGithub;
