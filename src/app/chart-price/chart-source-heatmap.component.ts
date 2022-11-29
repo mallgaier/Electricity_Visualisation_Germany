@@ -135,7 +135,7 @@ public Source = Source;
   updatedChartForCO2Emissions() {
     this.chartOptionsSourceHeatmap.series[0].data = this.csvHeatmapService.heatmap;
     this.chartOptionsSourceHeatmap.colorAxis = {
-      stops: this.colorService.orange9sequential,
+      stops: this.colorService.ylOrRd9sequential,
       startOnTick: true,
       endOnTick: true,
       labels: {

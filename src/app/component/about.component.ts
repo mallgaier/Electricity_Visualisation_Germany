@@ -30,20 +30,6 @@ export class AboutComponent {
   public faCloud = faCloud;
   public faGithub = faGithub;
 
-  public getDescriptionForTab(tab: Tab): string {
-    switch (tab) {
-      case Tab.explorer: return 'Explore the electricity production from several viewpoints through a timeline';
-      case Tab.priceExport: return 'Understand how the day-ahead price is related to the amount of electricity imported / exported.';
-      // case Tab.priceGeneration: return 'See which electricity sources determine and push up the price of
-      // electricity as a result of the merit order.';
-      case Tab.heatmap:return 'Discover the percentage contribution of each electricity source, broken down by weekdays, to total production.';
-      case Tab.timeComparison: return 'Compare two timelines of electricity production';
-      case Tab.scatterplot: return 'Identify the correlation of two variables, divided by years or seasons, using a' +
-        ' custom-build scatterplot';
-      default: return '';
-    }
-  }
-
   public emitClick(value: Tab) {
     this.newItemEvent.emit(value);
   }

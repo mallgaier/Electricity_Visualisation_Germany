@@ -107,6 +107,18 @@ export class ColorService {
     [1, '#000000'],
   ]
 
+  public ylOrRd9sequential = [
+    [0, '#ffffcc'],
+    [0.125, '#ffeda0'],
+    [0.25, '#fed976'],
+    [0.375, '#feb24c'],
+    [0.5, '#fd8d3c'],
+    [0.625, '#fc4e2a'],
+    [0.75, '#e31a1c'],
+    [0.875, '#bd0026'],
+    [1, '#800026'],
+  ]
+
   public sourceToSequentialColorScale(source: Source): (number | string)[][] {
     switch (source) {
       case Source.hydroPower:

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import packageJson from "../../package.json";
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import {faBoltLightning} from '@fortawesome/free-solid-svg-icons';
 
 /*
 Hej fellow developer,
@@ -35,6 +36,7 @@ export class AppComponent {
   public Tab = Tab;
 
   public faGithub = faGithub;
+  public faBoltLightning = faBoltLightning;
 
   constructor() {}
 

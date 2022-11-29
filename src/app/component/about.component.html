@@ -29,7 +29,7 @@
       <div class="card d-flex justify-content-center align-items-center">
         <div class="card-body d-flex align-items-center">
           <fa-icon class="fa-3x text-brown" [icon]="faCloud"></fa-icon>
-          <span class="ms-4"><h4>CO2 Equivalent</h4>per kWh</span>
+          <span class="ms-4"><h4>CO2 Equivalent</h4>per kWh on average</span>
         </div>
       </div>
     </div>
@@ -43,15 +43,35 @@
     </div>
   </div>
   <h4 class="mt-5">Utilize several views to explore the data</h4>
-  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 text-center">
-    <ng-container *ngFor="let tab of Tab | keyvalue">
-      <div class="col mt-3" *ngIf="tab.value !== Tab.about">
-        <div class="card card-clickable" (click)="emitClick(tab.value)">
-          <h6 class="card-header text-white bg-dark">{{tab.value}}</h6>
-          <div class="card-body"> {{getDescriptionForTab(tab.value)}}</div>
-        </div>
+  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
+    <div class="col mt-3">
+      <div class="card card-clickable" (click)="emitClick(Tab.explorer)">
+        <h6 class="card-header text-white bg-dark">{{Tab.explorer}}</h6>
+        <div class="card-body">Explore the electricity production from several viewpoints through a timeline</div>
       </div>
-    </ng-container>
+      <div class="card card-clickable mt-3" (click)="emitClick(Tab.scatterplot)">
+        <h6 class="card-header text-white bg-dark">{{Tab.scatterplot}}</h6>
+        <div class="card-body">Identify the correlation of two variables, divided by years or seasons, using a custom-build scatterplot.</div>
+      </div>
+    </div>
+    <div class="col mt-3">
+      <div class="card card-clickable" (click)="emitClick(Tab.timeComparison)">
+        <h6 class="card-header text-white bg-dark">{{Tab.timeComparison}}</h6>
+        <div class="card-body">Compare two timelines of electricity production which each other.</div>
+      </div>
+      <div class="card card-clickable mt-3" (click)="emitClick(Tab.priceExport)">
+        <h6 class="card-header text-white bg-dark">{{Tab.priceExport}}</h6>
+        <div class="card-body">Understand how the day-ahead price is related to the amount of electricity imported / exported.</div>
+      </div>
+    </div>
+    <div class="col mt-3">
+      <div class="card card-clickable h-100" (click)="emitClick(Tab.heatmap)">
+        <h6 class="card-header text-white bg-dark">{{Tab.heatmap}}</h6>
+        <div class="card-body">Discover the percentage contribution of each electricity source, broken down by
+          weekdays, to the total production.<br>Or use the heatmap to display the emissions in CO2-Equivalent per
+                                               weekday.</div>
+      </div>
+    </div>
   </div>
   <div class="mt-lg-5"></div>
   <h4 class="mt-5">About</h4>

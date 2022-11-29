@@ -5,7 +5,9 @@
         <h6 class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Percentage Share of {{displaySource}} in the Total Generation</a>
+              <a *ngIf="displaySource !== Source.co2" class="nav-link disabled" href="#">Percentage Share of
+                {{displaySource}} in the Total Generation</a>
+              <a *ngIf="displaySource === Source.co2" class="nav-link disabled" href="#">CO2-Equivalent in gram per kWh</a>
             </li>
           </ul>
         </h6>
