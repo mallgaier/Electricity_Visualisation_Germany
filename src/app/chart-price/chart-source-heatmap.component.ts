@@ -150,7 +150,6 @@ public Source = Source;
     }
     this.updateFlagSourceHeatmap = true;
   }
-
 }
 
 
