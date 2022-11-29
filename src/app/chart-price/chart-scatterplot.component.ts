@@ -25,7 +25,8 @@ export class ChartScatterplotComponent {
 
   constructor(private csvScatterService: CsvScatterService) {
   }
-  chartOptionsScatterYear: any  = {
+
+  chartOptionsScatterYear: any = {
     chart: {
       type: 'scatter',
       zoomType: 'xy',
@@ -35,6 +36,7 @@ export class ChartScatterplotComponent {
     },
     plotOptions: {
       scatter: {
+        lineWidth: 0,
         marker: {
           radius: 4.5,
           symbol: 'circle',
@@ -99,6 +101,17 @@ export class ChartScatterplotComponent {
     }
   }
 
+  setLine(width: number) {
+    if (this.internalScatterGrouping === ScatterGrouping.season) {
+      this.chartOptionsScatterSeason.plotOptions.scatter.lineWidth = width;
+      this.updateFlagBigScatterSeason = true;
+    }
+    else if (this.internalScatterGrouping === ScatterGrouping.year) {
+      this.chartOptionsScatterYear.plotOptions.scatter.lineWidth = width;
+      this.updateFlagBigScatterYear = true;
+    }
+  }
+
   private updatedChartForSeason(xAxis: Source, yAxis: Source) {
     this.chartOptionsScatterSeason.series[0] = {
       name: 'Winter',
@@ -127,7 +140,7 @@ export class ChartScatterplotComponent {
         text: xAxis
       },
       type: 'number',
-        labels: {
+      labels: {
         format: '{value} ' + xAxisUnit
       },
     }
@@ -140,13 +153,13 @@ export class ChartScatterplotComponent {
         text: yAxis
       },
       startOnTick: true,
-        endOnTick: true,
-        showLastLabel: true
+      endOnTick: true,
+      showLastLabel: true
     }
     this.chartOptionsScatterSeason.tooltip = {
       formatter: function (): string {
         // @ts-ignore
-          return xAxis  + ': <b>' + this.x + (xAxis === Source.cw ? '' : 'kWh') + '</b> <br/>' + yAxis + ': <b>' + this.y + (xAxis === Source.cw ? '' : 'kWh') +'</b>'
+        return xAxis + ': <b>' + this.x + (xAxis === Source.cw ? '' : 'kWh') + '</b> <br/>' + yAxis + ': <b>' + this.y + (xAxis === Source.cw ? '' : 'kWh') + '</b>'
       }
     }
 
@@ -156,42 +169,42 @@ export class ChartScatterplotComponent {
   private updatedChartForYear(xAxis: Source, yAxis: Source) {
     this.chartOptionsScatterYear.series[0] = {
       name: '2015',
-      color: '#e41a1c',
+      color: '#a6cee3',
       data: this.csvScatterService.year2015,
     }
     this.chartOptionsScatterYear.series[1] = {
       name: '2016',
-      color: '#377eb8',
+      color: '#1f78b4',
       data: this.csvScatterService.year2016,
     }
     this.chartOptionsScatterYear.series[2] = {
       name: '2017',
-      color: '#4daf4a',
+      color: '#b2df8a',
       data: this.csvScatterService.year2017,
     }
     this.chartOptionsScatterYear.series[3] = {
       name: '2018',
-      color: '#984ea3',
+      color: '#33a02c',
       data: this.csvScatterService.year2018,
     }
     this.chartOptionsScatterYear.series[4] = {
       name: '2019',
-      color: '#ff7f00',
+      color: '#fb9a99',
       data: this.csvScatterService.year2019,
     }
     this.chartOptionsScatterYear.series[5] = {
       name: '2020',
-      color: '#ffff33',
+      color: '#e31a1c',
       data: this.csvScatterService.year2020,
     }
     this.chartOptionsScatterYear.series[6] = {
       name: '2021',
-      color: '#a65628',
+      color: '#fdbf6f',
       data: this.csvScatterService.year2021,
     }
     this.chartOptionsScatterYear.series[7] = {
       name: '2022',
-      color: '#f781bf',
+      color: '#ff7f00',
       data: this.csvScatterService.year2022,
     }
 

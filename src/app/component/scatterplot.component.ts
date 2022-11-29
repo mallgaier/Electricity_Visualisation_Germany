@@ -20,14 +20,14 @@ export class ScatterplotComponent implements OnInit {
   public ScatterGrouping = ScatterGrouping;
   public Source = Source;
   public displayMonth = Month.Year;
-  public displayYear = Year.y2022;
-  public scatterGrouping = ScatterGrouping.season;
+  public displayYear = Year.yAll;
+  public scatterGrouping = ScatterGrouping.year;
   public dataResolution = ScatterGrouping.weekly;
   public scatterXAxis = Source.cw;
-  public scatterYAxis = Source.photovoltaics;
+  public scatterYAxis = Source.totalGridLoad;
 
   public displayDetailFirst = Detail.detailed;
-  public meritOrder = true;
+  public line = false;
   public nextMonth: string | undefined;
   public previousMonth: string | undefined;
 
@@ -103,7 +103,16 @@ export class ScatterplotComponent implements OnInit {
   }
 
   changeInfo(info: boolean) {
-    this.meritOrder = info;
+    this.line = info;
+  }
+
+  changeLine() {
+    if (this.line) {
+      this.chartScatterplotComponent.setLine(0);
+    } else {
+      this.chartScatterplotComponent.setLine(2);
+    }
+    this.line = !this.line;
   }
 
   calculateNextPreviousMonth() {
