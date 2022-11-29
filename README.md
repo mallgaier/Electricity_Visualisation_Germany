@@ -1,7 +1,7 @@
 # Electricity Visualization of Germany
 
 ## Features
-- __ Generation__ broken down by source
+- __Generation__ broken down by source
 - __Consumption__ in Germany
 - __Import / Export__ with the neighboring countries
 - __CO2 Equivalent__ per kWh on average
