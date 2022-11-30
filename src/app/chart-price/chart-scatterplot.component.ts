@@ -143,7 +143,7 @@ export class ChartScatterplotComponent {
     const xAxisUnit = xAxis === Source.cw ? '' : 'kWh';
     this.chartOptionsScatterSeason.xAxis = {
       title: {
-        text: xAxis
+        text: xAxis.toString()
       },
       type: 'number',
       labels: {
@@ -153,7 +153,7 @@ export class ChartScatterplotComponent {
     if (yAxis === Source.cw) {
       this.chartOptionsScatterYear.yAxis = {
         title: {
-          text: yAxis
+          text: yAxis.toString()
         },
         type: 'number',
       }
@@ -163,7 +163,7 @@ export class ChartScatterplotComponent {
           format: '{value} kWh'
         },
         title: {
-          text: yAxis
+          text: yAxis.toString()
         },
         startOnTick: true,
         endOnTick: true,
@@ -226,7 +226,7 @@ export class ChartScatterplotComponent {
     if (xAxis === Source.cw) {
       this.chartOptionsScatterYear.xAxis = [{
         title: {
-          text: xAxis
+          text: xAxis.toString()
         },
         type: 'number',
       }, {
@@ -239,7 +239,7 @@ export class ChartScatterplotComponent {
     } else {
       this.chartOptionsScatterYear.xAxis = [{
         title: {
-          text: xAxis
+          text: xAxis.toString()
         },
         type: 'number',
         labels: {
@@ -250,7 +250,7 @@ export class ChartScatterplotComponent {
     if (yAxis === Source.cw) {
       this.chartOptionsScatterYear.yAxis = [{
         title: {
-          text: yAxis
+          text: yAxis.toString()
         },
         type: 'number',
       }]
@@ -260,7 +260,7 @@ export class ChartScatterplotComponent {
           format: '{value} kWh'
         },
         title: {
-          text: yAxis
+          text: yAxis.toString()
         },
         startOnTick: true,
         endOnTick: true,
