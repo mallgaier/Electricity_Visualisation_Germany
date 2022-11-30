@@ -1,4 +1,4 @@
-<highcharts-chart *ngIf="internalScatterGrouping === ScatterGrouping.season"
+<highcharts-chart *ngIf="internalScatterGrouping === ScatterGrouping.season && !flag"
                   id="bigChartContainerSeason"
                   style="width: 100%; height: 100%; display: inline-flex"
                   [Highcharts]="highchartBigScatterSeason"
@@ -6,7 +6,7 @@
                   [(update)]="updateFlagBigScatterSeason"
                   [oneToOne]="true">
 </highcharts-chart>
-<highcharts-chart *ngIf="internalScatterGrouping === ScatterGrouping.year"
+<highcharts-chart *ngIf="internalScatterGrouping === ScatterGrouping.year && !flag"
                   id="bigChartContainerYear"
                   style="width: 100%; height: 100%; display: inline-flex"
                   [Highcharts]="highchartBigScatterYear"
@@ -14,3 +14,20 @@
                   [(update)]="updateFlagBigScatterYear"
                   [oneToOne]="true">
 </highcharts-chart>
+<div *ngIf="flag" class="h-100 w-100 align-items-center justify-content-center">
+  <h2 class="text-center">{{scatterYAxis}} on the X-Axis and {{scatterXAxis}} on the Y-Axis results in
+    <span style="color: violet">L</span>
+    <span style="color: indigo">IN</span>
+    <span style="color: blue">E</span>
+    <span style="color: lawngreen">A</span>
+    <span style="color: yellow">R</span>
+    <span style="color: orange">IT</span>
+    <span style="color: red">Y</span></h2>
+  <img class="mt-5 w-50" style="display: block; margin-left: auto; margin-right: auto;" *ngIf="flag"
+       src="/assets/coronavirus_charts.png"
+       alt="image" id="image">
+  <div class="mt-2 text-center">Provided by xkcd using a CC BY-NC 2.5 Licence. <a
+    target="_blank" rel="noopener" style="color: darkgray" href="https://xkcd.com/2294/">(source)</a>
+  </div>
+</div>
+

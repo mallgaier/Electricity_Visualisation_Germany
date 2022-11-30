@@ -17,6 +17,7 @@ export class ChartScatterplotComponent {
   public chartRef!: Highcharts.Chart;
   public Source = Source;
   public ScatterGrouping = ScatterGrouping;
+  public flag = false;
   @Input() public displayYear = Year as any;
   @Input() public scatterXAxis = Source as any;
   @Input() public scatterYAxis = Source as any;
@@ -92,6 +93,11 @@ export class ChartScatterplotComponent {
   };
 
   updatedChart(xAxis: Source, yAxis: Source) {
+    if (this.scatterXAxis === this.scatterYAxis) {
+      this.flag = true;
+    } else {
+      this.flag = false;
+    }
     if (this.scatterGrouping === ScatterGrouping.season) {
       this.internalScatterGrouping = ScatterGrouping.season;
       this.updatedChartForSeason(xAxis, yAxis);
@@ -144,17 +150,25 @@ export class ChartScatterplotComponent {
         format: '{value} ' + xAxisUnit
       },
     }
-    const yAxisUnit = xAxis === Source.cw ? '' : 'kWh';
-    this.chartOptionsScatterSeason.yAxis = {
-      labels: {
-        format: '{value} ' + yAxisUnit
-      },
-      title: {
-        text: yAxis
-      },
-      startOnTick: true,
-      endOnTick: true,
-      showLastLabel: true
+    if (yAxis === Source.cw) {
+      this.chartOptionsScatterYear.yAxis = {
+        title: {
+          text: yAxis
+        },
+        type: 'number',
+      }
+    } else {
+      this.chartOptionsScatterYear.yAxis = {
+        labels: {
+          format: '{value} kWh'
+        },
+        title: {
+          text: yAxis
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+      }
     }
     this.chartOptionsScatterSeason.tooltip = {
       formatter: function (): string {
@@ -201,6 +215,7 @@ export class ChartScatterplotComponent {
       name: '2021',
       color: '#fdbf6f',
       data: this.csvScatterService.year2021,
+      xAxis: xAxis === Source.cw ? 1 : 0,
     }
     this.chartOptionsScatterYear.series[7] = {
       name: '2022',
@@ -208,27 +223,49 @@ export class ChartScatterplotComponent {
       data: this.csvScatterService.year2022,
     }
 
-    const xAxisUnit = xAxis === Source.cw ? '' : 'kWh';
-    this.chartOptionsScatterYear.xAxis = {
-      title: {
-        text: xAxis
-      },
-      type: 'number',
-      labels: {
-        format: '{value} ' + xAxisUnit
-      },
+    if (xAxis === Source.cw) {
+      this.chartOptionsScatterYear.xAxis = [{
+        title: {
+          text: xAxis
+        },
+        type: 'number',
+      }, {
+        title: {
+          text: ''
+        },
+        categories: ['January','January','January','January','January','February','February','February','February','March','March','March','March','April','April','April','April','May','May','May','May','May','June','June','June','June','July','July','July','July','July','August','August','August','August','September','September','September','September','October','October','October','October','October','November','November','November','November','December','December','December','December',''],
+        tickInterval: 4
+      }]
+    } else {
+      this.chartOptionsScatterYear.xAxis = [{
+        title: {
+          text: xAxis
+        },
+        type: 'number',
+        labels: {
+          format: '{value} kWh'
+        },
+      }]
     }
-    const yAxisUnit = xAxis === Source.cw ? '' : 'kWh';
-    this.chartOptionsScatterYear.yAxis = {
-      labels: {
-        format: '{value} ' + yAxisUnit
-      },
-      title: {
-        text: yAxis
-      },
-      startOnTick: true,
-      endOnTick: true,
-      showLastLabel: true
+    if (yAxis === Source.cw) {
+      this.chartOptionsScatterYear.yAxis = [{
+        title: {
+          text: yAxis
+        },
+        type: 'number',
+      }]
+    } else {
+      this.chartOptionsScatterYear.yAxis = [{
+        labels: {
+          format: '{value} kWh'
+        },
+        title: {
+          text: yAxis
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+      }]
     }
     this.chartOptionsScatterYear.tooltip = {
       formatter: function (): string {
