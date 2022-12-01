@@ -147,14 +147,14 @@ export class ChartScatterplotComponent {
       },
     }
     if (yAxis === Source.cw) {
-      this.chartOptionsScatterYear.yAxis = {
+      this.chartOptionsScatterSeason.yAxis = {
         title: {
           text: yAxis.toString()
         },
         type: 'number',
       }
     } else {
-      this.chartOptionsScatterYear.yAxis = {
+      this.chartOptionsScatterSeason.yAxis = {
         labels: {
           format: '{value} kWh'
         },
