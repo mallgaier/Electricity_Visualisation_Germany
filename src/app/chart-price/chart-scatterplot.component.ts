@@ -94,10 +94,10 @@ export class ChartScatterplotComponent {
 
   updatedChart(xAxis: Source, yAxis: Source) {
     this.flag = this.scatterXAxis === this.scatterYAxis;
-    if (this.scatterGrouping === ScatterGrouping.season) {
+    if (!this.flag && this.scatterGrouping === ScatterGrouping.season) {
       this.internalScatterGrouping = ScatterGrouping.season;
       this.updatedChartForSeason(xAxis, yAxis);
-    } else if (this.scatterGrouping === ScatterGrouping.year) {
+    } else if (!this.flag && this.scatterGrouping === ScatterGrouping.year) {
       this.internalScatterGrouping = ScatterGrouping.year;
       this.updatedChartForYear(xAxis, yAxis);
     }
