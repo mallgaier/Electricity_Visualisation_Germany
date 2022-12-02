@@ -1,4 +1,4 @@
-# Electricity Visualization of Germany
+![image](https://user-images.githubusercontent.com/94070506/205332675-d65d9cd4-14b2-4091-992f-15448924930f.png)
 
 ## Features
 - __Generation__ broken down by source
