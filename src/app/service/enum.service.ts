@@ -160,11 +160,11 @@ export class EnumService {
       case Month.Jul:
         return Month.Aug + ' ' + year;
       case Month.Aug:
-        return Month.Sep + ' ' + year;
-      case Month.Sep:
         if (year === Year.y2022) {
           return undefined;
         }
+        return Month.Sep + ' ' + year;
+      case Month.Sep:
         return Month.Oct + ' ' + year;
       case Month.Oct:
         return Month.Nov + ' ' + year;

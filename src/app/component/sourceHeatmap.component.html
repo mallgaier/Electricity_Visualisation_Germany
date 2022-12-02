@@ -58,7 +58,7 @@
               <option [value]="Month.Jun">{{Month.Jun}}</option>
               <option [value]="Month.Jul">{{Month.Jul}}</option>
               <option [value]="Month.Aug">{{Month.Aug}}</option>
-              <option [value]="Month.Sep">{{Month.Sep}}</option>
+              <option [value]="Month.Sep" [disabled]="displayYear===Year.y2022">{{Month.Sep}}</option>
               <option [value]="Month.Oct" [disabled]="displayYear===Year.y2022">{{Month.Oct}}</option>
               <option [value]="Month.Nov" [disabled]="displayYear===Year.y2022">{{Month.Nov}}</option>
               <option [value]="Month.Dec" [disabled]="displayYear===Year.y2022">{{Month.Dec}}</option>
