@@ -12,7 +12,7 @@
     "e2e": "ng e2e",
     "electron": "electron .",
     "electron-build": "ng build --configuration production && electron .",
-    "electron-package-win": "ng build --configuration production && electron-packager . --no-prune --ignore=/node_modules --ignore=/e2e --overwrite portable",
+    "electron-package-win": "ng build --configuration production && electron-packager . --no-prune --ignore=/node_modules --ignore=/e2e --overwrite portable"
   },
   "private": true,
   "dependencies": {
