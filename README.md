@@ -8,11 +8,11 @@
 - From __2015 to 2022__ in 15min-intervals
 
 ## Utilize several views to explore the data
-- __Data Explorer__: Explore the electricity production from several viewpoints through a timeline
+- __Data Explorer__: Explore the electricity production from several viewpoints through a timeline.
 __Timeline Comparison__: Compare two timelines of electricity production which each other.
 - __Heatmap__: Discover the percentage contribution of each electricity source, broken down by weekdays, to the total production. Or use the heatmap to display the emissions in CO2-Equivalent per weekday.
-- __Scatterplot__: Identify the correlation of two variables, divided by years or seasons, using a custom-build scatterplot
-- __Price and Export__: Understand how the day-ahead price is related to the amount of electricity imported / exported.
+- __Scatterplot__: Identify the correlation of two variables, divided by years or seasons, using a custom-build 
+  scatterplot.
 
 ## About
 - __Data Source__: The data is provided by the [Federal Network Agency ("Bundesnetzagentur") Germany](https://www.smard.de/) under the CC BY 4.0 licence.
