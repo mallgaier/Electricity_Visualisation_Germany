@@ -80,7 +80,7 @@
   }
 
   .dashboard-full {
-    height: 650px;
+    height: 675px;
   }
 
   .full-box {
@@ -106,7 +106,7 @@
   }
 
   .dashboard-full {
-    height: 750px;
+    height: 775px;
   }
 
   .full-box {
@@ -124,19 +124,23 @@
   }
 
   .dashboard-first {
-    height: 525px;
+    height: 550px;
   }
 
   .dashboard-height-full {
-    height: 570px;
+    height: 596px;
   }
 
   .dashboard-second {
-    height: 325px;
+    height: 300px;
+  }
+
+  .dashboard-card-full {
+    height: 300px;
   }
 
   .dashboard-full {
-    height: 800px;
+    height: 825px;
   }
 
   .full-box {
