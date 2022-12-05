@@ -24,7 +24,7 @@ __Timeline Comparison__: Compare two timelines of electricity production which e
 ## Access
 - __Live Instance__: A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ 
 - __Executable Version__: A electron .exe can be found in the release
-- __Local__: use `npm start-local` or `ng serve` to deploy a local instance
+- __Local__: use `npm start` or `ng serve` to deploy a local instance
 
 
 
