@@ -88,7 +88,7 @@
   }
 }
 
-@media only screen and (min-height: 981px) {
+@media only screen and (min-height: 981px) and (max-height: 1070px) {
   .comparison-first {
     height: 425px;
   }
@@ -111,5 +111,35 @@
 
   .full-box {
     height: 850px;
+  }
+}
+
+@media only screen  and (min-height: 1071px) {
+  .comparison-first {
+    height: 450px;
+  }
+
+  .comparison-second {
+    height: 400px;
+  }
+
+  .dashboard-first {
+    height: 525px;
+  }
+
+  .dashboard-height-full {
+    height: 570px;
+  }
+
+  .dashboard-second {
+    height: 325px;
+  }
+
+  .dashboard-full {
+    height: 800px;
+  }
+
+  .full-box {
+    height: 900px;
   }
 }
