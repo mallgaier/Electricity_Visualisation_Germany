@@ -81,7 +81,7 @@ export class ChartBigSecondGroupedComponent implements OnInit {
       data: this.csvSecondService.hydroPowerSummed,
     }
     this.chartOptionsBigSecondGrouped.series[1] = {
-      name: this.Source.photovoltaics,
+      name: this.Source.solar,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvSecondService.photovoltaics

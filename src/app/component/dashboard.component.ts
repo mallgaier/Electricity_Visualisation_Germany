@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   public Month = Month;
   public Year = Year;
   public Detail = Detail;
-  public displayMonth = Month.Aug;
+  public displayMonth = Month.Jul;
   public displayYear = Year.y2022;
   public displayDetailBig = Detail.detailed;
   public displayDetailSmall = Detail.detailed;

@@ -129,7 +129,7 @@ export class ColorService {
         return this.green9sequential;
       case Source.nuclear:
         return this.red9sequential;
-      case Source.photovoltaics :
+      case Source.solar :
       case Source.fossilGas :
         return this.orange9sequential;
       case Source.other :

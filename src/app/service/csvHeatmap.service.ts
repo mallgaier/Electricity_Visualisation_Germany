@@ -354,7 +354,7 @@ export class CsvHeatmapService {
         return 99;
       case Source.biomass:
         return 1;
-      case Source.photovoltaics :
+      case Source.solar :
         return 5;
       case Source.brownCoal:
         return 8;

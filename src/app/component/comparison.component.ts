@@ -61,7 +61,7 @@ export class ComparisonComponent implements OnInit {
       this.updateDiagram2();
       this.isUpdatingFirst = false;
       this.isUpdatingSecond = false;
-    }, 1000);
+    }, 1500);
 
     const displayFirst = this.displayDetailFirst;
     const displaySecond = this.displayDetailSecond;

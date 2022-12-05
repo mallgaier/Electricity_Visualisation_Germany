@@ -193,7 +193,7 @@ export class CsvScatterService {
         return 3;
       case Source.windOnshore:
         return 4;
-      case Source.photovoltaics:
+      case Source.solar:
         return 5;
       case Source.nuclear:
         return 7;
@@ -258,7 +258,7 @@ export class CsvScatterService {
         return 3;
       case Source.windOnshore:
         return 4;
-      case Source.photovoltaics:
+      case Source.solar:
         return 5;
       case Source.nuclear:
         return 7;

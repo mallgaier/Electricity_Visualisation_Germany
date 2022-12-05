@@ -81,7 +81,7 @@ export class ChartBigSecondDetailedComponent implements OnInit {
       data: this.csvSecondService.hydroPumpedStorage
     }
     this.chartOptionsBigSecondDetailed.series[1] = {
-      name: this.Source.photovoltaics,
+      name: this.Source.solar,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvSecondService.photovoltaics

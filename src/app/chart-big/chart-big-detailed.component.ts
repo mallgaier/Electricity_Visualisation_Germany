@@ -81,7 +81,7 @@ public Source = Source;
       data: this.csvService.hydroPumpedStorage
     }
     this.chartOptionsBigDetailed.series[1] = {
-      name: this.Source.photovoltaics,
+      name: this.Source.solar,
       type: 'area',
       color: this.colorService.photovoltaics,
       data: this.csvService.photovoltaics

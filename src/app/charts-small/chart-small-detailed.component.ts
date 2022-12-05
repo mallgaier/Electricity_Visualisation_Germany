@@ -75,7 +75,7 @@ export class ChartSmallDetailedComponent implements OnInit {
         color: this.colorService.hydroPumpedStorage,
         y: this.csvService.hydroPumpedStorageAggregated
       }, {
-        name: this.Source.photovoltaics,
+        name: this.Source.solar,
         color: this.colorService.photovoltaics,
         y: this.csvService.photovoltaicsAggregated
       }, {
@@ -125,7 +125,7 @@ export class ChartSmallDetailedComponent implements OnInit {
 
   private updateCategories(): string[] {
     let categories = [[this.Source.hydroPumpedStorage, this.csvService.hydroPumpedStorageAggregated],
-      [this.Source.photovoltaics, this.csvService.photovoltaicsAggregated],
+      [this.Source.solar, this.csvService.photovoltaicsAggregated],
       [this.Source.windOffshore, this.csvService.windOffshoreAggregated],
       [this.Source.windOnshore, this.csvService.windOnshoreAggregated],
       [this.Source.biomass, this.csvService.biomassAggregated],

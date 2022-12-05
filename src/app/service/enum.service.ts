@@ -46,7 +46,7 @@ export enum Source {
   fossilGas = 'Fossil Gas',
   other = 'Other',
   biomass = 'Biomass',
-  photovoltaics = 'Photovoltaics',
+  solar = 'Solar',
   brownCoal = 'Brown Coal',
   hardCoal = 'Hard Coal',
   coal = 'Coal',
