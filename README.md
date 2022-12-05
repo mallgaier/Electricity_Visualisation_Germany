@@ -22,7 +22,7 @@ __Timeline Comparison__: Compare two timelines of electricity production which e
 - The project is part of the course "Data Visualization" in the winter semester 2022 / 2023 at Aarhus University.
 
 ## Access
-- __Live Instance__: A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ 
+- __Live Instance__: A live-instance can be found here: https://davis-electricity-germany.herokuapp.com/ (until end of January 2023)
 - __Executable Version__: A electron .exe can be found in the release
 - __Local__: use `npm local` or `ng serve` to deploy a local instance
 
